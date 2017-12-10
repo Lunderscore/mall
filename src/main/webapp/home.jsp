@@ -22,6 +22,8 @@
 <title>Insert title here</title>
 </head>
 <body class="jumbotron">
+${user }
+<img src="D:\myWorkSpace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\mall\data\img\userAvatar\2.jpg">
 	<%@ include file="static/navigator.jsp"%>
     
     <div class="row">
@@ -61,7 +63,7 @@
                       <p class="form-control-static">0.00</p>
                     </div>
                     <div class="col-sm-5">
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#money"><span class="glyphicon glyphicon-usd"></span>充值</button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#moneyModal"><span class="glyphicon glyphicon-usd"></span>充值</button>
                     </div>
                 </div>
             </form>
@@ -90,7 +92,7 @@
         </div>
     </div>
 	<div class="row center-block">
-		<button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#address">修改默认收货地址</button>
+		<button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#addressModal">修改默认收货地址</button>
 	</div>
 
 	<%@ include file="include/homeModal.jsp"%>

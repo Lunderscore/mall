@@ -48,22 +48,22 @@ function submit(){
 	var password2 = $("#password2").val();
 
 	if (type == 0){
-		$.get("user?username="+username+"&password="+password1, function(data){
+		$.get("user?userUsername="+username+"&userPassword="+password1, function(data){
 			console.log(data);
 			if (data.code == 0){
 				alert("登录成功");
 			}else{
 				alert("登录失败");
 			}
-		})
+		});
 	}else if(type == 1){
-		$.post("user", {username: username, password: password1}, function(data){
+		$.post("user", {userUsername: username, userPassword: password1}, function(data){
 			console.log(data);
 			if (data.code == 0) {
 				alert("注册成功");
 			}else{
 				alert("注册失败");
 			}
-		})
+		});
 	}
 }

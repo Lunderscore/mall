@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ou.mall.dao.UserAvatarMapper">
+  <resultMap id="BaseResultMap" type="com.ou.mall.bean.UserAvatar">
+    <id column="avatar_id" jdbcType="INTEGER" property="avatarId" />
+    <result column="avatar_uri" jdbcType="VARCHAR" property="avatarUri" />
+    <result column="avatar_uid" jdbcType="INTEGER" property="avatarUid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    avatar_id, avatar_uri, avatar_uid
+  </sql>
+  <select id="selectByExample" parameterType="com.ou.mall.bean.UserAvatarExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_avatar
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_avatar
+    where avatar_id = #{avatarId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_avatar
+    where avatar_id = #{avatarId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ou.mall.bean.UserAvatarExample">
+    delete from user_avatar
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ou.mall.bean.UserAvatar">
+    insert into user_avatar (avatar_id, avatar_uri, avatar_uid
+      )
+    values (#{avatarId,jdbcType=INTEGER}, #{avatarUri,jdbcType=VARCHAR}, #{avatarUid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ou.mall.bean.UserAvatar">
+    insert into user_avatar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="avatarId != null">
+        avatar_id,
+      </if>
+      <if test="avatarUri != null">
+        avatar_uri,
+      </if>
+      <if test="avatarUid != null">
+        avatar_uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="avatarId != null">
+        #{avatarId,jdbcType=INTEGER},
+      </if>
+      <if test="avatarUri != null">
+        #{avatarUri,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUid != null">
+        #{avatarUid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ou.mall.bean.UserAvatarExample" resultType="java.lang.Long">
+    select count(*) from user_avatar
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_avatar
+    <set>
+      <if test="record.avatarId != null">
+        avatar_id = #{record.avatarId,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatarUri != null">
+        avatar_uri = #{record.avatarUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatarUid != null">
+        avatar_uid = #{record.avatarUid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_avatar
+    set avatar_id = #{record.avatarId,jdbcType=INTEGER},
+      avatar_uri = #{record.avatarUri,jdbcType=VARCHAR},
+      avatar_uid = #{record.avatarUid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ou.mall.bean.UserAvatar">
+    update user_avatar
+    <set>
+      <if test="avatarUri != null">
+        avatar_uri = #{avatarUri,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUid != null">
+        avatar_uid = #{avatarUid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where avatar_id = #{avatarId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ou.mall.bean.UserAvatar">
+    update user_avatar
+    set avatar_uri = #{avatarUri,jdbcType=VARCHAR},
+      avatar_uid = #{avatarUid,jdbcType=INTEGER}
+    where avatar_id = #{avatarId,jdbcType=INTEGER}
+  </update>
+</mapper>
