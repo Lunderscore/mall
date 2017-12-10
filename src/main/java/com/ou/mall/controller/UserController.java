@@ -1,6 +1,5 @@
 package com.ou.mall.controller;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +14,7 @@ import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.UploadedImageFile;
 import com.ou.mall.bean.User;
 import com.ou.mall.service.UserService;
+import com.ou.mall.util.ImageUtil;
 
 @Controller
 public class UserController {
@@ -59,27 +59,15 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="avatar")
 	public Msg uploadavatar(UploadedImageFile image, HttpSession session) throws IllegalStateException, IOException{
+		
 		Integer userID = (Integer) session.getAttribute("user");
-		String name = userID.toString();
-		String originalFilename = image.getImage().getOriginalFilename();
-		String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-		
-//		后缀名判断
-		String[] allowSuffix= {".jpg", ".png", ".gif", ".jpeg", ".bmp"};
-		for (int i=0; i<allowSuffix.length; i++){
-			if ( suffix.equals(allowSuffix[i])){
-				break;
-			}else if (i == allowSuffix.length-1){
-				return Msg.failure(); 
-			}
-		}
-		
+		String id = userID.toString();
 		String avatarPath = session.getServletContext().getRealPath("/data/img/userAvatar/");
-        String newImageName = name + suffix;
-        File newFile = new File(avatarPath, newImageName);
-        newFile.getParentFile().mkdirs();
-        image.getImage().transferTo(newFile);
-		
+        String newImageName = ImageUtil.transfer(image, avatarPath, id);
+        
+        if (newImageName == null){
+        	return Msg.failure();
+        }
         userService.uploadAvatar(userID, "data/img/userAvatar/"+newImageName);
         return Msg.success();
 	}
