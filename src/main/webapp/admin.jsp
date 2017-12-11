@@ -52,5 +52,7 @@
 			<%@ include file="static/pagination.jsp"%>
 		</div>
 	</div>
+	
+	<script type="text/javascript" src="js/admin.js"></script>
 </body>
 </html>

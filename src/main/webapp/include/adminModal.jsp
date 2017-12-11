@@ -41,7 +41,7 @@
 	</div>
 
 <!-- =================== -->
-	<div class="modal fade" id="alterPassword" tabindex="-1" role="dialog">
+	<div class="modal fade" id="" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -101,7 +101,7 @@
 <!-- ============================= -->
 
 
-	<div class="modal fade" id="addProduct" tabindex="-1" role="dialog">
+	<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -109,51 +109,51 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">详细信息编辑</h4>
+					<h4 class="modal-title">上架产品</h4>
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal">
 					<div class="form-group">
-						<label for="addEmpNameIuput" class="col-sm-3 control-label">商品名称：</label>
+						<label for="addProductName" class="col-sm-3 control-label">商品名称：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input class="form-control" type="text"	placeholder="Readonly input here…">
+									<input id="addProductName" name="productTitle" class="form-control" type="text"	placeholder="Readonly input here…">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-						<label for="addEmpNameIuput" class="col-sm-3 control-label">价格：</label>
+						<label for="addProductPrice" class="col-sm-3 control-label">价格：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input class="form-control" type="text"	placeholder="Readonly input here…">
+									<input id="addProductPrice" name="productPrice" class="form-control" type="number"	placeholder="Readonly input here…">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-						<label for="addEmpNameIuput" class="col-sm-3 control-label">库存数量：</label>
+						<label for="addProductStock" class="col-sm-3 control-label">库存数量：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input class="form-control" type="text"	placeholder="Readonly input here…">
+									<input id="addProductStock" name="productStock" class="form-control" type="number"	placeholder="Readonly input here…">
 										</button>
 									</span>
 								</div>
 							</div>
 						</div>
 						
-						<div class="form-group">
-							<label for="addEmpNameIuput" class="col-sm-3 control-label">主图片：</label>
-							<div class="col-sm-9">
-								<div class="col-sm-10 input-group">
-									<input type="file" class="form-control">
-								</div>
-							</div>
-						</div>
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="addProductImg" class="col-sm-3 control-label">主图片：</label> -->
+<!-- 							<div class="col-sm-9"> -->
+<!-- 								<div class="col-sm-10 input-group"> -->
+<!-- 									<input id="addProductImg" name="image" type="file" class="form-control"> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 						
 						<div class="form-group">
-						<label for="addEmpNameIuput" class="col-sm-3 control-label">产品介绍：</label>
+						<label for="addProductInfo" class="col-sm-3 control-label">产品介绍：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<textarea class="form-control" type="text"	placeholder="Readonly input here…" rows="3">
+									<textarea id="addProductInfo" name="productInfo" class="form-control" type="text"	placeholder="Readonly input here…" rows="3">
 									</textarea>
 								</div>
 							</div>
@@ -163,7 +163,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="addEmpSaveBtn">保存</button>
+					<button type="button" class="btn btn-primary" id="addProducteBtn">保存</button>
 				</div>
 			</div>
 		</div>

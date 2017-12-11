@@ -7,9 +7,9 @@ public class Msg {
 
 	private int code;
 	private String message;
-	private Map<String, String> content = new HashMap<String, String>();
+	private Map<String, Object> content = new HashMap<String, Object>();
 	
-	public Msg add(String key, String value){
+	public Msg add(String key, Object value){
 		this.getContent().put(key, value);
 		
 		return this;
@@ -44,10 +44,10 @@ public class Msg {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Map<String, String> getContent() {
+	public Map<String, Object> getContent() {
 		return content;
 	}
-	public void setContent(Map<String, String> content) {
+	public void setContent(Map<String, Object> content) {
 		this.content = content;
 	}
 	
