@@ -67,5 +67,15 @@
 		</div>
 	</div>
 
+<script>
+	var url = location.href;
+	var num = url.indexOf("=");
+	var pid = url.substr(num+1); 
+	alert(pid);
+	
+	$.get("getProductByIDJSON?pid="+pid, function(data){
+		console.log(data);
+	});
+</script>
 </body>
 </html>

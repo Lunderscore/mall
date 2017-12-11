@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,23 +28,29 @@
 		</div>
 	</div>
 	
-	
-	<div class="row col-md-offset-1">
-	
+<c:if test="${not empty products }">
+	<c:forEach items="${products }" var="product" varStatus="i">
+		<c:if test="${i.index%5 == 0 }">
+			<div class="row col-md-offset-1">
+		</c:if>
 		<div class="col-md-2">
-			<a href="itemDetail.jsp">
+			<a href="itemDetail.jsp?pid=${product.productId }">
 				<div class="thumbnail item">
-					<img src="http://tmall.how2j.cn/productSingle_middle/676.jpg">
+					<img src="${product.productImg }">
 					<div class="caption">
-						<p>商品介绍</p>
-						<h3>9.9包邮</h3>
+						<p>${product.productTitle }</p>
+						<h3>${product.productPrice }+${i.index }</h3>
 					</div>
 				</div>
 			</a>
 		</div>
-		
+		<c:if test="${i.index%5 == 4 }">
+			</div>
+		</c:if>
+	</c:forEach>
 	</div>
-
+</c:if>
+	
 	<div class="row">
 		<div class="col-md-3 col-md-offset-9">
 			<%@ include file="static/pagination.jsp"%>

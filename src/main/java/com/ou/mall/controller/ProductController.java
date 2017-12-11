@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ou.mall.bean.Msg;
@@ -99,5 +100,13 @@ public class ProductController {
         return Msg.success();
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="getProductByIDJSON", method=RequestMethod.GET)
+	public Msg getProductByIDJSON(@RequestParam("pid") String pid){
+		
+		Product product = productService.getProductByID(Integer.parseInt(pid));
+		Msg msg = Msg.success().add("product", product);
+		
+		return msg;
+	}
 }

@@ -84,4 +84,9 @@ public class ProductService {
 		productMapper.deleteByPrimaryKey(product.getProductId());
 	}
 
+	public Product getProductByID(Integer pid) {
+		Product product = productMapper.selectByPrimaryKey(pid);
+		return product;
+	}
+
 }

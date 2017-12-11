@@ -2,6 +2,7 @@ package com.ou.mall.bean;
 
 import java.math.BigDecimal;
 
+
 public class Product {
     private Integer productId;
 
