@@ -71,16 +71,16 @@
 	</div>
 
 <script>
-	var query = window.location.search.substring(1);
-	var vars = query.split("&");
-	var pid;
-    for (var i=0;i<vars.length;i++) {
-            var pair = vars[i].split("=");
-            if(pair[0] == "pid"){
-            	pid = pair[1];
-           	}
-    }
-	
+var query = window.location.search.substring(1);
+var vars = query.split("&");
+var pid;
+for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == "pid"){
+        	pid = pair[1];
+       	}
+}
+$(function(){
 	$.get("getProductByIDJSON?pid="+pid, function(data){
 		console.log(data);
 		$("#ProductTitle").html(data.content.product.productTitle);
@@ -114,7 +114,15 @@
 			.appendTo("#carouselImg");
 		}
 	});
-		
+})
+	
+	
+	$("#addToCar").on("click", function(){
+		var num = $("#number").val();
+		$.post("order", {pid:pid, num:num}, function(){
+		});
+	});
+	
 		
 </script>
 </body>

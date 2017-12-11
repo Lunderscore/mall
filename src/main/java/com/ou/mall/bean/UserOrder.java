@@ -14,6 +14,8 @@ public class UserOrder {
     private Integer orderPid;
 
     private Integer orderUid;
+    
+    private Product product;
 
     public Integer getOrderId() {
         return orderId;
@@ -62,4 +64,12 @@ public class UserOrder {
     public void setOrderUid(Integer orderUid) {
         this.orderUid = orderUid;
     }
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 }

@@ -17,6 +17,8 @@ public interface UserOrderMapper {
     int insertSelective(UserOrder record);
 
     List<UserOrder> selectByExample(UserOrderExample example);
+    
+    List<UserOrder> selectByExampleWithProduct(UserOrderExample example);
 
     UserOrder selectByPrimaryKey(Integer orderId);
 

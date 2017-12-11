@@ -9,6 +9,19 @@
     <result column="order_pid" jdbcType="INTEGER" property="orderPid" />
     <result column="order_uid" jdbcType="INTEGER" property="orderUid" />
   </resultMap>
+  
+<!--   BaseResultMapWithProduct -->
+  <resultMap id="BaseResultMapWithProduct" type="com.ou.mall.bean.UserOrder">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_number" jdbcType="INTEGER" property="orderNumber" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="order_date_time" jdbcType="TIMESTAMP" property="orderDateTime" />
+    <result column="order_pid" jdbcType="INTEGER" property="orderPid" />
+    <result column="order_uid" jdbcType="INTEGER" property="orderUid" />
+    <association property="product" javaType="com.ou.mall.bean.Product" column="product_id" select="com.ou.mall.dao.ProductMapper.selectByPrimaryKey">
+    </association>
+  </resultMap>
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -70,6 +83,12 @@
   <sql id="Base_Column_List">
     order_id, order_number, order_status, order_date_time, order_pid, order_uid
   </sql>
+  
+<!--   Base_Column_List_With_Product -->
+  <sql id="Base_Column_List_With_Product">
+    order_id, order_number, order_status, order_date_time, order_pid, order_uid, product_id, product_title, product_info, product_price, product_stock, product_img
+  </sql>
+  
   <select id="selectByExample" parameterType="com.ou.mall.bean.UserOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -77,6 +96,22 @@
     </if>
     <include refid="Base_Column_List" />
     from user_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+<!--   selectByExampleWithProduct -->
+  <select id="selectByExampleWithProduct" parameterType="com.ou.mall.bean.UserOrderExample" resultMap="BaseResultMapWithProduct">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List_With_Product" />
+    from user_order left join product on order_pid=product_id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

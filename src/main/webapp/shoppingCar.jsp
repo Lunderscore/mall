@@ -85,5 +85,16 @@
 			</div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+		$.get("getProductByIDJSON?pid="+pid, function(data){
+			console.log(data);
+			$("#ProductTitle").html(data.content.product.productTitle);
+			$("#price").html(data.content.product.productPrice);
+			$("#stock").html(data.content.product.productStock);
+			$("#total").html(data.content.product.productPrice);
+		});
+		
+	</script>
 </body>
 </html>

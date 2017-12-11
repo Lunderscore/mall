@@ -1,6 +1,6 @@
 <!-- itemDetail.jsp -->
 
-<form class="form-horizontal" action="a">
+<form class="form-horizontal">
 <div class="form-group">
     <label for="ProductTitle" class="col-sm-2 control-label">商品名：</label>
     <div class="col-sm-10">
@@ -29,7 +29,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-warning">加入购物车</button>
+      <button type="button" class="btn btn-warning" id="addToCar">加入购物车</button>
     </div>
   </div>
 </form>
