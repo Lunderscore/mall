@@ -77,9 +77,6 @@ public class UserService {
 		example.createCriteria().andAvatarUidEqualTo(userID);
 		
 		return !userAvatarMapper.selectByExample(example).isEmpty();
-		
-		
-		
 	}
 	
 }

@@ -7,10 +7,15 @@ import com.ou.mall.bean.UploadedImageFile;
 
 public class ImageUtil {
 
-	public static String transfer(UploadedImageFile image, String dir, String id) throws IllegalStateException, IOException {
+	public static String transfer(UploadedImageFile image, String dir, String fileName) throws IllegalStateException, IOException {
 		String originalFilename = image.getImage().getOriginalFilename();
+		if (image.getImage().getOriginalFilename().equals("")){
+			return null;
+		}else if (originalFilename.lastIndexOf(".") == -1){
+			return null;
+		}
+		
 		String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-
 		// 后缀名判断
 		String[] allowSuffix = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
 		for (int i = 0; i < allowSuffix.length; i++) {
@@ -20,7 +25,7 @@ public class ImageUtil {
 				return null;
 			}
 		}
-		String newImageName = id + suffix;
+		String newImageName = fileName + suffix;
 		File newFile = new File(dir, newImageName);
 		newFile.getParentFile().mkdirs();
 		image.getImage().transferTo(newFile);
