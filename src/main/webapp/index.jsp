@@ -39,7 +39,7 @@
 					<img src="${product.productImg }">
 					<div class="caption">
 						<p>${product.productTitle }</p>
-						<h3>${product.productPrice }+${i.index }</h3>
+						<h3>${product.productPrice }</h3>
 					</div>
 				</div>
 			</a>

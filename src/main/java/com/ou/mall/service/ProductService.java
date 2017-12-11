@@ -89,4 +89,27 @@ public class ProductService {
 		return product;
 	}
 
+	public String getMainPic(Integer ppid) {
+		Product productImg = productMapper.selectByPrimaryKey(ppid);
+		
+		return productImg==null ? null : productImg.getProductImg();
+	}
+
+	public String getSubPic(Integer ppid, int type) {
+		ProductImgExample example = new ProductImgExample();
+		example.createCriteria().andImgPidEqualTo(ppid);
+		
+		if (productImgMapper.selectByExample(example).isEmpty()){
+			return null;
+		}
+		ProductImg productImg = productImgMapper.selectByExample(example).get(0);
+
+		if (type == 2){
+			return productImg.getImgImg2();
+		}else if (type == 3){
+			return productImg.getImgImg3();
+		}
+		return null;
+	}
+
 }

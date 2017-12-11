@@ -22,8 +22,9 @@
 		<div class="row productItem">
 		<div class="col-md-1 center-block">${product.productId }</div>
 		<div class="col-md-2 center-block">
-			<img src="http://how2j.cn/tmall/img/productSingle/676.jpg"
-				class="pimg" />
+		<c:if test="${not empty product.productImg }">
+			<img src="${product.productImg }" class="pimg" />
+		</c:if>
 		</div>
 		<div class="col-md-2 center-block">${product.productTitle }</div>
 		<div class="col-md-1 center-block">${product.productPrice }</div>

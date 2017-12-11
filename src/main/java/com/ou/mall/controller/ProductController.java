@@ -102,11 +102,18 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping(value="getProductByIDJSON", method=RequestMethod.GET)
-	public Msg getProductByIDJSON(@RequestParam("pid") String pid){
+	public Msg getProductByIDJSON(@RequestParam("pid") Integer pid){
 		
-		Product product = productService.getProductByID(Integer.parseInt(pid));
+		Product product = productService.getProductByID(pid);
 		Msg msg = Msg.success().add("product", product);
 		
+		String mainPic = productService.getMainPic(pid);
+		String secPic = productService.getSubPic(pid, 2);
+		String thiPic = productService.getSubPic(pid, 3);
+		
+		msg.add("mainPic", mainPic);
+		msg.add("secPic", secPic);
+		msg.add("thiPic", thiPic);
 		return msg;
 	}
 }

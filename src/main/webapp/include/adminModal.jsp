@@ -127,20 +127,10 @@
 						</div>
 						
 						<div class="form-group">
-							<label for="addProductImg" class="col-sm-3 control-label">主图片：</label>
-							<div class="col-sm-9">
-								<div class="col-sm-10 input-group">
-									<input id="addProductImg" name="image" type="file" class="form-control">
-								</div>
-							</div>
-						</div>
-						
-						<div class="form-group">
 						<label for="addProductInfo" class="col-sm-3 control-label">产品介绍：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<textarea id="addProductInfo" name="productInfo" class="form-control" type="text"	placeholder="Readonly input here…" rows="3">
-									</textarea>
+									<textarea id="addProductInfo" name="productInfo" class="form-control" type="text" rows="3"></textarea>
 								</div>
 							</div>
 						</div>
