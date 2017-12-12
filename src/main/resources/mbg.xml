@@ -22,29 +22,32 @@
     </javaTypeResolver>
 
 <!-- 	指定java bean 生成的位置 -->
-    <javaModelGenerator targetPackage="com.ou.mall.bean" targetProject=".\src\main\java">
+<!--     <javaModelGenerator targetPackage="com.ou.mall.bean" targetProject=".\src\main\java"> -->
+    <javaModelGenerator targetPackage="com.ou.mall.bean" targetProject=".\src\test\java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
 
 <!-- 指定sql映射文件生成的位置 -->
-    <sqlMapGenerator targetPackage="mapper"  targetProject=".\src\main\resources">
+<!--     <sqlMapGenerator targetPackage="mapper"  targetProject=".\src\main\resources"> -->
+    <sqlMapGenerator targetPackage="mapper"  targetProject=".\src\test\resources">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
 <!-- 指定dao 接口生成的位置 mapper 接口 -->
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.ou.mall.dao"  targetProject=".\src\main\java">
+<!--     <javaClientGenerator type="XMLMAPPER" targetPackage="com.ou.mall.dao"  targetProject=".\src\main\java"> -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.ou.mall.dao"  targetProject=".\src\test\java">
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
 <!-- 	指定每个表的生成策略 -->
-	<table tableName="user" domainObjectName="User"></table>
-	<table tableName="user_avatar" domainObjectName="UserAvatar"></table>
-	<table tableName="user_address" domainObjectName="UserAddress"></table>
+<!-- 	<table tableName="user" domainObjectName="User"></table> -->
+<!-- 	<table tableName="user_avatar" domainObjectName="UserAvatar"></table> -->
+<!-- 	<table tableName="user_address" domainObjectName="UserAddress"></table> -->
 	<table tableName="product" domainObjectName="Product"></table>
-	<table tableName="product_img" domainObjectName="ProductImg"></table>
-	<table tableName="product_comment" domainObjectName="ProductComment"></table>
+<!-- 	<table tableName="product_img" domainObjectName="ProductImg"></table> -->
+<!-- 	<table tableName="product_comment" domainObjectName="ProductComment"></table> -->
 	<table tableName="user_order" domainObjectName="UserOrder"></table>
-	<table tableName="admin_user" domainObjectName="AdminUser"></table>
+<!-- 	<table tableName="admin_user" domainObjectName="AdminUser"></table> -->
   </context>
 </generatorConfiguration>

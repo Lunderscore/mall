@@ -2,7 +2,6 @@ package com.ou.mall.bean;
 
 import java.math.BigDecimal;
 
-
 public class Product {
     private Integer productId;
 
@@ -15,6 +14,8 @@ public class Product {
     private Integer productStock;
 
     private String productImg;
+
+    private Integer productDel;
 
     public Integer getProductId() {
         return productId;
@@ -62,5 +63,13 @@ public class Product {
 
     public void setProductImg(String productImg) {
         this.productImg = productImg == null ? null : productImg.trim();
+    }
+
+    public Integer getProductDel() {
+        return productDel;
+    }
+
+    public void setProductDel(Integer productDel) {
+        this.productDel = productDel;
     }
 }

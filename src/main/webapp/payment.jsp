@@ -27,7 +27,7 @@
 		<br ><br >
 		<img src="static/img/HelloWorld.png" />
 		<br><br>
-		<button type="button" class="btn btn-info">付款</button>
+		<button type="button" class="btn btn-info" id="paymentBtn">付款</button>
 		<span id="helpBlock" class="help-block">剩余余额：(100.00<span class="glyphicon glyphicon-usd"></span>)</span>
 	</div>
 	<div class="col-md-4 center-block">
@@ -35,5 +35,10 @@
 	</div>
 </div>
 
+<script>
+	$("#paymentBtn").on("click", function(){
+		location.href = "userOrder.jsp";
+	});
+</script>
 </body>
 </html>

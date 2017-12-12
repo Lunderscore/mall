@@ -8,9 +8,12 @@
     <result column="order_date_time" jdbcType="TIMESTAMP" property="orderDateTime" />
     <result column="order_pid" jdbcType="INTEGER" property="orderPid" />
     <result column="order_uid" jdbcType="INTEGER" property="orderUid" />
+    <result column="order_person_name" jdbcType="VARCHAR" property="orderPersonName" />
+    <result column="order_phone" jdbcType="VARCHAR" property="orderPhone" />
+    <result column="order_message" jdbcType="VARCHAR" property="orderMessage" />
   </resultMap>
-  
-<!--   BaseResultMapWithProduct -->
+
+  <!--   BaseResultMapWithProduct -->
   <resultMap id="BaseResultMapWithProduct" type="com.ou.mall.bean.UserOrder">
     <id column="order_id" jdbcType="INTEGER" property="orderId" />
     <result column="order_number" jdbcType="INTEGER" property="orderNumber" />
@@ -21,7 +24,7 @@
     <association property="product" javaType="com.ou.mall.bean.Product" column="product_id" select="com.ou.mall.dao.ProductMapper.selectByPrimaryKey">
     </association>
   </resultMap>
-  
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -81,14 +84,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_id, order_number, order_status, order_date_time, order_pid, order_uid
+    order_id, order_number, order_status, order_date_time, order_pid, order_uid, order_person_name, 
+    order_phone, order_message
   </sql>
-  
-<!--   Base_Column_List_With_Product -->
+
+  <!--   Base_Column_List_With_Product -->
   <sql id="Base_Column_List_With_Product">
     order_id, order_number, order_status, order_date_time, order_pid, order_uid, product_id, product_title, product_info, product_price, product_stock, product_img
   </sql>
-  
+
   <select id="selectByExample" parameterType="com.ou.mall.bean.UserOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -104,7 +108,7 @@
     </if>
   </select>
   
-<!--   selectByExampleWithProduct -->
+  <!--   selectByExampleWithProduct -->
   <select id="selectByExampleWithProduct" parameterType="com.ou.mall.bean.UserOrderExample" resultMap="BaseResultMapWithProduct">
     select
     <if test="distinct">
@@ -119,6 +123,7 @@
       order by ${orderByClause}
     </if>
   </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -137,10 +142,12 @@
   </delete>
   <insert id="insert" parameterType="com.ou.mall.bean.UserOrder">
     insert into user_order (order_id, order_number, order_status, 
-      order_date_time, order_pid, order_uid
+      order_date_time, order_pid, order_uid, 
+      order_person_name, order_phone, order_message
       )
     values (#{orderId,jdbcType=INTEGER}, #{orderNumber,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, 
-      #{orderDateTime,jdbcType=TIMESTAMP}, #{orderPid,jdbcType=INTEGER}, #{orderUid,jdbcType=INTEGER}
+      #{orderDateTime,jdbcType=TIMESTAMP}, #{orderPid,jdbcType=INTEGER}, #{orderUid,jdbcType=INTEGER}, 
+      #{orderPersonName,jdbcType=VARCHAR}, #{orderPhone,jdbcType=VARCHAR}, #{orderMessage,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ou.mall.bean.UserOrder">
@@ -164,6 +171,15 @@
       <if test="orderUid != null">
         order_uid,
       </if>
+      <if test="orderPersonName != null">
+        order_person_name,
+      </if>
+      <if test="orderPhone != null">
+        order_phone,
+      </if>
+      <if test="orderMessage != null">
+        order_message,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -183,6 +199,15 @@
       </if>
       <if test="orderUid != null">
         #{orderUid,jdbcType=INTEGER},
+      </if>
+      <if test="orderPersonName != null">
+        #{orderPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPhone != null">
+        #{orderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMessage != null">
+        #{orderMessage,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -213,6 +238,15 @@
       <if test="record.orderUid != null">
         order_uid = #{record.orderUid,jdbcType=INTEGER},
       </if>
+      <if test="record.orderPersonName != null">
+        order_person_name = #{record.orderPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderPhone != null">
+        order_phone = #{record.orderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderMessage != null">
+        order_message = #{record.orderMessage,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -225,7 +259,10 @@
       order_status = #{record.orderStatus,jdbcType=INTEGER},
       order_date_time = #{record.orderDateTime,jdbcType=TIMESTAMP},
       order_pid = #{record.orderPid,jdbcType=INTEGER},
-      order_uid = #{record.orderUid,jdbcType=INTEGER}
+      order_uid = #{record.orderUid,jdbcType=INTEGER},
+      order_person_name = #{record.orderPersonName,jdbcType=VARCHAR},
+      order_phone = #{record.orderPhone,jdbcType=VARCHAR},
+      order_message = #{record.orderMessage,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -248,6 +285,15 @@
       <if test="orderUid != null">
         order_uid = #{orderUid,jdbcType=INTEGER},
       </if>
+      <if test="orderPersonName != null">
+        order_person_name = #{orderPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPhone != null">
+        order_phone = #{orderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMessage != null">
+        order_message = #{orderMessage,jdbcType=VARCHAR},
+      </if>
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
@@ -257,7 +303,10 @@
       order_status = #{orderStatus,jdbcType=INTEGER},
       order_date_time = #{orderDateTime,jdbcType=TIMESTAMP},
       order_pid = #{orderPid,jdbcType=INTEGER},
-      order_uid = #{orderUid,jdbcType=INTEGER}
+      order_uid = #{orderUid,jdbcType=INTEGER},
+      order_person_name = #{orderPersonName,jdbcType=VARCHAR},
+      order_phone = #{orderPhone,jdbcType=VARCHAR},
+      order_message = #{orderMessage,jdbcType=VARCHAR}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
 </mapper>

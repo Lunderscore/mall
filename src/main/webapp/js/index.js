@@ -12,6 +12,4 @@ $(function(){
 	
 	$(".item").on("click", function(){
 	});
-	
-	 
 });

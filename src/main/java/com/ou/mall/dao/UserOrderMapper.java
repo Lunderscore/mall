@@ -18,7 +18,8 @@ public interface UserOrderMapper {
 
     List<UserOrder> selectByExample(UserOrderExample example);
     
-    List<UserOrder> selectByExampleWithProduct(UserOrderExample example);
+	//  selectByExampleWithProduct
+	List<UserOrder> selectByExampleWithProduct(UserOrderExample example);
 
     UserOrder selectByPrimaryKey(Integer orderId);
 

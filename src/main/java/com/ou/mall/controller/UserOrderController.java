@@ -19,11 +19,23 @@ public class UserOrderController {
 	@Autowired
 	UserOrderService userOrderService;
 	
+	@ResponseBody
 	@RequestMapping("order")
 	public Msg createOrder(HttpSession session, @RequestParam("pid") Integer pid, @RequestParam("num") Integer num){
 		Integer uid = (Integer) session.getAttribute("user");
+		if (num==null || "".equals(num)){
+			return Msg.failure();
+		}
 		
 		userOrderService.createOrder(uid, pid, num);
+		return Msg.success();
+	}
+	
+	@ResponseBody
+	@RequestMapping("delOrder")
+	public Msg deleteOrder(@RequestParam("uoid")Integer uoid){
+
+		userOrderService.deleteOrder(uoid);
 		return Msg.success();
 	}
 	
@@ -32,6 +44,9 @@ public class UserOrderController {
 	@RequestMapping("shoppingCar")
 	public Msg getShoppingCar(HttpSession session){
 		Integer uid = (Integer) session.getAttribute("user");
+		if (uid == null){
+			return Msg.failure();
+		}
 		
 		List<UserOrder> shoppingCar = userOrderService.getShoppingCar(uid);
 		session.setAttribute("shoppingCar", shoppingCar);

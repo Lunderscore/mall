@@ -24,10 +24,10 @@
 						<img src="${item.product.productImg }" class="pimg" />
 					</td>
 				<th>${item.product.productTitle }</th>
-				<th>${item.orderNumber }</th>
 				<th>${item.product.productPrice }</th>
+				<th>${item.orderNumber }</th>
 				<th>${item.product.productPrice * item.orderNumber }</th>
-				<th><button type="button" class="btn btn-danger">删除</button></th>
+				<th><button type="button" class="btn btn-danger" uoid="${item.orderId }">删除</button></th>
 			</tr>
 			</c:forEach>
 		</c:if>

@@ -14,6 +14,12 @@ public class UserOrder {
     private Integer orderPid;
 
     private Integer orderUid;
+
+    private String orderPersonName;
+
+    private String orderPhone;
+
+    private String orderMessage;
     
     private Product product;
 
@@ -63,6 +69,30 @@ public class UserOrder {
 
     public void setOrderUid(Integer orderUid) {
         this.orderUid = orderUid;
+    }
+
+    public String getOrderPersonName() {
+        return orderPersonName;
+    }
+
+    public void setOrderPersonName(String orderPersonName) {
+        this.orderPersonName = orderPersonName == null ? null : orderPersonName.trim();
+    }
+
+    public String getOrderPhone() {
+        return orderPhone;
+    }
+
+    public void setOrderPhone(String orderPhone) {
+        this.orderPhone = orderPhone == null ? null : orderPhone.trim();
+    }
+
+    public String getOrderMessage() {
+        return orderMessage;
+    }
+
+    public void setOrderMessage(String orderMessage) {
+        this.orderMessage = orderMessage == null ? null : orderMessage.trim();
     }
 
 	public Product getProduct() {

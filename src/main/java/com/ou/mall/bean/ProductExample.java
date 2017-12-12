@@ -494,6 +494,66 @@ public class ProductExample {
             addCriterion("product_img not between", value1, value2, "productImg");
             return (Criteria) this;
         }
+
+        public Criteria andProductDelIsNull() {
+            addCriterion("product_del is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelIsNotNull() {
+            addCriterion("product_del is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelEqualTo(Integer value) {
+            addCriterion("product_del =", value, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelNotEqualTo(Integer value) {
+            addCriterion("product_del <>", value, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelGreaterThan(Integer value) {
+            addCriterion("product_del >", value, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("product_del >=", value, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelLessThan(Integer value) {
+            addCriterion("product_del <", value, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelLessThanOrEqualTo(Integer value) {
+            addCriterion("product_del <=", value, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelIn(List<Integer> values) {
+            addCriterion("product_del in", values, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelNotIn(List<Integer> values) {
+            addCriterion("product_del not in", values, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelBetween(Integer value1, Integer value2) {
+            addCriterion("product_del between", value1, value2, "productDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductDelNotBetween(Integer value1, Integer value2) {
+            addCriterion("product_del not between", value1, value2, "productDel");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

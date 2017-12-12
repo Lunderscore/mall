@@ -41,4 +41,8 @@ public class UserOrderService {
 		return selectByExampleWithProduct.isEmpty() ? null : selectByExampleWithProduct;
 	}
 
+	public void deleteOrder(Integer uoid) {
+		userOrderMapper.deleteByPrimaryKey(uoid);
+	}
+
 }

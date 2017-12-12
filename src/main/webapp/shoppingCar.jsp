@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -80,21 +82,24 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="addEmpSaveBtn">保存</button>
+					<button type="button" class="btn btn-primary" id="submitShoppingCar">保存</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	
 	<script type="text/javascript">
-		$.get("getProductByIDJSON?pid="+pid, function(data){
-			console.log(data);
-			$("#ProductTitle").html(data.content.product.productTitle);
-			$("#price").html(data.content.product.productPrice);
-			$("#stock").html(data.content.product.productStock);
-			$("#total").html(data.content.product.productPrice);
-		});
-		
+	
+	$(document).on("click", "[uoid]", function(){
+		var uoid = $(this).attr("uoid");
+		$.get("delOrder", {uoid:uoid}, function(){});
+	});
+	
+	$("#submitShoppingCar").on("click", function(){
+
+		location.href = "payment.jsp";
+	});
+	
 	</script>
 </body>
 </html>
