@@ -36,8 +36,8 @@ public class UserOrderService {
 	public List<UserOrder> getShoppingCar(Integer uid) {
 		UserOrderExample example = new UserOrderExample();
 		example.createCriteria().andOrderStatusEqualTo(0);
-		List<UserOrder> selectByExampleWithProduct = userOrderMapper.selectByExampleWithProduct(example);
 		
+		List<UserOrder> selectByExampleWithProduct = userOrderMapper.selectByExampleWithProduct(example);
 		return selectByExampleWithProduct.isEmpty() ? null : selectByExampleWithProduct;
 	}
 
@@ -45,4 +45,45 @@ public class UserOrderService {
 		userOrderMapper.deleteByPrimaryKey(uoid);
 	}
 
+	public List<UserOrder> totalOrder(Integer uid) {
+		UserOrderExample example = new UserOrderExample();
+		example.createCriteria().andOrderStatusNotEqualTo(0);
+		example.createCriteria().andOrderUidEqualTo(uid);
+		
+		List<UserOrder> selectByExampleWithProduct = userOrderMapper.selectByExampleWithProduct(example);
+		return selectByExampleWithProduct.isEmpty() ? null : selectByExampleWithProduct;		
+	}
+	public List<UserOrder> waitPay(Integer uid) {
+		UserOrderExample example = new UserOrderExample();
+		example.createCriteria().andOrderStatusEqualTo(1);
+		example.createCriteria().andOrderUidEqualTo(uid);
+		
+		List<UserOrder> selectByExampleWithProduct = userOrderMapper.selectByExampleWithProduct(example);
+		return selectByExampleWithProduct.isEmpty() ? null : selectByExampleWithProduct;		
+	}
+	public List<UserOrder> waitDeliver(Integer uid) {
+		UserOrderExample example = new UserOrderExample();
+		example.createCriteria().andOrderStatusEqualTo(2);
+		example.createCriteria().andOrderUidEqualTo(uid);
+		
+		List<UserOrder> selectByExampleWithProduct = userOrderMapper.selectByExampleWithProduct(example);
+		return selectByExampleWithProduct.isEmpty() ? null : selectByExampleWithProduct;		
+	}
+	public List<UserOrder> waitConfirm(Integer uid) {
+		UserOrderExample example = new UserOrderExample();
+		example.createCriteria().andOrderStatusEqualTo(3);
+		example.createCriteria().andOrderUidEqualTo(uid);
+		
+		List<UserOrder> selectByExampleWithProduct = userOrderMapper.selectByExampleWithProduct(example);
+		return selectByExampleWithProduct.isEmpty() ? null : selectByExampleWithProduct;		
+		
+	}
+	public List<UserOrder> waitComment(Integer uid) {
+		UserOrderExample example = new UserOrderExample();
+		example.createCriteria().andOrderStatusEqualTo(4);
+		example.createCriteria().andOrderUidEqualTo(uid);
+		
+		List<UserOrder> selectByExampleWithProduct = userOrderMapper.selectByExampleWithProduct(example);
+		return selectByExampleWithProduct.isEmpty() ? null : selectByExampleWithProduct;		
+	}
 }

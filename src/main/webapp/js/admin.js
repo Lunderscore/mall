@@ -48,8 +48,7 @@ function addProduct(){
 	var price = $("#addProductPrice").val();
 	var stock = $("#addProductStock").val();
 	var info = $("#addProductInfo").val();
-	
-	$.post("product", {productTitle:name, productPrice:stock, productStock:stock, productInfo:info}, function(data){
+	$.post("product", {productTitle:name, productPrice:price, productStock:stock, productInfo:info, productDel:"0"}, function(data){
 		console.log(data);
 	})
 }

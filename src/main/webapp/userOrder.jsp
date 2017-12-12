@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="static/header.jsp"%>
+
+<%@ include file="static/checkLogin.jsp"%>
+
 <title>Insert title here</title>
 <style>
 	.pimg{

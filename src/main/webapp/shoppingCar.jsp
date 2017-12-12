@@ -7,6 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="static/header.jsp"%>
+
+<%@ include file="static/checkLogin.jsp"%>
+
 <title>Insert title here</title>
 
 <style>
@@ -30,11 +33,11 @@
 	
 	<div class="row">
 		<div class="col-md-3 col-md-offset-10">
-			<button type="button" class="btn btn-lg btn-success"  data-toggle="modal" data-target="#address">确认订单</button>
+			<button type="button" class="btn btn-lg btn-success"  data-toggle="modal" data-target="#addressModal">确认订单</button>
 		</div>
 	</div>
 
-	<div class="modal fade" id="address" tabindex="-1" role="dialog">
+	<div class="modal fade" id="addressModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -47,35 +50,35 @@
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group">
-							<label for="addEmpNameIuput" class="col-sm-3 control-label">收货人：</label>
+							<label for="orderPersonName" class="col-sm-3 control-label">收货人：</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="addEmpNameIuput"
+								<input name="orderPersonName" type="text" class="form-control" id="orderPersonName"
 									placeholder="张三" name="empName"> <span id="helpBlock"
 									class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="addEmailInput" class="col-sm-3 control-label">联系电话：</label>
+							<label for="orderPhone" class="col-sm-3 control-label">联系电话：</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="addEmailInput"
+								<input name="orderPhone" type="text" class="form-control" id="orderPhone"
 									placeholder="1696229469@qq.com" name="email"> <span
 									id="helpBlock" class="help-block"></span>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="addEmailInput" class="col-sm-3 control-label">收货地址：</label>
+							<label for="orderAddress" class="col-sm-3 control-label">收货地址：</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="addEmailInput"
+								<input name="orderAddress" type="text" class="form-control" id="orderAddress"
 									placeholder="1696229469@qq.com" name="email"> <span
 									id="helpBlock" class="help-block"></span>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="addEmailInput" class="col-sm-3 control-label">买家留言：</label>
+							<label for="orderMessage" class="col-sm-3 control-label">买家留言：</label>
 							<div class="col-sm-9">
-								<textarea rows="3" class="form-control">
+								<textarea name="orderMessage" rows="3" class="form-control">
                     </textarea>
 							</div>
 						</div>

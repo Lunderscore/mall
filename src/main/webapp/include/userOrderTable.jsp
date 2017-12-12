@@ -1,4 +1,5 @@
 <!-- shoppingCar.jsp -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="row">
 		
@@ -34,39 +35,44 @@
 </div>
 
 
-<div class="row productInfo">
-	<div class="col-md-12 productInfoHead">
-		<div class="col-md-6">
-			<div class="col-md-5">
-				<b>2017-12-09 15:52:52</b>
-			</div>
-			<div class="col-md-7">
-				<span>订单号: 201712091552 </span>
-			</div>
-		</div>
-		<div class="col-md-1 center-block"></div>
-		<div class="col-md-1 center-block"></div>
-		<div class="col-md-2 center-block"></div>
-		<div class="col-md-2 center-block">
-			<button type="button" class="btn btn-danger btn-xs">
-				<span class="orderListItemDelete glyphicon glyphicon-trash"></span>
-				删除订单
-			</button>
-		</div>
-	</div>
-	<!-- 	=============== -->
-	<div class="col-md-12">
-		<div class="col-md-6">
-			<div class="col-md-4">
-				<img src="http://how2j.cn/tmall/img/productSingle/676.jpg"
-					class="pimg" />
-			</div>
-			<div class="col-md-8">商品信息</div>
-		</div>
-		<div class="col-md-1 center-block">100.00</div>
-		<div class="col-md-1 center-block">5</div>
-		<div class="col-md-2 center-block">500</div>
-		<div class="col-md-2 center-block">操作</div>
-	</div>
 
-</div>
+<c:if test="${not empty userOrder }">
+<c:forEach items="${userOrder }" var="item">
+	<div class="row productInfo">
+		<div class="col-md-12 productInfoHead">
+			<div class="col-md-6">
+				<div class="col-md-7">
+					<b>${item.orderDateTime }</b>
+				</div>
+				<div class="col-md-5">
+					<span>订单号: ${item.orderId } </span>
+				</div>
+			</div>
+			<div class="col-md-1 center-block"></div>
+			<div class="col-md-1 center-block"></div>
+			<div class="col-md-2 center-block"></div>
+			<div class="col-md-2 center-block">
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="col-md-6">
+				<div class="col-md-4">
+					<img src="${item.product.productImg }"
+						class="pimg" />
+				</div>
+				<div class="col-md-8">${item.product.productTitle }</div>
+			</div>
+			<div class="col-md-1 center-block">${item.product.productPrice }</div>
+			<div class="col-md-1 center-block">${item.orderNumber }</div>
+			<div class="col-md-2 center-block">${item.product.productPrice * item.orderNumber }</div>
+			<div class="col-md-2 center-block">
+				<button type="button" class="btn btn-danger btn-xs">
+					<span class="orderListItemDelete glyphicon glyphicon-trash"></span>
+						删除订单
+				</button>
+			</div>
+		</div>
+	</div>
+	<br>
+</c:forEach>
+</c:if>

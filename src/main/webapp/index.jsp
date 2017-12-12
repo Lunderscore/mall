@@ -29,8 +29,8 @@
 		</div>
 	</div>
 	
-<c:if test="${not empty products }">
-	<c:forEach items="${products }" var="product" varStatus="i">
+<c:if test="${not empty indexProducts }">
+	<c:forEach items="${indexProducts }" var="product" varStatus="i">
 		<c:if test="${i.index%5 == 0 }">
 			<div class="row col-md-offset-1">
 		</c:if>

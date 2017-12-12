@@ -78,5 +78,9 @@ public class UserService {
 		
 		return !userAvatarMapper.selectByExample(example).isEmpty();
 	}
+
+	public void payment() {
+		
+	}
 	
 }

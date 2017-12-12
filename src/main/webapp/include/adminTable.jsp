@@ -17,8 +17,8 @@
 </div>
 
 	<!-- 	=============== -->
-<c:if test="${not empty products }">
-	<c:forEach items="${products }" var="product">
+<c:if test="${not empty adminProducts }">
+	<c:forEach items="${adminProducts }" var="product">
 		<div class="row productItem">
 		<div class="col-md-1 center-block">${product.productId }</div>
 		<div class="col-md-2 center-block">

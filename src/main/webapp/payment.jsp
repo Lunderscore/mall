@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="static/header.jsp"%>
+
+<%@ include file="static/checkLogin.jsp"%>
+
 <title>Insert title here</title>
 
 <style>
@@ -37,7 +40,9 @@
 
 <script>
 	$("#paymentBtn").on("click", function(){
-		location.href = "userOrder.jsp";
+		$.get("userPayment", function(){
+			location.href = "userOrder.jsp";
+		});
 	});
 </script>
 </body>

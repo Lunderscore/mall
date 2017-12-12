@@ -54,5 +54,66 @@ public class UserOrderController {
 		return Msg.success().add("shoppingCar", shoppingCar);
 	}
 	
+	@ResponseBody
+	@RequestMapping("confirmOrder")
+	public Msg confirmOrder(HttpSession session){
+		Integer uid = (Integer) session.getAttribute("user");
+		if (uid == null){
+			return Msg.failure();
+		}
+		
+		List<UserOrder> shoppingCar = userOrderService.getShoppingCar(uid);
+		session.setAttribute("shoppingCar", shoppingCar);
+		
+		return Msg.success().add("shoppingCar", shoppingCar);
+	}
 
+	@ResponseBody
+	@RequestMapping("totalOrder")
+	public Msg totalOrder(HttpSession session){
+		Integer uid = (Integer) session.getAttribute("user");
+		List<UserOrder> totalOrder = userOrderService.totalOrder(uid);
+		session.setAttribute("userOrder", totalOrder);
+		return Msg.success().add("userOrder", totalOrder);
+	}
+	@ResponseBody
+	@RequestMapping("waitPay")
+	public Msg waitPay(HttpSession session){
+		Integer uid = (Integer) session.getAttribute("user");
+		List<UserOrder> waitPay = userOrderService.waitPay(uid);
+		session.setAttribute("userOrder", waitPay);
+
+		return Msg.success();
+	}
+	
+	@ResponseBody
+	@RequestMapping("waitDeliver")
+	public Msg waitDeliver(HttpSession session){
+		Integer uid = (Integer) session.getAttribute("user");
+		List<UserOrder> waitDeliver = userOrderService.waitDeliver(uid);
+		session.setAttribute("userOrder", waitDeliver);
+
+		return Msg.success().add("userOrder", waitDeliver);
+	}
+	
+	@ResponseBody
+	@RequestMapping("waitConfirm")
+	public Msg waitConfirm(HttpSession session){
+		Integer uid = (Integer) session.getAttribute("user");
+		List<UserOrder> waitConfirm = userOrderService.waitConfirm(uid);
+		session.setAttribute("userOrder", waitConfirm);
+
+		return Msg.success();
+	}
+	
+	@ResponseBody
+	@RequestMapping("waitComment")
+	public Msg waitComment(HttpSession session){
+		Integer uid = (Integer) session.getAttribute("user");
+		List<UserOrder> waitComment = userOrderService.waitComment(uid);
+		session.setAttribute("userOrder", waitComment);
+
+		return Msg.success();
+	}
+	
 }

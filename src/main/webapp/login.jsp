@@ -5,6 +5,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="static/header.jsp"%>
+
+<script>
+<%
+	if (session.getAttribute("user") != null){
+%>
+		location.href = "index.jsp";
+<%
+	}
+%>
+</script>
+
 <title>Insert title here</title>
 </head>
 <body class="jumbotron">

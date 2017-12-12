@@ -72,6 +72,15 @@ public class UserController {
         return Msg.success();
 	}
 
+	@ResponseBody
+	@RequestMapping(value="payment")
+	public Msg payment(HttpSession session, Integer payMoney){
+		Integer uid = (Integer) session.getAttribute("user");
+		
+		userService.payment();
+		return Msg.success();
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="logOut")
@@ -80,5 +89,7 @@ public class UserController {
 		session.removeAttribute("user");
 		return Msg.success();
 	}
+	
+	
 	
 }

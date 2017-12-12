@@ -605,6 +605,76 @@ public class UserOrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andOrderAddressIsNull() {
+            addCriterion("order_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressIsNotNull() {
+            addCriterion("order_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressEqualTo(String value) {
+            addCriterion("order_address =", value, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressNotEqualTo(String value) {
+            addCriterion("order_address <>", value, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressGreaterThan(String value) {
+            addCriterion("order_address >", value, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("order_address >=", value, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressLessThan(String value) {
+            addCriterion("order_address <", value, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressLessThanOrEqualTo(String value) {
+            addCriterion("order_address <=", value, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressLike(String value) {
+            addCriterion("order_address like", value, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressNotLike(String value) {
+            addCriterion("order_address not like", value, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressIn(List<String> values) {
+            addCriterion("order_address in", values, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressNotIn(List<String> values) {
+            addCriterion("order_address not in", values, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressBetween(String value1, String value2) {
+            addCriterion("order_address between", value1, value2, "orderAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderAddressNotBetween(String value1, String value2) {
+            addCriterion("order_address not between", value1, value2, "orderAddress");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderMessageIsNull() {
             addCriterion("order_message is null");
             return (Criteria) this;
