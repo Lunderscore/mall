@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ou.mall.bean.Msg;
@@ -73,11 +74,11 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value="payment")
-	public Msg payment(HttpSession session, Integer payMoney){
+	@RequestMapping(value="userPayment")
+	public Msg payment(HttpSession session,@RequestParam("mid") String payMoney){
 		Integer uid = (Integer) session.getAttribute("user");
 		
-		userService.payment();
+		userService.payment(uid, Integer.parseInt(payMoney));
 		return Msg.success();
 	}
 	

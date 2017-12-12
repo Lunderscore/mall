@@ -79,8 +79,11 @@ public class UserService {
 		return !userAvatarMapper.selectByExample(example).isEmpty();
 	}
 
-	public void payment() {
+	public void payment(Integer uid, int payMoney) {
+		User record = userMapper.selectByPrimaryKey(uid);
+		record.setUserMoney(record.getUserMoney() - payMoney);
 		
+		userMapper.updateByPrimaryKeySelective(record);
 	}
 	
 }

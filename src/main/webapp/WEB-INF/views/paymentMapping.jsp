@@ -28,7 +28,7 @@
 	<div class="col-md-4 center-block">
 		<span class="text-danger">此二维码只是一个普通二维码，占位用。</span>
 		<br ><br >
-		<span mid="${totalMoney }">${totalMoney }元</span>
+		<span mid="${totalMoney }" id="mid">${totalMoney }元</span>
 		<br ><br >
 		<img src="static/img/HelloWorld.png" />
 		<br><br>
@@ -42,8 +42,9 @@
 
 <script>
 	$("#paymentBtn").on("click", function(){
-		$.get("userPayment", function(){
-			location.href = "userOrder/1";
+		var mid = $("#mid").attr("mid");
+		$.post("userPayment", {mid:mid }, function(){
+			location.href = "userOrder";
 		});
 	});
 </script>

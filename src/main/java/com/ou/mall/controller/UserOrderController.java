@@ -33,7 +33,7 @@ public class UserOrderController {
 		return Msg.success();
 	}
 	
-	@RequestMapping("shoppingCarConfirm")
+	@RequestMapping("toPayment")
 	public String shoppingCarConfirm(@RequestParam("uoid") String uoid, @RequestParam("totalMoney") String totalMoney, 
 			UserOrder userOrder, HttpServletRequest request){
 		if ("".equals(uoid) || "".equals(totalMoney) || uoid==null || totalMoney==null){
