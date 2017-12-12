@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ include file="static/header.jsp"%>
+<%@ include file="../../static/header.jsp"%>
 
-<%@ include file="static/checkLogin.jsp"%>
+<%@ include file="../../static/checkLogin.jsp"%>
 
 <title>Insert title here</title>
 <style>
@@ -30,10 +30,10 @@
 </style>
 </head>
 <body class="jumbotron">
-	<%@ include file="static/navigator.jsp"%>
+	<%@ include file="../../static/navigator.jsp"%>
 
 	<div class="col-md-10 col-md-offset-1">
-		<%@include file="include/userOrderTable.jsp"%>
+		<%@include file="../../include/userOrderTable.jsp"%>
 	</div>
 
 	<script src="js/login.js"></script>

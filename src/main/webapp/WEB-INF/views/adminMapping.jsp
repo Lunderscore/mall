@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ include file="static/header.jsp"%>
+<%@ include file="../../static/header.jsp"%>
 
 <style>
 	.pimg{
@@ -33,7 +33,7 @@
 <title>Insert title here</title>
 </head>
 <body class="jumbotron">
-	<%@ include file="static/navigator.jsp"%>
+	<%@ include file="../../static/navigator.jsp"%>
 	
 	<div class="row">
 		<h2 class="center-block">后台页面-商品管理</h2>
@@ -41,15 +41,15 @@
 	
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
-			<%@include file="include/adminTable.jsp"%>
+			<%@include file="../../include/adminTable.jsp"%>
 		</div>
 	</div>
 	
-	<%@include file="include/adminModal.jsp"%>
+	<%@include file="../../include/adminModal.jsp"%>
 	
 	<div class="row">
 		<div class="col-md-3 col-md-offset-9">
-			<%@ include file="static/pagination.jsp"%>
+			<%@ include file="../../static/pagination.jsp"%>
 		</div>
 	</div>
 	

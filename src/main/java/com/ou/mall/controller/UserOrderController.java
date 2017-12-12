@@ -1,9 +1,12 @@
 package com.ou.mall.controller;
 
+import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +26,25 @@ public class UserOrderController {
 	@RequestMapping("order")
 	public Msg createOrder(HttpSession session, @RequestParam("pid") Integer pid, @RequestParam("num") Integer num){
 		Integer uid = (Integer) session.getAttribute("user");
-		if (num==null || "".equals(num)){
+		if (num==null || "".equals(num) || uid==null){
 			return Msg.failure();
 		}
 		
 		userOrderService.createOrder(uid, pid, num);
 		return Msg.success();
+	}
+	
+	@RequestMapping("shoppingCarConfirm")
+	public String shoppingCarConfirm(@RequestParam("uoid") Integer uoid, @RequestParam("totalMoney") Integer totalMoney, 
+			UserOrder userOrder, HttpServletRequest request){
+		
+		userOrder.setOrderId(uoid);
+		Date orderDateTime = new Date(System.currentTimeMillis());
+		userOrder.setOrderDateTime(orderDateTime);
+		userOrderService.updateOrderByPrimaryKey(userOrder);
+		request.setAttribute("totalMoney", totalMoney);
+		
+		return "paymentMapping";
 	}
 	
 	@ResponseBody
@@ -40,18 +56,17 @@ public class UserOrderController {
 	}
 	
 	
-	@ResponseBody
 	@RequestMapping("shoppingCar")
-	public Msg getShoppingCar(HttpSession session){
+	public String getShoppingCar(HttpSession session){
 		Integer uid = (Integer) session.getAttribute("user");
 		if (uid == null){
-			return Msg.failure();
+			return "loginMapping";
 		}
 		
 		List<UserOrder> shoppingCar = userOrderService.getShoppingCar(uid);
 		session.setAttribute("shoppingCar", shoppingCar);
 		
-		return Msg.success().add("shoppingCar", shoppingCar);
+		return "shoppingCarMapping";
 	}
 	
 	@ResponseBody
@@ -68,52 +83,15 @@ public class UserOrderController {
 		return Msg.success().add("shoppingCar", shoppingCar);
 	}
 
-	@ResponseBody
-	@RequestMapping("totalOrder")
-	public Msg totalOrder(HttpSession session){
+	@RequestMapping("userOrder")
+	public String userOrderPage(HttpSession session, @RequestParam(value="type", defaultValue="0") String type){
 		Integer uid = (Integer) session.getAttribute("user");
-		List<UserOrder> totalOrder = userOrderService.totalOrder(uid);
+		if (uid == null){
+			return "loginMapping";
+		}
+		
+		List<UserOrder> totalOrder = userOrderService.userOrderPage(uid, Integer.parseInt(type));
 		session.setAttribute("userOrder", totalOrder);
-		return Msg.success().add("userOrder", totalOrder);
+		return "userOrderMapping";
 	}
-	@ResponseBody
-	@RequestMapping("waitPay")
-	public Msg waitPay(HttpSession session){
-		Integer uid = (Integer) session.getAttribute("user");
-		List<UserOrder> waitPay = userOrderService.waitPay(uid);
-		session.setAttribute("userOrder", waitPay);
-
-		return Msg.success();
-	}
-	
-	@ResponseBody
-	@RequestMapping("waitDeliver")
-	public Msg waitDeliver(HttpSession session){
-		Integer uid = (Integer) session.getAttribute("user");
-		List<UserOrder> waitDeliver = userOrderService.waitDeliver(uid);
-		session.setAttribute("userOrder", waitDeliver);
-
-		return Msg.success().add("userOrder", waitDeliver);
-	}
-	
-	@ResponseBody
-	@RequestMapping("waitConfirm")
-	public Msg waitConfirm(HttpSession session){
-		Integer uid = (Integer) session.getAttribute("user");
-		List<UserOrder> waitConfirm = userOrderService.waitConfirm(uid);
-		session.setAttribute("userOrder", waitConfirm);
-
-		return Msg.success();
-	}
-	
-	@ResponseBody
-	@RequestMapping("waitComment")
-	public Msg waitComment(HttpSession session){
-		Integer uid = (Integer) session.getAttribute("user");
-		List<UserOrder> waitComment = userOrderService.waitComment(uid);
-		session.setAttribute("userOrder", waitComment);
-
-		return Msg.success();
-	}
-	
 }

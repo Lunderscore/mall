@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ include file="static/header.jsp"%>
+<%@ include file="../../static/header.jsp"%>
 
-<%@ include file="static/checkLogin.jsp"%>
+<%@ include file="../../static/checkLogin.jsp"%>
 
 <title>Insert title here</title>
 
@@ -19,7 +19,7 @@
 
 </head>
 <body class="jumbotron">
-	<%@ include file="static/navigator.jsp"%>
+	<%@ include file="../../static/navigator.jsp"%>
 	
 <div class="row">
 	<div class="col-md-4 center-block">
@@ -27,6 +27,8 @@
 	</div>
 	<div class="col-md-4 center-block">
 		<span class="text-danger">此二维码只是一个普通二维码，占位用。</span>
+		<br ><br >
+		<span mid="${totalMoney }">${totalMoney }元</span>
 		<br ><br >
 		<img src="static/img/HelloWorld.png" />
 		<br><br>
@@ -41,7 +43,7 @@
 <script>
 	$("#paymentBtn").on("click", function(){
 		$.get("userPayment", function(){
-			location.href = "userOrder.jsp";
+			location.href = "userOrder/1";
 		});
 	});
 </script>

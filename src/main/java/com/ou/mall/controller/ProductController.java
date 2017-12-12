@@ -28,40 +28,36 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value="product", method=RequestMethod.POST)
 	public Msg addProduct(Product product){
-		System.out.println("ADD");
 		productService.addProduct(product);
 		
 		return Msg.failure();
 	}
 	
-	@ResponseBody
+	
 	@RequestMapping(value="indexProducts", method=RequestMethod.GET)
-	public Msg showIndexProducts(HttpSession session, @RequestParam(value="search", required=false) String keyword){
+	public String showIndexProducts(HttpSession session, @RequestParam(value="search", required=false) String keyword){
 		
 		if (keyword == null || "".equals(keyword)){
 			keyword = null;
 		}
 		
 		List<Product> all = productService.getIndexProducts(keyword);
-		Msg msg = Msg.success();
 		session.setAttribute("indexProducts", all);
 		
-		return msg;
+		return "indexMapping";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="adminProducts", method=RequestMethod.GET)
-	public Msg showAdminProducts(HttpSession session, @RequestParam(value="search", required=false) String keyword){
+	@RequestMapping(value="admin", method=RequestMethod.GET)
+	public String showAdminProducts(HttpSession session, @RequestParam(value="search", required=false) String keyword){
 		
 		if (keyword == null || "".equals(keyword)){
 			keyword = null;
 		}
 
 		List<Product> all = productService.getAdminProducts(keyword);
-		Msg msg = Msg.success();
 		session.setAttribute("adminProducts", all);
 		
-		return msg;
+		return "adminMapping";
 	}
 	
 	@ResponseBody

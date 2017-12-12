@@ -2,22 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="row">
-		
 	<div class="btn-toolbar" role="toolbar" aria-label="...">
 		<div class="col-md-2">
-			<button type="button" class="btn btn-primary btn-block">所有订单</button>
+			<a href="?type=0"><button type="button" class="btn btn-primary btn-block">所有订单</button></a>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-block">待付款</button>
+			<a href="?type=1"><button type="button" class="btn btn-block">待付款</button></a>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-block">待发货</button>
+			<a href="?type=2"><button type="button" class="btn btn-block">待发货</button></a>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-block">待收货</button>
+			<a href="?type=3"><button type="button" class="btn btn-block">待收货</button></a>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-block">待评价</button>
+			<a href="?type=4"><button type="button" class="btn btn-block">待评价</button></a>
 		</div>
 	</div>
 </div>
