@@ -30,7 +30,7 @@ public class ProductController {
 	public Msg addProduct(Product product){
 		productService.addProduct(product);
 		
-		return Msg.failure();
+		return Msg.success();
 	}
 	
 	
@@ -60,61 +60,49 @@ public class ProductController {
 		return "adminMapping";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="mainPicture/{id}")
-	public Msg uploadMainPic(UploadedImageFile image, HttpSession session, @PathVariable("id") String pid) throws IllegalStateException, IOException{
+	@RequestMapping(value="mainPicture")
+	public String uploadMainPic(UploadedImageFile image, HttpSession session, @RequestParam("pid") String pid) throws IllegalStateException, IOException{
 		String productImgPath = session.getServletContext().getRealPath("/data/img/product/");
         String newImageName = ImageUtil.transfer(image, productImgPath, pid+"main");
         
         if (newImageName == null){
-        	return Msg.failure();
+        	return "redirect:admin";
         }
         productService.uploadMainPic(Integer.parseInt(pid), "data/img/product/" + newImageName);
-        return Msg.success();
+    	return "redirect:admin";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="secPicture/{id}")
-	public Msg uploadSecPic(UploadedImageFile image, HttpSession session, @PathVariable("id") String pid) throws IllegalStateException, IOException{
+	@RequestMapping(value="secPicture")
+	public String uploadSecPic(UploadedImageFile image, HttpSession session, @RequestParam("pid") String pid) throws IllegalStateException, IOException{
 		String productImgPath = session.getServletContext().getRealPath("/data/img/product/");
         String newImageName = ImageUtil.transfer(image, productImgPath, pid+"sec");
         
         if (newImageName == null){
-        	return Msg.failure();
+        	return "redirect:admin";
         }
         productService.uploadSecPic(Integer.parseInt(pid), "data/img/product/" + newImageName);
-        return Msg.success();
+    	return "redirect:admin";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="thiPicture/{id}")
-	public Msg uploadThiPic(UploadedImageFile image, HttpSession session, @PathVariable("id") String pid) throws IllegalStateException, IOException{
+	@RequestMapping(value="thiPicture")
+	public String uploadThiPic(UploadedImageFile image, HttpSession session, @RequestParam("pid") String pid) throws IllegalStateException, IOException{
 		String productImgPath = session.getServletContext().getRealPath("/data/img/product/");
         String newImageName = ImageUtil.transfer(image, productImgPath, pid+"thi");
 
         if (newImageName == null){
-        	return Msg.failure();
+        	return "redirect:admin";
         }
         productService.uploadThiPic(Integer.parseInt(pid), "data/img/product/" + newImageName);
-        return Msg.success();
+    	return "redirect:admin";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="product/{id}", method=RequestMethod.PUT)
-	public Msg updateProduct(Product product, @PathVariable("id") String pid){
+	public String updateProduct(Product product, @PathVariable("id") String pid){
 		
 		product.setProductId(Integer.parseInt(pid));
 		
 		productService.updateProduct(product);
-        return Msg.success();
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="delProduct", method=RequestMethod.DELETE)
-	public Msg delProduct(Product product){
-		
-		productService.delProduct(product);
-        return Msg.success();
+    	return "redirect:../admin";
 	}
 	
 	@ResponseBody
@@ -132,5 +120,14 @@ public class ProductController {
 		msg.add("secPic", secPic);
 		msg.add("thiPic", thiPic);
 		return msg;
+	}
+	
+	@ResponseBody
+	@RequestMapping("changeProductStatus")
+	public Msg changeProductStatus(@RequestParam("pid") Integer pid, @RequestParam("status") Integer status){
+		productService.changeProductStatus(pid, status);
+		
+		return Msg.success();
+		
 	}
 }

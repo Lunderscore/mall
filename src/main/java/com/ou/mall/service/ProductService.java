@@ -10,8 +10,6 @@ import com.ou.mall.bean.ProductExample;
 import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.bean.ProductImg;
 import com.ou.mall.bean.ProductImgExample;
-import com.ou.mall.bean.UserAvatar;
-import com.ou.mall.bean.UserAvatarExample;
 import com.ou.mall.dao.ProductImgMapper;
 import com.ou.mall.dao.ProductMapper;
 
@@ -51,7 +49,7 @@ public class ProductService {
 		if (title != null) {
 			createCriteria.andProductTitleEqualTo(title);
 		}
-		createCriteria.andProductDelEqualTo(0);
+		createCriteria.andProductDelNotEqualTo(2);
 		List<Product> selectByExample = productMapper.selectByExample(example);
 
 		return selectByExample;
@@ -137,4 +135,11 @@ public class ProductService {
 		return null;
 	}
 
+	public void changeProductStatus(Integer pid, Integer status){
+		Product record = new Product();
+		record.setProductId(pid);
+		record.setProductDel(status);
+		productMapper.updateByPrimaryKeySelective(record);
+		
+	}
 }

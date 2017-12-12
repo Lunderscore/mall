@@ -9,14 +9,14 @@
 					<h4 class="modal-title">修改图片</h4>
 				</div>
 				<div class="modal-body">
-<!-- 				<span id="helpBlock" class="help-block">显示的图片是原图片，上传更新后图片将更新。<span class="redWord">开发者设置只支持三张图片,并且第一张为主要图片</span></span> -->
 					<form id="pictureFrom" class="form-horizontal" method="post" enctype="multipart/form-data">
 						<div class="form-group">
-							<img class="pimg" src="http://how2j.cn/tmall/img/productSingle_middle/676.jpg"/>
+							<img class="pimg" id="alterImg"/>
 							<div class="col-sm-9">
 								<input type="file" class="form-control" name="image">  
 							</div>
 						</div>
+						<input name="pid" value="" type="hidden">
 					</form>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -40,36 +40,36 @@
 				<div class="modal-body">
 					<form class="form-horizontal" id="updateFrom" method="post">
 					<div class="form-group">
-						<label for="productTitle" class="col-sm-3 control-label">商品名称：</label>
+						<label for="updateProductTitle" class="col-sm-3 control-label">商品名称：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input id="productTitle" name="productTitle" class="form-control" type="text"	placeholder="Readonly input here…">
+									<input id="updateProductTitle" name="productTitle" class="form-control" type="text"	placeholder="请输入商品名称">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-						<label for="productPrice" class="col-sm-3 control-label">价格：</label>
+						<label for="updateProductPrice" class="col-sm-3 control-label">价格：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input type="number" id="productPrice" name="productPrice" class="form-control" type="text"	placeholder="Readonly input here…">
+									<input type="number" id="updateProductPrice" name="productPrice" class="form-control" type="text"	placeholder="请输入价格">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-						<label for="productStock" class="col-sm-3 control-label">库存数量：</label>
+						<label for="updateProductStock" class="col-sm-3 control-label">库存数量：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input type="number" id="productStock" name="productStock" class="form-control" type="text"	placeholder="Readonly input here…">
+									<input type="number" id="updateProductStock" name="productStock" class="form-control" type="text"	placeholder="请输入库存数量">
 										</button>
 									</span>
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-						<label for="productInfo" class="col-sm-3 control-label">产品介绍：</label>
+						<label for="updateProductInfo" class="col-sm-3 control-label">产品介绍：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<textarea id="productInfo" name="productInfo" class="form-control" type="text"	placeholder="Readonly input here…" rows="3"></textarea>
+									<textarea id="updateProductInfo" name="productInfo" class="form-control" type="text" placeholder="请输入产品介绍" rows="3"></textarea>
 								</div>
 							</div>
 						</div>
@@ -103,7 +103,7 @@
 						<label for="addProductName" class="col-sm-3 control-label">商品名称：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input id="addProductName" name="productTitle" class="form-control" type="text"	placeholder="Readonly input here…">
+									<input id="addProductName" name="productTitle" class="form-control" type="text"	placeholder="请输入商品名称">
 								</div>
 							</div>
 						</div>
@@ -111,7 +111,7 @@
 						<label for="addProductPrice" class="col-sm-3 control-label">价格：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input id="addProductPrice" name="productPrice" class="form-control" type="number"	placeholder="Readonly input here…">
+									<input id="addProductPrice" name="productPrice" class="form-control" type="number"	placeholder="请输入价格">
 								</div>
 							</div>
 						</div>
@@ -119,7 +119,7 @@
 						<label for="addProductStock" class="col-sm-3 control-label">库存数量：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<input id="addProductStock" name="productStock" class="form-control" type="number"	placeholder="Readonly input here…">
+									<input id="addProductStock" name="productStock" class="form-control" type="number"	placeholder="请输入库存数量">
 										</button>
 									</span>
 								</div>
@@ -130,7 +130,7 @@
 						<label for="addProductInfo" class="col-sm-3 control-label">产品介绍：</label>
 							<div class="col-sm-9">
 								<div class="col-sm-10 input-group">
-									<textarea id="addProductInfo" name="productInfo" class="form-control" type="text" rows="3"></textarea>
+									<textarea id="addProductInfo" name="productInfo" placeholder="请输入产品介绍" class="form-control" type="text" rows="3"></textarea>
 								</div>
 							</div>
 						</div>
