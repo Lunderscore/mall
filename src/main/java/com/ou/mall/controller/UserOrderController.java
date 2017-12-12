@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,15 +34,21 @@ public class UserOrderController {
 	}
 	
 	@RequestMapping("shoppingCarConfirm")
-	public String shoppingCarConfirm(@RequestParam("uoid") Integer uoid, @RequestParam("totalMoney") Integer totalMoney, 
+	public String shoppingCarConfirm(@RequestParam("uoid") String uoid, @RequestParam("totalMoney") String totalMoney, 
 			UserOrder userOrder, HttpServletRequest request){
+		if ("".equals(uoid) || "".equals(totalMoney) || uoid==null || totalMoney==null){
+			return "indexMapping";
+		}
 		
-		userOrder.setOrderId(uoid);
-		Date orderDateTime = new Date(System.currentTimeMillis());
-		userOrder.setOrderDateTime(orderDateTime);
-		userOrderService.updateOrderByPrimaryKey(userOrder);
+		String[] uoids = uoid.split("-");
+		for (String id : uoids){
+			userOrder.setOrderId(Integer.parseInt(id));
+			Date orderDateTime = new Date(System.currentTimeMillis());
+			userOrder.setOrderDateTime(orderDateTime);
+			userOrderService.updateOrderByPrimaryKey(userOrder);
+		}
+		
 		request.setAttribute("totalMoney", totalMoney);
-		
 		return "paymentMapping";
 	}
 	
@@ -55,12 +60,27 @@ public class UserOrderController {
 		return Msg.success();
 	}
 	
+	@ResponseBody
+	@RequestMapping("delOrderBatch")
+	public Msg delOrderBatch(@RequestParam("uoid")String uoid){
+		if (uoid==null || "".equals(uoid)){
+			return Msg.failure();
+		}
+		
+		String[] uoids = uoid.split("-");
+		for (String id : uoids){
+			userOrderService.deleteOrder(Integer.parseInt(id));
+		}
+		
+		return Msg.success();
+	}
+	
 	
 	@RequestMapping("shoppingCar")
 	public String getShoppingCar(HttpSession session){
 		Integer uid = (Integer) session.getAttribute("user");
 		if (uid == null){
-			return "loginMapping";
+			return "redirect:login.jsp";
 		}
 		
 		List<UserOrder> shoppingCar = userOrderService.getShoppingCar(uid);
@@ -87,7 +107,7 @@ public class UserOrderController {
 	public String userOrderPage(HttpSession session, @RequestParam(value="type", defaultValue="0") String type){
 		Integer uid = (Integer) session.getAttribute("user");
 		if (uid == null){
-			return "loginMapping";
+			return "redirect:login.jsp";
 		}
 		
 		List<UserOrder> totalOrder = userOrderService.userOrderPage(uid, Integer.parseInt(type));

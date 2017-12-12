@@ -6,7 +6,7 @@
 	<thead>
 		<tr>
 			<th style="width:20%">
-				<input type="checkbox">
+				<input type="checkbox" id='checkAll'>全选
 			</th>
 			<th>商品名</th>
 			<th>单价</th>
@@ -20,7 +20,7 @@
 			<c:forEach items="${shoppingCar }" var="item">
 				<tr>
 					<td>
-						<input type="checkbox">
+						<input type="checkbox" class="checkItem" uoidCheckbox="${item.orderId }" value="${item.product.productPrice * item.orderNumber }">
 						<img src="${item.product.productImg }" class="pimg" />
 					</td>
 				<th>${item.product.productTitle }</th>

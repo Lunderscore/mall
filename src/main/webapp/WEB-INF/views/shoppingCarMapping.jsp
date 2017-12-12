@@ -31,7 +31,10 @@
 	<hr>
 	
 	<div class="row">
-		<div class="col-md-3 col-md-offset-10">
+		<div class="col-md-3">
+			<button type="button" class="btn btn-lg btn-danger" id="delBatchBtn">删除订单</button>
+		</div>
+		<div class="col-md-3 col-md-offset-6">
 			<button type="button" class="btn btn-lg btn-success"  data-toggle="modal" data-target="#addressModal">确认订单</button>
 		</div>
 	</div>
@@ -81,8 +84,8 @@
 							</div>
 						</div>
 						<input name="orderStatus" type="hidden" value="1">
-						<input name="totalMoney" type="hidden" value="9">
-						<input name="uoid" type="hidden" value="18">
+						<input name="totalMoney" type="hidden" id="hideTotalMoney">
+						<input name="uoid" type="hidden" id="hideTotalhideUoid">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -97,14 +100,50 @@
 	$(document).on("click", "[uoid]", function(){
 		var uoid = $(this).attr("uoid");
 		$.get("delOrder", {uoid:uoid}, function(){
-			location.href = "shoppingCar.jsp";
+			location.href = "shoppingCar";
 		});
 	});
 	
 	$("#submitShoppingCar").on("click", function(){
+		calcu();
 		$("#shoppingCarForm").submit();
 	});
 	
+	$("#delBatchBtn").on("click", function(){
+		calcu();
+		var uoid = $("#hideTotalhideUoid");
+		$.get("delOrderBatch", {uoid:uoid}, function(){
+			location.href = "shoppingCar";
+		});
+	});
+	
+// 	复选框操作
+	function calcu(){
+		var totalMoney = 0;
+		var uoid = "";
+		$.each($(".checkItem:checked"), function(){
+			totalMoney += Number($(this).attr("value"));
+			uoid += $(this).attr("uoidCheckbox") + "-";
+		});
+		uoid = uoid.substring(0, uoid.length-1);
+		$("#hideTotalMoney").val(totalMoney);
+		$("#hideTotalhideUoid").val(uoid);
+	}
+	
+	$("#checkAll").on("click", function(){
+		if ($(this).prop("checked")){
+			$(".checkItem").prop("checked", true);
+		}else{
+			$(".checkItem").prop("checked", false);
+		}
+	$(document).on("click", ".checkItem", function(){
+		if ($(".checkItem:checked").length == $(".checkItem").length){
+			$("#checkAll").prop("checked", true);
+		}else{
+			$("#checkAll").prop("checked", false);
+		}
+	});
+	});
 	</script>
 </body>
 </html>

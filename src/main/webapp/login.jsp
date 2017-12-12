@@ -10,7 +10,7 @@
 <%
 	if (session.getAttribute("user") != null){
 %>
-		location.href = "index.jsp";
+		location.href = "index";
 <%
 	}
 %>

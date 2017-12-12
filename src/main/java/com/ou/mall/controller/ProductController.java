@@ -34,7 +34,7 @@ public class ProductController {
 	}
 	
 	
-	@RequestMapping(value="indexProducts", method=RequestMethod.GET)
+	@RequestMapping(value="index", method=RequestMethod.GET)
 	public String showIndexProducts(HttpSession session, @RequestParam(value="search", required=false) String keyword){
 		
 		if (keyword == null || "".equals(keyword)){

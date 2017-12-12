@@ -120,7 +120,7 @@ $(function(){
 	$("#addToCar").on("click", function(){
 		var num = $("#number").val();
 		$.post("order", {pid:pid, num:num}, function(){
-			location.href = "shoppingCar.jsp";
+			location.href = "shoppingCar";
 		});
 	});
 	
