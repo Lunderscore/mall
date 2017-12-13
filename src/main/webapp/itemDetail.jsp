@@ -81,36 +81,37 @@ for (var i=0;i<vars.length;i++) {
        	}
 }
 $(function(){
-	$.get("getProductByIDJSON?pid="+pid, function(data){
+	$.get("products/"+pid, function(data){
 		console.log(data);
-		$("#ProductTitle").html(data.content.product.productTitle);
-		$("#price").html(data.content.product.productPrice);
-		$("#stock").html(data.content.product.productStock);
-		$("#prodictInfo").html(data.content.product.productInfo);
+		var v = data.content.product;
+		$("#ProductTitle").html(v.productTitle);
+		$("#price").html(v.productPrice);
+		$("#stock").html(v.productStock);
+		$("#prodictInfo").html(v.productInfo);
 		
-		if (data.content.product.productImg != null ){
+		if (v.productImg1 != null ){
 			$("<li data-target='#carousel-example-generic' data-slide-to='0' class='active'></li>")
 				.appendTo("#carouselIndex");
 			$("<div class='item active'></div>")
-				.append("<img src="+ data.content.product.productImg +" class='img-responsive' />")
+				.append("<img src="+ v.productImg1 +" class='img-responsive' />")
 				.appendTo("#carouselImg");
 		}
 		
-		if (data.content.secPic != null ){
+		if (v.productImg2 != null ){
 			$("<li data-target='#carousel-example-generic' data-slide-to='1'></li>")
 				.appendTo("#carouselIndex");
 			
 			$("<div class='item'></div>")
-			.append("<img src="+ data.content.secPic +" class='img-responsive' />")
+			.append("<img src="+ v.productImg2 +" class='img-responsive' />")
 			.appendTo("#carouselImg");
 		}
 		
-		if (data.content.thiPic != null ){
+		if (v.productImg3 != null ){
 			$("<li data-target='#carousel-example-generic' data-slide-to='2'></li>")
 				.appendTo("#carouselIndex");
 			
 			$("<div class='item'></div>")
-			.append("<img src="+ data.content.thiPic +" class='img-responsive' />")
+			.append("<img src="+ v.productImg3 +" class='img-responsive' />")
 			.appendTo("#carouselImg");
 		}
 	});
@@ -119,8 +120,8 @@ $(function(){
 	
 	$("#addToCar").on("click", function(){
 		var num = $("#number").val();
-		$.post("order", {pid:pid, num:num}, function(){
-			location.href = "shoppingCar";
+		$.post("order", {pid:pid, num:num}, function(data){
+			console.log(data);
 		});
 	});
 	

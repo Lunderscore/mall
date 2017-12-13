@@ -1,9 +1,5 @@
 package com.ou.mall.controller;
 
-import java.sql.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ou.mall.bean.Msg;
+import com.ou.mall.bean.User;
 import com.ou.mall.bean.UserOrder;
 import com.ou.mall.service.UserOrderService;
 
@@ -22,34 +19,18 @@ public class UserOrderController {
 	UserOrderService userOrderService;
 	
 	@ResponseBody
-	@RequestMapping("order")
+	@RequestMapping("/order")
 	public Msg createOrder(HttpSession session, @RequestParam("pid") Integer pid, @RequestParam("num") Integer num){
-		Integer uid = (Integer) session.getAttribute("user");
-		if (num==null || "".equals(num) || uid==null){
-			return Msg.failure();
+		User user = (User) session.getAttribute("userSession");
+		if (num==null || "".equals(num)){
+			return Msg.failure().add("msg", "数量输入错误");
+		}else if(user==null){
+			return Msg.failure().add("msg", "你还没有登录");
 		}
 		
+		Integer uid = user.getUserId();
 		userOrderService.createOrder(uid, pid, num);
 		return Msg.success();
-	}
-	
-	@RequestMapping("toPayment")
-	public String shoppingCarConfirm(@RequestParam("uoid") String uoid, @RequestParam("totalMoney") String totalMoney, 
-			UserOrder userOrder, HttpServletRequest request){
-		if ("".equals(uoid) || "".equals(totalMoney) || uoid==null || totalMoney==null){
-			return "indexMapping";
-		}
-		
-		String[] uoids = uoid.split("-");
-		for (String id : uoids){
-			userOrder.setOrderId(Integer.parseInt(id));
-			Date orderDateTime = new Date(System.currentTimeMillis());
-			userOrder.setOrderDateTime(orderDateTime);
-			userOrderService.updateOrderByPrimaryKey(userOrder);
-		}
-		
-		request.setAttribute("totalMoney", totalMoney);
-		return "paymentMapping";
 	}
 	
 	@ResponseBody
@@ -75,20 +56,6 @@ public class UserOrderController {
 		return Msg.success();
 	}
 	
-	
-	@RequestMapping("shoppingCar")
-	public String getShoppingCar(HttpSession session){
-		Integer uid = (Integer) session.getAttribute("user");
-		if (uid == null){
-			return "redirect:login.jsp";
-		}
-		
-		List<UserOrder> shoppingCar = userOrderService.getShoppingCar(uid);
-		session.setAttribute("shoppingCar", shoppingCar);
-		
-		return "shoppingCarMapping";
-	}
-	
 	@ResponseBody
 	@RequestMapping("confirmOrder")
 	public Msg confirmOrder(HttpSession session){
@@ -97,21 +64,25 @@ public class UserOrderController {
 			return Msg.failure();
 		}
 		
-		List<UserOrder> shoppingCar = userOrderService.getShoppingCar(uid);
-		session.setAttribute("shoppingCar", shoppingCar);
+//		List<UserOrder> shoppingCar = userOrderService.getShoppingCar(uid);
+//		session.setAttribute("shoppingCar", shoppingCar);
 		
-		return Msg.success().add("shoppingCar", shoppingCar);
+		return Msg.success();
 	}
 
-	@RequestMapping("userOrder")
-	public String userOrderPage(HttpSession session, @RequestParam(value="type", defaultValue="0") String type){
-		Integer uid = (Integer) session.getAttribute("user");
-		if (uid == null){
-			return "redirect:login.jsp";
+	@ResponseBody
+	@RequestMapping("updateOrder")
+	public Msg updateOrder(HttpSession session, @RequestParam("uoid") String uoid
+			, @RequestParam("type") Integer type){
+
+		String[] uoids = uoid.split("-");
+		for (String id : uoids){
+			UserOrder uo = new UserOrder();
+			uo.setOrderId(Integer.parseInt(id));
+			uo.setOrderStatus(type);
+			userOrderService.updateByPrimaryKeySelective(uo);
 		}
-		
-		List<UserOrder> totalOrder = userOrderService.userOrderPage(uid, Integer.parseInt(type));
-		session.setAttribute("userOrder", totalOrder);
-		return "userOrderMapping";
+		return Msg.success();
 	}
+	
 }

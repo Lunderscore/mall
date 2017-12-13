@@ -23,28 +23,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@ResponseBody
-	@RequestMapping(value="user", method=RequestMethod.GET)
-	public Msg login(User user, HttpSession session){
-		
-		if (userService.login(user)){
-			user = userService.getUserByUsername(user.getUserUsername());
-			session.setAttribute("user", user.getUserId());
-			return Msg.success();
-		}
-		
-		return Msg.failure();
-	}
+	@Autowired
+	HttpSession session;
 	
-	@ResponseBody
-	@RequestMapping(value="user", method=RequestMethod.POST)
-	public Msg register(User user){
-		if (userService.register(user)){
-			return Msg.success();
-		}
-		
-		return Msg.failure();
-	}
 	
 	@ResponseBody
 	@RequestMapping(value="user", method=RequestMethod.PUT)
@@ -69,28 +50,24 @@ public class UserController {
         if (newImageName == null){
         	return Msg.failure();
         }
-        userService.uploadAvatar(userID, "data/img/userAvatar/"+newImageName);
+//        userService.uploadAvatar(userID, "data/img/userAvatar/"+newImageName);
         return Msg.success();
 	}
-
+	
 	@ResponseBody
-	@RequestMapping(value="userPayment")
-	public Msg payment(HttpSession session,@RequestParam("mid") String payMoney){
-		Integer uid = (Integer) session.getAttribute("user");
+	@RequestMapping(value="money")
+	public Msg payment(@RequestParam(value="mid", defaultValue="0") Integer payMoney, @RequestParam(value="type", defaultValue="0") Integer type){
+		User user = (User) session.getAttribute("userSession");
+		if (payMoney==null || "".equals(payMoney)){
+			return Msg.failure().add("msg", "操作错误");
+		}else if(user==null){
+			return Msg.failure().add("msg", "你还没有登录");
+		}else if (type == 1){
+			payMoney = -payMoney;
+		}
 		
-		userService.payment(uid, Integer.parseInt(payMoney));
+		Integer uid = user.getUserId();
+		userService.addMoney(payMoney, uid);
 		return Msg.success();
 	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value="logOut")
-	public Msg logOut(HttpSession session){
-		System.out.println("logOut");
-		session.removeAttribute("user");
-		return Msg.success();
-	}
-	
-	
-	
 }

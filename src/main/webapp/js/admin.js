@@ -5,21 +5,20 @@ $(function(){
 	
 	$(document).on("click", ".uploadImgBtnClass", function(){
 		var pid = $(this).attr("pid");
-		$("[name=pid]").attr("value", pid);
 		var type = $(this).attr("tp");
 		if (type == 1){
-			$("#pictureFrom").attr("action", "mainPicture");
+			$("#pictureFrom").attr("action", "products/" + pid + "/" + "1");
 		}else if (type == 2){
-			$("#pictureFrom").attr("action", "secPicture");
+			$("#pictureFrom").attr("action", "products/" + pid + "/" + "2");
 		}else if (type == 3){
-			$("#pictureFrom").attr("action", "thiPicture");
+			$("#pictureFrom").attr("action", "products/" + pid + "/" + "3");
 		}
 	});
 	
 	$(document).on("click", ".updateClass", function(){
 		var pid = $(this).attr("pid");
-		$("#updateFrom").attr("action", "product/"+pid);
-		$.get("getProductByIDJSON?pid=" + pid, function(data){
+		$("#updateFrom").attr("action", "products/"+pid);
+		$.get("products/"+pid, function(data){
 			var d = data.content.product;
 			$("#updateProductTitle").val(d.productTitle);
 			$("#updateProductPrice").val(d.productPrice);
@@ -28,20 +27,22 @@ $(function(){
 		});
 	});
 	
+//	下架或删除产品
 	$(document).on("click", ".ChangeBtn", function(){
 		var pid = $(this).attr("pid");
 		var status = $(this).attr("status");
 		
-		$.post("changeProductStatus",{pid: pid, status:status}, function(){
+		$.post("products/"+pid,{productStatus: status, _method: "put"}, function(){
 			location.reload();
 		});
 		
 	});
 	$(document).on("click", ".updateClass", function(){
 		var pid = $(this).attr("pid");
-		$("#updateFrom").attr("action", "product/"+pid);
+		$("#updateFrom").attr("action", "products/"+pid);
 	});
 	
+//	提交图片
 	$("#submitImgBtn").on("click", function(){
 		picture();
 	});
@@ -50,35 +51,33 @@ $(function(){
 		updateProduct();
 	});
 	
+//	更新照片前获取照片
 	$(document).on("click", "[tp]", function(){
 		var pid = $(this).attr("pid");
 		var tp = $(this).attr("tp");
-		if (tp == 1){
-			var imgUri = $(this).attr("mimg");
-			$("#alterImg").attr("src", imgUri);
-		}else if (tp == 2 || tp == 3){
-			$.get("getProductImg?pid=" + pid + "&which=" + tp, function(data){
-				$("#alterImg").attr("src", data.content.imgUri);
-			});
-		}
-		
+		$.get("products/"+pid, function(data){
+			console.log(data);
+			if (tp == 1){
+				$("#alterImg").attr("src", "../"+data.content.product.productImg1);
+			}else if (tp == 2){
+				$("#alterImg").attr("src", "../"+data.content.product.productImg2);
+			}else if (tp == 3){
+				$("#alterImg").attr("src", "../"+data.content.product.productImg3);
+			}
+		});
 	});
 });
 
-
+//添加商品
 function addProduct(){
-	var name = $("#addProductName").val();
-	var price = $("#addProductPrice").val();
-	var stock = $("#addProductStock").val();
-	var info = $("#addProductInfo").val();
-	$.post("product", {productTitle:name, productPrice:price, productStock:stock, productInfo:info, productDel:"0"}, function(data){
-		location.reload();
-	})
+	$("#addProductForm").submit();
 }
 
+//上传图片
 function picture(){
  	$("#pictureFrom").submit();
 }
+//更新产品
 function updateProduct(){
 	$("#updateFrom").submit();
 }

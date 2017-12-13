@@ -13,9 +13,13 @@ public class Product {
 
     private Integer productStock;
 
-    private String productImg;
+    private String productImg1;
 
-    private Integer productDel;
+    private String productImg2;
+
+    private String productImg3;
+
+    private Integer productStatus;
 
     public Integer getProductId() {
         return productId;
@@ -57,19 +61,35 @@ public class Product {
         this.productStock = productStock;
     }
 
-    public String getProductImg() {
-        return productImg;
+    public String getProductImg1() {
+        return productImg1;
     }
 
-    public void setProductImg(String productImg) {
-        this.productImg = productImg == null ? null : productImg.trim();
+    public void setProductImg1(String productImg1) {
+        this.productImg1 = productImg1 == null ? null : productImg1.trim();
     }
 
-    public Integer getProductDel() {
-        return productDel;
+    public String getProductImg2() {
+        return productImg2;
     }
 
-    public void setProductDel(Integer productDel) {
-        this.productDel = productDel;
+    public void setProductImg2(String productImg2) {
+        this.productImg2 = productImg2 == null ? null : productImg2.trim();
+    }
+
+    public String getProductImg3() {
+        return productImg3;
+    }
+
+    public void setProductImg3(String productImg3) {
+        this.productImg3 = productImg3 == null ? null : productImg3.trim();
+    }
+
+    public Integer getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(Integer productStatus) {
+        this.productStatus = productStatus;
     }
 }

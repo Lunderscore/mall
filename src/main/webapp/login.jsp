@@ -6,16 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="static/header.jsp"%>
 
-<script>
-<%
-	if (session.getAttribute("user") != null){
-%>
-		location.href = "index";
-<%
-	}
-%>
-</script>
-
 <title>Insert title here</title>
 </head>
 <body class="jumbotron">
@@ -30,10 +20,10 @@
 		</div>
 		
 		<div class="col-md-8 col-md-offset-4">
-			<form class="form-horizontal">
+			<form class="form-horizontal" id="loginForm" action="login" method="post">
 				<div class="form-group has-error"  id="usernameDiv">
 					<div class="col-sm-6">
-						<input type="text" class="form-control"	id="username" placeholder="请输入账号">
+						<input type="text" name="userUsername" class="form-control"	id="username" placeholder="请输入账号">
 					</div>
 					<div class="col-sm-3">
 						<span class="text-danger" id="usernameSpan">123</span>
@@ -41,7 +31,7 @@
 				</div>
 				<div class="form-group"  id="password1Div">
 					<div class="col-sm-6">
-						<input type="password" class="form-control" id="password1" placeholder="请输入密码">
+						<input type="password" name="userPassword" class="form-control" id="password1" placeholder="请输入密码">
 					</div>
 					<div class="col-sm-3">
 						<span class="id="password1Span" id="password1Span">123</span>

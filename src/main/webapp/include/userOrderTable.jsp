@@ -56,7 +56,7 @@
 		<div class="col-md-12">
 			<div class="col-md-6">
 				<div class="col-md-4">
-					<img src="${item.product.productImg }"
+					<img src="${item.product.productImg1 }"
 						class="pimg" />
 				</div>
 				<div class="col-md-8">${item.product.productTitle }</div>

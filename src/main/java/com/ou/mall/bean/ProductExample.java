@@ -425,133 +425,273 @@ public class ProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andProductImgIsNull() {
-            addCriterion("product_img is null");
+        public Criteria andProductImg1IsNull() {
+            addCriterion("product_img1 is null");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgIsNotNull() {
-            addCriterion("product_img is not null");
+        public Criteria andProductImg1IsNotNull() {
+            addCriterion("product_img1 is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgEqualTo(String value) {
-            addCriterion("product_img =", value, "productImg");
+        public Criteria andProductImg1EqualTo(String value) {
+            addCriterion("product_img1 =", value, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgNotEqualTo(String value) {
-            addCriterion("product_img <>", value, "productImg");
+        public Criteria andProductImg1NotEqualTo(String value) {
+            addCriterion("product_img1 <>", value, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgGreaterThan(String value) {
-            addCriterion("product_img >", value, "productImg");
+        public Criteria andProductImg1GreaterThan(String value) {
+            addCriterion("product_img1 >", value, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgGreaterThanOrEqualTo(String value) {
-            addCriterion("product_img >=", value, "productImg");
+        public Criteria andProductImg1GreaterThanOrEqualTo(String value) {
+            addCriterion("product_img1 >=", value, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgLessThan(String value) {
-            addCriterion("product_img <", value, "productImg");
+        public Criteria andProductImg1LessThan(String value) {
+            addCriterion("product_img1 <", value, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgLessThanOrEqualTo(String value) {
-            addCriterion("product_img <=", value, "productImg");
+        public Criteria andProductImg1LessThanOrEqualTo(String value) {
+            addCriterion("product_img1 <=", value, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgLike(String value) {
-            addCriterion("product_img like", value, "productImg");
+        public Criteria andProductImg1Like(String value) {
+            addCriterion("product_img1 like", value, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgNotLike(String value) {
-            addCriterion("product_img not like", value, "productImg");
+        public Criteria andProductImg1NotLike(String value) {
+            addCriterion("product_img1 not like", value, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgIn(List<String> values) {
-            addCriterion("product_img in", values, "productImg");
+        public Criteria andProductImg1In(List<String> values) {
+            addCriterion("product_img1 in", values, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgNotIn(List<String> values) {
-            addCriterion("product_img not in", values, "productImg");
+        public Criteria andProductImg1NotIn(List<String> values) {
+            addCriterion("product_img1 not in", values, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgBetween(String value1, String value2) {
-            addCriterion("product_img between", value1, value2, "productImg");
+        public Criteria andProductImg1Between(String value1, String value2) {
+            addCriterion("product_img1 between", value1, value2, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductImgNotBetween(String value1, String value2) {
-            addCriterion("product_img not between", value1, value2, "productImg");
+        public Criteria andProductImg1NotBetween(String value1, String value2) {
+            addCriterion("product_img1 not between", value1, value2, "productImg1");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelIsNull() {
-            addCriterion("product_del is null");
+        public Criteria andProductImg2IsNull() {
+            addCriterion("product_img2 is null");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelIsNotNull() {
-            addCriterion("product_del is not null");
+        public Criteria andProductImg2IsNotNull() {
+            addCriterion("product_img2 is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelEqualTo(Integer value) {
-            addCriterion("product_del =", value, "productDel");
+        public Criteria andProductImg2EqualTo(String value) {
+            addCriterion("product_img2 =", value, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelNotEqualTo(Integer value) {
-            addCriterion("product_del <>", value, "productDel");
+        public Criteria andProductImg2NotEqualTo(String value) {
+            addCriterion("product_img2 <>", value, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelGreaterThan(Integer value) {
-            addCriterion("product_del >", value, "productDel");
+        public Criteria andProductImg2GreaterThan(String value) {
+            addCriterion("product_img2 >", value, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelGreaterThanOrEqualTo(Integer value) {
-            addCriterion("product_del >=", value, "productDel");
+        public Criteria andProductImg2GreaterThanOrEqualTo(String value) {
+            addCriterion("product_img2 >=", value, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelLessThan(Integer value) {
-            addCriterion("product_del <", value, "productDel");
+        public Criteria andProductImg2LessThan(String value) {
+            addCriterion("product_img2 <", value, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelLessThanOrEqualTo(Integer value) {
-            addCriterion("product_del <=", value, "productDel");
+        public Criteria andProductImg2LessThanOrEqualTo(String value) {
+            addCriterion("product_img2 <=", value, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelIn(List<Integer> values) {
-            addCriterion("product_del in", values, "productDel");
+        public Criteria andProductImg2Like(String value) {
+            addCriterion("product_img2 like", value, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelNotIn(List<Integer> values) {
-            addCriterion("product_del not in", values, "productDel");
+        public Criteria andProductImg2NotLike(String value) {
+            addCriterion("product_img2 not like", value, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelBetween(Integer value1, Integer value2) {
-            addCriterion("product_del between", value1, value2, "productDel");
+        public Criteria andProductImg2In(List<String> values) {
+            addCriterion("product_img2 in", values, "productImg2");
             return (Criteria) this;
         }
 
-        public Criteria andProductDelNotBetween(Integer value1, Integer value2) {
-            addCriterion("product_del not between", value1, value2, "productDel");
+        public Criteria andProductImg2NotIn(List<String> values) {
+            addCriterion("product_img2 not in", values, "productImg2");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg2Between(String value1, String value2) {
+            addCriterion("product_img2 between", value1, value2, "productImg2");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg2NotBetween(String value1, String value2) {
+            addCriterion("product_img2 not between", value1, value2, "productImg2");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3IsNull() {
+            addCriterion("product_img3 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3IsNotNull() {
+            addCriterion("product_img3 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3EqualTo(String value) {
+            addCriterion("product_img3 =", value, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3NotEqualTo(String value) {
+            addCriterion("product_img3 <>", value, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3GreaterThan(String value) {
+            addCriterion("product_img3 >", value, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3GreaterThanOrEqualTo(String value) {
+            addCriterion("product_img3 >=", value, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3LessThan(String value) {
+            addCriterion("product_img3 <", value, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3LessThanOrEqualTo(String value) {
+            addCriterion("product_img3 <=", value, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3Like(String value) {
+            addCriterion("product_img3 like", value, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3NotLike(String value) {
+            addCriterion("product_img3 not like", value, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3In(List<String> values) {
+            addCriterion("product_img3 in", values, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3NotIn(List<String> values) {
+            addCriterion("product_img3 not in", values, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3Between(String value1, String value2) {
+            addCriterion("product_img3 between", value1, value2, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductImg3NotBetween(String value1, String value2) {
+            addCriterion("product_img3 not between", value1, value2, "productImg3");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusIsNull() {
+            addCriterion("product_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusIsNotNull() {
+            addCriterion("product_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusEqualTo(Integer value) {
+            addCriterion("product_status =", value, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusNotEqualTo(Integer value) {
+            addCriterion("product_status <>", value, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusGreaterThan(Integer value) {
+            addCriterion("product_status >", value, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("product_status >=", value, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusLessThan(Integer value) {
+            addCriterion("product_status <", value, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("product_status <=", value, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusIn(List<Integer> values) {
+            addCriterion("product_status in", values, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusNotIn(List<Integer> values) {
+            addCriterion("product_status not in", values, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusBetween(Integer value1, Integer value2) {
+            addCriterion("product_status between", value1, value2, "productStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("product_status not between", value1, value2, "productStatus");
             return (Criteria) this;
         }
     }

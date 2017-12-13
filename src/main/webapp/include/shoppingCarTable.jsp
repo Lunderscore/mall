@@ -21,7 +21,7 @@
 				<tr>
 					<td>
 						<input type="checkbox" class="checkItem" uoidCheckbox="${item.orderId }" value="${item.product.productPrice * item.orderNumber }">
-						<img src="${item.product.productImg }" class="pimg" />
+						<img src="${item.product.productImg1 }" class="pimg" />
 					</td>
 				<th>${item.product.productTitle }</th>
 				<th>${item.product.productPrice }</th>

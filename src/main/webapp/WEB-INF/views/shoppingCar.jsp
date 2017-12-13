@@ -50,7 +50,7 @@
 					<h4 class="modal-title">收货地址</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" action="toPayment" id="shoppingCarForm" method="post">
+					<form class="form-horizontal" action="payment" id="shoppingCarForm" method="post">
 						<div class="form-group">
 							<label for="orderPersonName" class="col-sm-3 control-label">收货人：</label>
 							<div class="col-sm-9">
@@ -136,13 +136,13 @@
 		}else{
 			$(".checkItem").prop("checked", false);
 		}
+	});
 	$(document).on("click", ".checkItem", function(){
 		if ($(".checkItem:checked").length == $(".checkItem").length){
 			$("#checkAll").prop("checked", true);
 		}else{
 			$("#checkAll").prop("checked", false);
 		}
-	});
 	});
 	</script>
 </body>

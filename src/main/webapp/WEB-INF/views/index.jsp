@@ -23,21 +23,21 @@
 			<div class="input-group input-group-lg">
 			  <input type="text" class="form-control" placeholder="输入商品名" aria-describedby="sizing-addon1">
 			  <span class="input-group-btn">
-		        <button class="btn btn-default" type="button">Go!</button>
+		        <button class="btn btn-default">Go!</button>
 		      </span>
 			</div>
 		</div>
 	</div>
 	
-<c:if test="${not empty indexProducts }">
-	<c:forEach items="${indexProducts }" var="product" varStatus="i">
+<c:if test="${not empty Products }">
+	<c:forEach items="${Products }" var="product" varStatus="i">
 		<c:if test="${i.index%5 == 0 }">
 			<div class="row col-md-offset-1">
 		</c:if>
 		<div class="col-md-2">
 			<a href="itemDetail.jsp?pid=${product.productId }">
 				<div class="thumbnail item">
-					<img src="${product.productImg }">
+					<img src="${product.productImg1 }">
 					<div class="caption">
 						<p>${product.productTitle }</p>
 						<h3>${product.productPrice }</h3>

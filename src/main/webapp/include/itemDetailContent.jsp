@@ -1,6 +1,6 @@
 <!-- itemDetail.jsp -->
 
-<form class="form-horizontal">
+<form class="form-horizontal" id="itemDetailForm" action="order">
 <div class="form-group">
     <label for="ProductTitle" class="col-sm-2 control-label">商品名：</label>
     <div class="col-sm-10">

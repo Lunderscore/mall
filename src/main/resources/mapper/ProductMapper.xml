@@ -7,8 +7,10 @@
     <result column="product_info" jdbcType="VARCHAR" property="productInfo" />
     <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
     <result column="product_stock" jdbcType="INTEGER" property="productStock" />
-    <result column="product_img" jdbcType="VARCHAR" property="productImg" />
-    <result column="product_del" jdbcType="INTEGER" property="productDel" />
+    <result column="product_img1" jdbcType="VARCHAR" property="productImg1" />
+    <result column="product_img2" jdbcType="VARCHAR" property="productImg2" />
+    <result column="product_img3" jdbcType="VARCHAR" property="productImg3" />
+    <result column="product_status" jdbcType="INTEGER" property="productStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    product_id, product_title, product_info, product_price, product_stock, product_img, 
-    product_del
+    product_id, product_title, product_info, product_price, product_stock, product_img1, 
+    product_img2, product_img3, product_status
   </sql>
   <select id="selectByExample" parameterType="com.ou.mall.bean.ProductExample" resultMap="BaseResultMap">
     select
@@ -104,11 +106,13 @@
   </delete>
   <insert id="insert" parameterType="com.ou.mall.bean.Product">
     insert into product (product_id, product_title, product_info, 
-      product_price, product_stock, product_img, 
-      product_del)
+      product_price, product_stock, product_img1, 
+      product_img2, product_img3, product_status
+      )
     values (#{productId,jdbcType=INTEGER}, #{productTitle,jdbcType=VARCHAR}, #{productInfo,jdbcType=VARCHAR}, 
-      #{productPrice,jdbcType=DECIMAL}, #{productStock,jdbcType=INTEGER}, #{productImg,jdbcType=VARCHAR}, 
-      #{productDel,jdbcType=INTEGER})
+      #{productPrice,jdbcType=DECIMAL}, #{productStock,jdbcType=INTEGER}, #{productImg1,jdbcType=VARCHAR}, 
+      #{productImg2,jdbcType=VARCHAR}, #{productImg3,jdbcType=VARCHAR}, #{productStatus,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ou.mall.bean.Product">
     insert into product
@@ -128,11 +132,17 @@
       <if test="productStock != null">
         product_stock,
       </if>
-      <if test="productImg != null">
-        product_img,
+      <if test="productImg1 != null">
+        product_img1,
       </if>
-      <if test="productDel != null">
-        product_del,
+      <if test="productImg2 != null">
+        product_img2,
+      </if>
+      <if test="productImg3 != null">
+        product_img3,
+      </if>
+      <if test="productStatus != null">
+        product_status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -151,11 +161,17 @@
       <if test="productStock != null">
         #{productStock,jdbcType=INTEGER},
       </if>
-      <if test="productImg != null">
-        #{productImg,jdbcType=VARCHAR},
+      <if test="productImg1 != null">
+        #{productImg1,jdbcType=VARCHAR},
       </if>
-      <if test="productDel != null">
-        #{productDel,jdbcType=INTEGER},
+      <if test="productImg2 != null">
+        #{productImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="productImg3 != null">
+        #{productImg3,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null">
+        #{productStatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -183,11 +199,17 @@
       <if test="record.productStock != null">
         product_stock = #{record.productStock,jdbcType=INTEGER},
       </if>
-      <if test="record.productImg != null">
-        product_img = #{record.productImg,jdbcType=VARCHAR},
+      <if test="record.productImg1 != null">
+        product_img1 = #{record.productImg1,jdbcType=VARCHAR},
       </if>
-      <if test="record.productDel != null">
-        product_del = #{record.productDel,jdbcType=INTEGER},
+      <if test="record.productImg2 != null">
+        product_img2 = #{record.productImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productImg3 != null">
+        product_img3 = #{record.productImg3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productStatus != null">
+        product_status = #{record.productStatus,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -201,8 +223,10 @@
       product_info = #{record.productInfo,jdbcType=VARCHAR},
       product_price = #{record.productPrice,jdbcType=DECIMAL},
       product_stock = #{record.productStock,jdbcType=INTEGER},
-      product_img = #{record.productImg,jdbcType=VARCHAR},
-      product_del = #{record.productDel,jdbcType=INTEGER}
+      product_img1 = #{record.productImg1,jdbcType=VARCHAR},
+      product_img2 = #{record.productImg2,jdbcType=VARCHAR},
+      product_img3 = #{record.productImg3,jdbcType=VARCHAR},
+      product_status = #{record.productStatus,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -222,11 +246,17 @@
       <if test="productStock != null">
         product_stock = #{productStock,jdbcType=INTEGER},
       </if>
-      <if test="productImg != null">
-        product_img = #{productImg,jdbcType=VARCHAR},
+      <if test="productImg1 != null">
+        product_img1 = #{productImg1,jdbcType=VARCHAR},
       </if>
-      <if test="productDel != null">
-        product_del = #{productDel,jdbcType=INTEGER},
+      <if test="productImg2 != null">
+        product_img2 = #{productImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="productImg3 != null">
+        product_img3 = #{productImg3,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null">
+        product_status = #{productStatus,jdbcType=INTEGER},
       </if>
     </set>
     where product_id = #{productId,jdbcType=INTEGER}
@@ -237,8 +267,10 @@
       product_info = #{productInfo,jdbcType=VARCHAR},
       product_price = #{productPrice,jdbcType=DECIMAL},
       product_stock = #{productStock,jdbcType=INTEGER},
-      product_img = #{productImg,jdbcType=VARCHAR},
-      product_del = #{productDel,jdbcType=INTEGER}
+      product_img1 = #{productImg1,jdbcType=VARCHAR},
+      product_img2 = #{productImg2,jdbcType=VARCHAR},
+      product_img3 = #{productImg3,jdbcType=VARCHAR},
+      product_status = #{productStatus,jdbcType=INTEGER}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
 </mapper>

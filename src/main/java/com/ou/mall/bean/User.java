@@ -1,16 +1,14 @@
 package com.ou.mall.bean;
 
-import javax.validation.constraints.NotNull;
-
 public class User {
     private Integer userId;
 
-    @NotNull
     private String userUsername;
 
-    @NotNull
     private String userPassword;
-    
+
+    private String userAvatar;
+
     private Integer userMoney;
 
     public Integer getUserId() {
@@ -35,6 +33,14 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword == null ? null : userPassword.trim();
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar == null ? null : userAvatar.trim();
     }
 
     public Integer getUserMoney() {

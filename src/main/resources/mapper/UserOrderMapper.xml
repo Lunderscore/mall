@@ -91,7 +91,7 @@
   
     <!--   Base_Column_List_With_Product -->
   <sql id="Base_Column_List_With_Product">
-    order_id, order_number, order_status, order_date_time, order_pid, order_uid, product_id, product_title, product_info, product_price, product_stock, product_img
+    order_id, order_number, order_status, order_date_time, order_pid, order_uid, product_id, product_title, product_info, product_price, product_stock, product_img1, product_img2, product_img3, product_status
   </sql>
   
   <select id="selectByExample" parameterType="com.ou.mall.bean.UserOrderExample" resultMap="BaseResultMap">

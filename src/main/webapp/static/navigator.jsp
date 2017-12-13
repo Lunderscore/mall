@@ -11,9 +11,10 @@
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li><a href="index">首页</a></li>
+						<li><a href="shoppingCar">购物车</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><a href="login.jsp">登录</a></li>
+						<li class="dropdown"><a href="login.jsp">${userSession.userUsername }</a></li>
 					</ul>
 				</div>
 			</div>

@@ -6,8 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../../static/header.jsp"%>
 
-<%@ include file="../../static/checkLogin.jsp"%>
-
 <title>Insert title here</title>
 
 <style>
@@ -42,9 +40,11 @@
 
 <script>
 	$("#paymentBtn").on("click", function(){
-		var mid = $("#mid").attr("mid");
-		$.post("userPayment", {mid:mid }, function(){
-			location.href = "userOrder";
+		var mid = $("#mid").attr("mid"); 
+		$.post("money", {mid:mid, type:"1" }, function(){
+			$.post("updateOrder", {uoid:"${uoid}", type:"2" }, function(){
+				location.href = "userOrder";
+			});
 		});
 	});
 </script>

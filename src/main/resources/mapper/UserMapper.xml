@@ -5,6 +5,7 @@
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_username" jdbcType="VARCHAR" property="userUsername" />
     <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
     <result column="user_money" jdbcType="INTEGER" property="userMoney" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_username, user_password, user_money
+    user_id, user_username, user_password, user_avatar, user_money
   </sql>
   <select id="selectByExample" parameterType="com.ou.mall.bean.UserExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.ou.mall.bean.User">
     insert into user (user_id, user_username, user_password, 
-      user_money)
+      user_avatar, user_money)
     values (#{userId,jdbcType=INTEGER}, #{userUsername,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
-      #{userMoney,jdbcType=INTEGER})
+      #{userAvatar,jdbcType=VARCHAR}, #{userMoney,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ou.mall.bean.User">
     insert into user
@@ -115,6 +116,9 @@
       </if>
       <if test="userPassword != null">
         user_password,
+      </if>
+      <if test="userAvatar != null">
+        user_avatar,
       </if>
       <if test="userMoney != null">
         user_money,
@@ -129,6 +133,9 @@
       </if>
       <if test="userPassword != null">
         #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        #{userAvatar,jdbcType=VARCHAR},
       </if>
       <if test="userMoney != null">
         #{userMoney,jdbcType=INTEGER},
@@ -153,6 +160,9 @@
       <if test="record.userPassword != null">
         user_password = #{record.userPassword,jdbcType=VARCHAR},
       </if>
+      <if test="record.userAvatar != null">
+        user_avatar = #{record.userAvatar,jdbcType=VARCHAR},
+      </if>
       <if test="record.userMoney != null">
         user_money = #{record.userMoney,jdbcType=INTEGER},
       </if>
@@ -166,6 +176,7 @@
     set user_id = #{record.userId,jdbcType=INTEGER},
       user_username = #{record.userUsername,jdbcType=VARCHAR},
       user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_avatar = #{record.userAvatar,jdbcType=VARCHAR},
       user_money = #{record.userMoney,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -180,6 +191,9 @@
       <if test="userPassword != null">
         user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
+      <if test="userAvatar != null">
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
       <if test="userMoney != null">
         user_money = #{userMoney,jdbcType=INTEGER},
       </if>
@@ -190,6 +204,7 @@
     update user
     set user_username = #{userUsername,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
+      user_avatar = #{userAvatar,jdbcType=VARCHAR},
       user_money = #{userMoney,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>

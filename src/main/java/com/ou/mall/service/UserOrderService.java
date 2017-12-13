@@ -37,12 +37,12 @@ public class UserOrderService {
 		userOrderMapper.updateByPrimaryKeySelective(userOrder);
 	}
 
-	public List<UserOrder> getShoppingCar(Integer uid) {
-		UserOrderExample example = new UserOrderExample();
-		example.createCriteria().andOrderStatusEqualTo(0);
-		
-		List<UserOrder> selectByExampleWithProduct = userOrderMapper.selectByExampleWithProduct(example);
-		return selectByExampleWithProduct.isEmpty() ? null : selectByExampleWithProduct;
+	public void updateByPrimaryKeySelective(UserOrder record){
+		userOrderMapper.updateByPrimaryKeySelective(record);
+	}
+	
+	public List<UserOrder> selectByExampleWithProduct(UserOrderExample example) {
+		return userOrderMapper.selectByExampleWithProduct(example);
 	}
 
 	public void deleteOrder(Integer uoid) {
@@ -52,7 +52,7 @@ public class UserOrderService {
 	public List<UserOrder> userOrderPage(Integer uid, Integer type) {
 		UserOrderExample example = new UserOrderExample();
 		if (type == 0){
-			example.createCriteria().andOrderStatusNotEqualTo(0);
+			example.createCriteria().andOrderStatusNotEqualTo(-1);
 		}else{
 			example.createCriteria().andOrderStatusEqualTo(type);
 		}
