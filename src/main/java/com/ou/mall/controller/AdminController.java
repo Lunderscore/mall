@@ -1,5 +1,7 @@
 package com.ou.mall.controller;
-
+/*
+ * 本类负责维护管理员页面
+ */
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.Product;
 import com.ou.mall.bean.ProductExample;
+import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.bean.UploadedImageFile;
 import com.ou.mall.service.ProductService;
 import com.ou.mall.util.ImageUtil;
@@ -34,22 +39,34 @@ public class AdminController {
 	HttpServletRequest request;
 	
 	
+/*
+ * 获取所有商品的信息
+ * 显示五个分页
+ * 每页有5个商品
+ */
 	@RequestMapping(value="/products", method=RequestMethod.GET)
-	public String getProducts(@RequestParam(value="search", required=false) String keyword){
+	public String getProducts(@RequestParam(value="keyword", required=false) String keyword
+			, @RequestParam(value = "pn", defaultValue = "1") Integer pn){
+		PageHelper.startPage(pn, 5);
 		List<Product> products;
 		ProductExample example = new ProductExample();
+		Criteria createCriteria = example.createCriteria();
 		if (keyword == null || "".equals(keyword)){
 			keyword = null;
 		}else{
-			example.createCriteria().andProductTitleEqualTo(keyword);
+			createCriteria.andProductTitleLike(keyword);
 		}
-		
-		example.createCriteria().andProductStatusNotEqualTo(-1);
+		createCriteria.andProductStatusNotEqualTo(-1);
 		products = productService.selectByExample(example);
-		request.setAttribute("products", products);
+		
+		PageInfo<Product> page = new PageInfo<Product>(products, 5);
+		request.setAttribute("pages", page);
 		return "admin";
 	}
 	
+	/*
+	 * 通过主键获取商品
+	 */
 	@ResponseBody
 	@RequestMapping(value="/products/{pid}", method=RequestMethod.GET)
 	public Msg getProductByprimaryKey(@PathVariable("pid") Integer pid){
@@ -64,6 +81,9 @@ public class AdminController {
 		return msg;
 	}
 	
+	/*
+	 * 增加商品
+	 */
 	@RequestMapping(value="/products", method=RequestMethod.POST)
 	public String addProduct(Product product){
 		
@@ -71,6 +91,9 @@ public class AdminController {
 		return "redirect:products";
 	}
 	
+	/*
+	 * 上传图片
+	 */
 	@RequestMapping(value="/products/{pid}/{which}", method=RequestMethod.POST)
 	public String updatePicture(UploadedImageFile image, @PathVariable("pid") Integer pid
 			, @PathVariable("which") Integer which) throws Exception{
@@ -95,7 +118,9 @@ public class AdminController {
     	return "redirect:../../products";
 	}
 	
-	
+	/*
+	 * 更新产品
+	 */
 	
 	@RequestMapping(value="/products/{pid}", method=RequestMethod.PUT)
 	public String updateProduct(Product product, @PathVariable("pid") Integer pid){

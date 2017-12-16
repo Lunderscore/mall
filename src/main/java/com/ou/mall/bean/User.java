@@ -1,5 +1,7 @@
 package com.ou.mall.bean;
 
+import java.math.BigDecimal;
+
 public class User {
     private Integer userId;
 
@@ -9,7 +11,7 @@ public class User {
 
     private String userAvatar;
 
-    private Integer userMoney;
+    private Double userMoney;
 
     public Integer getUserId() {
         return userId;
@@ -43,11 +45,11 @@ public class User {
         this.userAvatar = userAvatar == null ? null : userAvatar.trim();
     }
 
-    public Integer getUserMoney() {
+    public Double getUserMoney() {
         return userMoney;
     }
 
-    public void setUserMoney(Integer userMoney) {
+    public void setUserMoney(Double userMoney) {
         this.userMoney = userMoney;
     }
 }

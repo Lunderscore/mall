@@ -22,6 +22,7 @@ public class ProductController {
 	@Autowired
 	UserOrderService userOrderService;
 	
+//	更新产品
 	@RequestMapping(value="product/{id}", method=RequestMethod.PUT)
 	public String updateProduct(Product product, @PathVariable("id") String pid){
 		product.setProductId(Integer.parseInt(pid));
@@ -29,6 +30,9 @@ public class ProductController {
     	return "redirect:../admin";
 	}
 	
+	/*
+	 * 根据主键获取商品信息
+	 */
 	@ResponseBody
 	@RequestMapping(value="products/{pid}", method=RequestMethod.GET)
 	public Msg getProduct(@PathVariable("pid") Integer pid){

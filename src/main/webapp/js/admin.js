@@ -1,4 +1,10 @@
 $(function(){
+	init();
+	
+	$("#searchBtn").on("click", function(){
+		location.href = "?keyword=" + $("#searchInput").val().trim();
+	});
+	
 	$("#addProducteBtn").on("click", function(){
 		addProduct();
 	});
@@ -32,6 +38,9 @@ $(function(){
 		var pid = $(this).attr("pid");
 		var status = $(this).attr("status");
 		
+		if (status == -1 && confirm("是否删除？")){
+			return ;
+		}
 		$.post("products/"+pid,{productStatus: status, _method: "put"}, function(){
 			location.reload();
 		});
@@ -70,6 +79,13 @@ $(function(){
 
 //添加商品
 function addProduct(){
+	if ($("#addProductName").val().trim() == ""
+		|| $("#addProductPrice").val().trim() == ""
+		|| $("#addProductStock").val().trim() == ""
+		|| $("#addProductInfo").val().trim() == ""){
+		alert("必须全部填写");
+		return;
+	}
 	$("#addProductForm").submit();
 }
 
@@ -79,5 +95,24 @@ function picture(){
 }
 //更新产品
 function updateProduct(){
+	if ($("#updateProductTitle").val().trim() == ""
+		|| $("#updateProductPrice").val().trim() == ""
+		|| $("#updateProductStock").val().trim() == ""
+		|| $("#updateProductInfo").val().trim() == ""){
+		alert("必须全部填写");
+		return;
+	}
 	$("#updateFrom").submit();
+}
+
+function init(){
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == "keyword"){
+        	var keyword = pair[1];
+        	$("#searchInput").val(keyword);
+       	}
+	}
 }

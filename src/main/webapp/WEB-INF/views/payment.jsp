@@ -21,26 +21,33 @@
 	
 <div class="row">
 	<div class="col-md-4 center-block">
-		微信支付个人不能获得接口，需要公司申请。<a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=3_1" target="_blank">详细信息请点击</a>
 	</div>
 	<div class="col-md-4 center-block">
-		<span class="text-danger">此二维码只是一个普通二维码，占位用。</span>
+		<span class="text-danger">您可以用本账户的虚拟货币支付或者前往支付宝界面支付0.01元。</span>
 		<br ><br >
 		<span mid="${totalMoney }" id="mid">${totalMoney }元</span>
-		<br ><br >
-		<img src="static/img/HelloWorld.png" />
-		<br><br>
+		<br ><br ><br><br><br><br><br><br>
+		<a href="pay.jsp?uoid=${uoid}&price=0.01&type=1&pay_id=${userSession.userUsername }"><button type="button" class="btn btn-success">前往支付宝支付</button></a>
+			<br >
+		<span>使用支付宝支付0.01元 </span>
+		<br><br><br><br><br><br><br><br><br><br>
 		<button type="button" class="btn btn-info" id="paymentBtn">付款</button>
-		<span id="helpBlock" class="help-block">剩余余额：(100.00<span class="glyphicon glyphicon-usd"></span>)</span>
-	</div>
-	<div class="col-md-4 center-block">
-		同理支付宝支付个人不能获得接口。<a href="https://docs.open.alipay.com/270#s3" target="_blank">详细信息请点击</a>
+		<span id="helpBlock" class="help-block">剩余余额：(<span id="restMoney">${userSession.userMoney }</span><span class="glyphicon glyphicon-usd"></span>)</span>
 	</div>
 </div>
 
 <script>
 	$("#paymentBtn").on("click", function(){
-		var mid = $("#mid").attr("mid"); 
+		var mid = $("#mid").attr("mid");
+		var restMoney = $("#restMoney").html().trim();
+		if (Number(restMoney) < Number(mid)){
+			alert("没有足够的钱支付,请先充值");
+			location.href = "home";
+			return;
+		}
+		if (!confirm("是否确认付款")){
+			return;
+		}
 		$.post("money", {mid:mid, type:"1" }, function(){
 			$.post("updateOrder", {uoid:"${uoid}", type:"2" }, function(){
 				location.href = "userOrder";

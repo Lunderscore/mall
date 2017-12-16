@@ -8,6 +8,15 @@
     <result column="comment_uid" jdbcType="INTEGER" property="commentUid" />
     <result column="comment_pid" jdbcType="INTEGER" property="commentPid" />
   </resultMap>
+<!--   BaseResultMapWithUser -->
+   <resultMap id="BaseResultMapWithUser" type="com.ou.mall.bean.ProductComment">
+   <id column="comment_id" jdbcType="INTEGER" property="commentId" />
+   <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+   <result column="comment_date_time" jdbcType="TIMESTAMP" property="commentDateTime" />
+   <result column="comment_uid" jdbcType="INTEGER" property="commentUid" />
+   <result column="comment_pid" jdbcType="INTEGER" property="commentPid" />
+   <association property="user" column="user_id" select="com.ou.mall.dao.UserMapper.selectByPrimaryKey"></association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -69,6 +78,11 @@
   <sql id="Base_Column_List">
     comment_id, comment_content, comment_date_time, comment_uid, comment_pid
   </sql>
+<!--   Base_Column_List_With_User -->
+  <sql id="Base_Column_List_With_User">
+    comment_id, comment_content, comment_date_time, comment_uid, comment_pid, user_id, user_username, user_password, user_avatar, user_money
+  </sql>
+  
   <select id="selectByExample" parameterType="com.ou.mall.bean.ProductCommentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -83,6 +97,23 @@
       order by ${orderByClause}
     </if>
   </select>
+  
+<!--   selectByExampleWithUser -->
+  <select id="selectByExampleWithUser" parameterType="com.ou.mall.bean.ProductCommentExample" resultMap="BaseResultMapWithUser">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List_With_User" />
+    from product_comment left join user on product_comment.comment_uid=user.user_id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

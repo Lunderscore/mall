@@ -32,10 +32,10 @@
 	
 	<div class="row">
 		<div class="col-md-3">
-			<button type="button" class="btn btn-lg btn-danger" id="delBatchBtn">删除订单</button>
+			<button type="button" class="btn btn-lg btn-danger" id="delBatchBtn" disabled="disabled">删除订单</button>
 		</div>
 		<div class="col-md-3 col-md-offset-6">
-			<button type="button" class="btn btn-lg btn-success"  data-toggle="modal" data-target="#addressModal">确认订单</button>
+			<button type="button" disabled="disabled" class="btn btn-lg btn-success" id="confirmItem" data-toggle="modal" data-target="#addressModal">确认订单</button>
 		</div>
 	</div>
 
@@ -55,15 +55,15 @@
 							<label for="orderPersonName" class="col-sm-3 control-label">收货人：</label>
 							<div class="col-sm-9">
 								<input name="orderPersonName" type="text" class="form-control" id="orderPersonName"
-									placeholder="张三" name="empName"> <span id="helpBlock"
+									placeholder="输入收货人姓名" name="empName"> <span id="helpBlock"
 									class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="orderPhone" class="col-sm-3 control-label">联系电话：</label>
+							<label for="orderPhone" class="col-sm-3 control-label">手机号码：</label>
 							<div class="col-sm-9">
 								<input name="orderPhone" type="text" class="form-control" id="orderPhone"
-									placeholder="1696229469@qq.com" name="email"> <span
+									placeholder="输入联系人电话" name="email"> <span
 									id="helpBlock" class="help-block"></span>
 							</div>
 						</div>
@@ -72,7 +72,7 @@
 							<label for="orderAddress" class="col-sm-3 control-label">收货地址：</label>
 							<div class="col-sm-9">
 								<input name="orderAddress" type="text" class="form-control" id="orderAddress"
-									placeholder="1696229469@qq.com" name="email"> <span
+									placeholder="输入收货人地址" name="email"> <span
 									id="helpBlock" class="help-block"></span>
 							</div>
 						</div>
@@ -80,7 +80,7 @@
 						<div class="form-group">
 							<label for="orderMessage" class="col-sm-3 control-label">买家留言：</label>
 							<div class="col-sm-9">
-								<textarea name="orderMessage" rows="3" class="form-control" id="orderMessage"></textarea>
+								<textarea name="orderMessage" rows="3" class="form-control" id="orderMessage" placeholder="卖家留言"></textarea>
 							</div>
 						</div>
 						<input name="orderStatus" type="hidden" value="1">
@@ -95,55 +95,7 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript">
-	
-	$(document).on("click", "[uoid]", function(){
-		var uoid = $(this).attr("uoid");
-		$.get("delOrder", {uoid:uoid}, function(){
-			location.href = "shoppingCar";
-		});
-	});
-	
-	$("#submitShoppingCar").on("click", function(){
-		calcu();
-		$("#shoppingCarForm").submit();
-	});
-	
-	$("#delBatchBtn").on("click", function(){
-		calcu();
-		var uoid = $("#hideTotalhideUoid");
-		$.get("delOrderBatch", {uoid:uoid}, function(){
-			location.href = "shoppingCar";
-		});
-	});
-	
-// 	复选框操作
-	function calcu(){
-		var totalMoney = 0;
-		var uoid = "";
-		$.each($(".checkItem:checked"), function(){
-			totalMoney += Number($(this).attr("value"));
-			uoid += $(this).attr("uoidCheckbox") + "-";
-		});
-		uoid = uoid.substring(0, uoid.length-1);
-		$("#hideTotalMoney").val(totalMoney);
-		$("#hideTotalhideUoid").val(uoid);
-	}
-	
-	$("#checkAll").on("click", function(){
-		if ($(this).prop("checked")){
-			$(".checkItem").prop("checked", true);
-		}else{
-			$(".checkItem").prop("checked", false);
-		}
-	});
-	$(document).on("click", ".checkItem", function(){
-		if ($(".checkItem:checked").length == $(".checkItem").length){
-			$("#checkAll").prop("checked", true);
-		}else{
-			$("#checkAll").prop("checked", false);
-		}
-	});
+	<script type="text/javascript" src="js/shoppingCar.js">
 	</script>
 </body>
 </html>

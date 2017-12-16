@@ -16,6 +16,12 @@ public class UserService {
 	@Autowired
 	UserMapper userMapper;
 	
+	
+	public List<User> selectByExample(UserExample example){
+		List<User> selectByExample = userMapper.selectByExample(example);
+		return selectByExample;
+	}
+	
 	public User getUserByUsernameAndPassWord(User user){
 		UserExample example = new UserExample();
 		Criteria createCriteria = example.createCriteria();
@@ -50,29 +56,13 @@ public class UserService {
 		return selectByExample.isEmpty() ? null : selectByExample.get(0);
 	}
 
-
-	public void update(User record) {
+	public void updateByPrimaryKeySelective(User record) {
 		userMapper.updateByPrimaryKeySelective(record);
 	}
 
-//	public void uploadAvatar(Integer userID, String path) {
-//		UserAvatar avatar = new UserAvatar();
-//		avatar.setAvatarUri(path);
-//
-//		if (hasAvatar(userID)){
-//			UserAvatarExample example = new UserAvatarExample();
-//			example.createCriteria().andAvatarUidEqualTo(userID);
-//			userAvatarMapper.updateByExampleSelective(avatar, example);
-//			return;
-//		}
-//		avatar.setAvatarUid(userID);
-//		userAvatarMapper.insert(avatar);
-//		return;
-		
-
-	public boolean addMoney(int money, Integer uid) {
+	public boolean addMoney(Double money, Integer uid) {
 		User record = userMapper.selectByPrimaryKey(uid);
-		Integer newMoney = record.getUserMoney() + money;
+		Double newMoney = record.getUserMoney() + money;
 		if (newMoney < 0){
 			return false;
 		}
@@ -80,6 +70,10 @@ public class UserService {
 		record.setUserMoney(newMoney);
 		userMapper.updateByPrimaryKeySelective(record);
 		return true;
+	}
+	
+	public User selectByPrimaryKey(Integer userId){
+		return userMapper.selectByPrimaryKey(userId);
 	}
 	
 }

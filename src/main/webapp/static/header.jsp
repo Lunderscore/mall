@@ -6,4 +6,10 @@
 		padding: 0;
 		margin: 0;
 	}
+
+	#userAvatar{
+        border-radius:35px; 
+        width: 35px;
+        height: 35px;
+    }
 </style>

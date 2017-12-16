@@ -17,8 +17,8 @@ ${product.productImg1 }
 </div>
 
 	<!-- 	=============== -->
-<c:if test="${not empty products }">
-	<c:forEach items="${products }" var="product">
+<c:if test="${not empty pages }">
+	<c:forEach items="${pages.list }" var="product">
 		<div class="row productItem">
 		<div class="col-md-1 center-block">
 			${product.productId }
@@ -30,6 +30,9 @@ ${product.productImg1 }
 		<div class="col-md-2 center-block">
 		<c:if test="${not empty product.productImg1 }">
 			<img src="../${product.productImg1 }" class="pimg"/>
+		</c:if>
+		<c:if test="${empty product.productImg1 }">
+			<span>需要上传图片1在能在主界面显示商品</span>
 		</c:if>
 		</div>
 		<div class="col-md-2 center-block">${product.productTitle }</div>

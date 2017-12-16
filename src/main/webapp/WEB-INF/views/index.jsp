@@ -21,16 +21,16 @@
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
 			<div class="input-group input-group-lg">
-			  <input type="text" class="form-control" placeholder="输入商品名" aria-describedby="sizing-addon1">
+			  <input type="text" id="searchInput" class="form-control" placeholder="输入商品名" aria-describedby="sizing-addon1">
 			  <span class="input-group-btn">
-		        <button class="btn btn-default">Go!</button>
+		        <button class="btn btn-default" id="searchBtn">Go!</button>
 		      </span>
 			</div>
 		</div>
 	</div>
 	
-<c:if test="${not empty Products }">
-	<c:forEach items="${Products }" var="product" varStatus="i">
+<c:if test="${not empty pages }">
+	<c:forEach items="${pages.list }" var="product" varStatus="i">
 		<c:if test="${i.index%5 == 0 }">
 			<div class="row col-md-offset-1">
 		</c:if>
@@ -39,8 +39,8 @@
 				<div class="thumbnail item">
 					<img src="${product.productImg1 }">
 					<div class="caption">
-						<p>${product.productTitle }</p>
-						<h3>${product.productPrice }</h3>
+						<h5>${product.productTitle }</h5>
+						<h4>价格：${product.productPrice }</h4>
 					</div>
 				</div>
 			</a>
@@ -53,7 +53,7 @@
 </c:if>
 	
 	<div class="row">
-		<div class="col-md-3 col-md-offset-9">
+		<div class="col-md-6 col-md-offset-8">
 			<%@ include file="../../static/pagination.jsp"%>
 		</div>
 	</div>

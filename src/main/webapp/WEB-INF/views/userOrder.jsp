@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,6 +33,106 @@
 		<%@include file="../../include/userOrderTable.jsp"%>
 	</div>
 
-	<script src="js/login.js"></script>
+<!-- 评论模态框 -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">填写评论</h4>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center;"><img width="300px" height="300px" id="commentProductImg1" /></div>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">商品名：</label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" id="commentProductTitle"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="comment" class="col-sm-3 control-label">商品评论：</label>
+                      <div class="col-sm-9">
+                        <textarea name="comment" rows="3" class="form-control" id="comment" placeholder="在此处输入你对商品的评论"></textarea>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="submitComment">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addressModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">查看收货人信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">收货人：</label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" id="psersonName"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-sm-3 control-label">手机号码：</label>
+                    <div class="col-sm-9">
+                        <p class="form-control-static" id="personphone"></p>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收货地址：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="psersonAddress"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-sm-3 control-label">买家留言：</label>
+                            <div class="col-sm-9">
+                                <p class="form-control-static" id="personMsg"></p>
+                            </div>
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+	<div class="col-md-6 col-md-offset-8">
+		<%@ include file="../../static/pagination.jsp"%>
+	</div>
+</div>
+
+	<script src="js/userOrder.js">
+	</script>
+	<script type="text/javascript">
+	$(function(){
+		var query = window.location.search.substring(1);
+		var vars = query.split("&");
+		for (var i=0;i<vars.length;i++) {
+	        var pair = vars[i].split("=");
+	        if(pair[0] == "keyword"){
+	        	var keyword = pair[1];
+	        	$("#searchInput").val(keyword);
+	       	}
+		}
+		$("#searchBtn").on("click", function(){
+			location.href = "?keyword=" + $("#searchInput").val().trim();
+		});
+	});
+	</script>
 </body>
 </html>

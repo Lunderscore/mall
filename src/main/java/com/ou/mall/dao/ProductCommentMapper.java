@@ -18,6 +18,9 @@ public interface ProductCommentMapper {
 
     List<ProductComment> selectByExample(ProductCommentExample example);
 
+//    selectByExampleWithUser
+    List<ProductComment> selectByExampleWithUser(ProductCommentExample example);
+
     ProductComment selectByPrimaryKey(Integer commentId);
 
     int updateByExampleSelective(@Param("record") ProductComment record, @Param("example") ProductCommentExample example);

@@ -63,6 +63,17 @@
 	</div>
 	
 	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div class="input-group input-group-lg">
+			  <input type="text" id="searchInput" class="form-control" placeholder="输入商品名" aria-describedby="sizing-addon1">
+			  <span class="input-group-btn">
+		        <button class="btn btn-default" id="searchBtn">查询</button>
+		      </span>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<%@include file="../../include/adminTable.jsp"%>
 		</div>
@@ -71,7 +82,7 @@
 	<%@include file="../../include/adminModal.jsp"%>
 	
 	<div class="row">
-		<div class="col-md-3 col-md-offset-9">
+		<div class="col-md-6 col-md-offset-8">
 			<%@ include file="../../static/pagination.jsp"%>
 		</div>
 	</div>

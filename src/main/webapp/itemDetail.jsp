@@ -47,85 +47,20 @@
 
 	<div class="row">
 		<div class="col-md-1  col-md-offset-5">
-			<button type="button" class="btn btn-primary">商品详情</button>
+			<button type="button" class="btn btn-primary" onclick="location.reload()">商品详情</button>
 		</div>
 		<div class="col-md-1">
-			<button type="button" class="btn btn-default">买家评价</button>
+			<button type="button" class="btn btn-default" id="getComments">买家评价</button>
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row" id="productComments">
 		<div class="col-md-10 col-md-offset-1">
 			<p class="longWOrd" id="prodictInfo"></p>
 		</div>
-		
-		<div class="col-md-10 col-md-offset-1">
-			<table class="table table-hover">
-			  	<tr>
-					<td class="comment">1123</td>
-					<td class="commentTime">123</td>
-					<td>123</td>			  	
-			  	</tr>
-			</table>
-		</div>
 	</div>
 
-<script>
-var query = window.location.search.substring(1);
-var vars = query.split("&");
-var pid;
-for (var i=0;i<vars.length;i++) {
-        var pair = vars[i].split("=");
-        if(pair[0] == "pid"){
-        	pid = pair[1];
-       	}
-}
-$(function(){
-	$.get("products/"+pid, function(data){
-		console.log(data);
-		var v = data.content.product;
-		$("#ProductTitle").html(v.productTitle);
-		$("#price").html(v.productPrice);
-		$("#stock").html(v.productStock);
-		$("#prodictInfo").html(v.productInfo);
-		
-		if (v.productImg1 != null ){
-			$("<li data-target='#carousel-example-generic' data-slide-to='0' class='active'></li>")
-				.appendTo("#carouselIndex");
-			$("<div class='item active'></div>")
-				.append("<img src="+ v.productImg1 +" class='img-responsive' />")
-				.appendTo("#carouselImg");
-		}
-		
-		if (v.productImg2 != null ){
-			$("<li data-target='#carousel-example-generic' data-slide-to='1'></li>")
-				.appendTo("#carouselIndex");
-			
-			$("<div class='item'></div>")
-			.append("<img src="+ v.productImg2 +" class='img-responsive' />")
-			.appendTo("#carouselImg");
-		}
-		
-		if (v.productImg3 != null ){
-			$("<li data-target='#carousel-example-generic' data-slide-to='2'></li>")
-				.appendTo("#carouselIndex");
-			
-			$("<div class='item'></div>")
-			.append("<img src="+ v.productImg3 +" class='img-responsive' />")
-			.appendTo("#carouselImg");
-		}
-	});
-})
-	
-	
-	$("#addToCar").on("click", function(){
-		var num = $("#number").val();
-		$.post("order", {pid:pid, num:num}, function(data){
-			console.log(data);
-		});
-	});
-	
-		
+<script src="js/itemDetail.js">
 </script>
 </body>
 </html>

@@ -13,6 +13,8 @@ public class ProductComment {
 
     private Integer commentPid;
 
+    private User user;
+    
     public Integer getCommentId() {
         return commentId;
     }
@@ -52,4 +54,12 @@ public class ProductComment {
     public void setCommentPid(Integer commentPid) {
         this.commentPid = commentPid;
     }
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

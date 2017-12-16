@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ou.mall.bean.UserAddress;
 import com.ou.mall.bean.UserAddressExample;
 import com.ou.mall.bean.UserAddressExample.Criteria;
+import com.ou.mall.bean.UserOrder;
 import com.ou.mall.dao.UserAddressMapper;
 
 @Service
@@ -43,5 +44,13 @@ public class UserAddressService {
 	public void addAddress(UserAddress address, Integer userID){
 		address.setAddressUid(userID);
 		userAddressMapper.insert(address);
+	}
+	
+	public UserAddress selectUserAddressByUid(Integer uid){
+		UserAddressExample example = new UserAddressExample();
+		example.createCriteria().andAddressUidEqualTo(uid);
+		List<UserAddress> selectByExample = userAddressMapper.selectByExample(example);
+		
+		return selectByExample.isEmpty() ? new UserAddress() : selectByExample.get(0);
 	}
 }

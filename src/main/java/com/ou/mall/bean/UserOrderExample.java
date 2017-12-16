@@ -744,6 +744,12 @@ public class UserOrderExample {
             addCriterion("order_message not between", value1, value2, "orderMessage");
             return (Criteria) this;
         }
+        
+//        andProductTitleLike
+        public Criteria andProductTitleLike(String value) {
+            addCriterion("product_title like", "%"+value+"%", "productTitle");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

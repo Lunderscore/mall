@@ -1,62 +1,89 @@
 package com.ou.mall.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.UploadedImageFile;
 import com.ou.mall.bean.User;
+import com.ou.mall.bean.UserExample;
 import com.ou.mall.service.UserService;
 import com.ou.mall.util.ImageUtil;
 
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
 
 	@Autowired
 	HttpSession session;
 	
-	
+	/*
+	 * 在注册用户的时候查看是否存在该用户
+	 */
 	@ResponseBody
-	@RequestMapping(value="user", method=RequestMethod.PUT)
-	public Msg update(User user, HttpSession session){
+	@RequestMapping("/users/{username}")
+	public Msg hasUser(@PathVariable("username")String username){
+		UserExample example = new UserExample();
+		example.createCriteria().andUserUsernameEqualTo(username);
+		List<User> selectByExample = userService.selectByExample(example);
 		
-		Integer userId = (Integer) session.getAttribute("user");
-		user.setUserId(userId);
-		
-		userService.update(user);
+		if (selectByExample.isEmpty()){
+			return Msg.success();
+		}
 		return Msg.failure();
 	}
 	
-	@ResponseBody
+	/*
+	 * 更新用户的信息
+	 */
+	@RequestMapping(value="user")
+	public String update(User user){
+		User userSession = (User) session.getAttribute("userSession");
+		Integer userId = userSession.getUserId();
+		user.setUserId(userId);
+		userService.updateByPrimaryKeySelective(user);
+
+		updateUserSession();
+        return "redirect:home";
+	}
+	
+	/*
+	 * 上传用户头像
+	 */
 	@RequestMapping(value="avatar")
-	public Msg uploadavatar(UploadedImageFile image, HttpSession session) throws IllegalStateException, IOException{
-		
-		Integer userID = (Integer) session.getAttribute("user");
+	public String uploadavatar(UploadedImageFile image) throws IllegalStateException, IOException{
+		User user = (User)(session.getAttribute("userSession"));
+		Integer userID = user.getUserId();
 		String id = userID.toString();
 		String avatarPath = session.getServletContext().getRealPath("/data/img/userAvatar/");
         String newImageName = ImageUtil.transfer(image, avatarPath, id);
         
         if (newImageName == null){
-        	return Msg.failure();
+            return "redirect:home";
         }
-//        userService.uploadAvatar(userID, "data/img/userAvatar/"+newImageName);
-        return Msg.success();
+        user.setUserAvatar("data/img/userAvatar/"+newImageName);
+        update(user);
+        return "redirect:home";
 	}
 	
+	/*
+	 * 用户对余额的操作
+	 */
 	@ResponseBody
 	@RequestMapping(value="money")
-	public Msg payment(@RequestParam(value="mid", defaultValue="0") Integer payMoney, @RequestParam(value="type", defaultValue="0") Integer type){
+	public Msg payment(@RequestParam(value="mid", defaultValue="0") Double payMoney
+			, @RequestParam(value="type", defaultValue="0") Integer type){
 		User user = (User) session.getAttribute("userSession");
 		if (payMoney==null || "".equals(payMoney)){
 			return Msg.failure().add("msg", "操作错误");
@@ -68,6 +95,17 @@ public class UserController {
 		
 		Integer uid = user.getUserId();
 		userService.addMoney(payMoney, uid);
+		updateUserSession();
+		
 		return Msg.success();
 	}
+	
+	public void updateUserSession(){
+		User user = (User)(session.getAttribute("userSession"));
+		Integer userID = user.getUserId();
+		
+		User u = userService.selectByPrimaryKey(userID);
+		session.setAttribute("userSession", u);
+	}
+	
 }

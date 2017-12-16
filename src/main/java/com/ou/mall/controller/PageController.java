@@ -1,5 +1,7 @@
 package com.ou.mall.controller;
-
+/*
+ * 本类主要负责页面跳转相关的逻辑
+ */
 import java.sql.Date;
 import java.util.List;
 
@@ -8,15 +10,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.Product;
 import com.ou.mall.bean.ProductExample;
+import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.bean.User;
 import com.ou.mall.bean.UserOrder;
 import com.ou.mall.bean.UserOrderExample;
@@ -42,39 +45,46 @@ public class PageController {
 	HttpSession session;
 	
 
+	/*
+	 * 主页每页显示三十条信息
+	 */
 	@RequestMapping(value="index")
-	public String index(@RequestParam(value="keyword", required=false) String keyword, HttpServletRequest request){
+	public String index(@RequestParam(value="keyword", required=false) String keyword
+			, @RequestParam(value = "pn", defaultValue = "1") Integer pn){
+		PageHelper.startPage(pn, 15);
 		ProductExample example = new ProductExample();
-		
+		Criteria createCriteria = example.createCriteria();
 		if ("".equals(keyword) || keyword == null){
 			keyword = null;
 		}else{
-			example.createCriteria().andProductTitleEqualTo(keyword);
+			createCriteria.andProductTitleLike(keyword);
 		}
-		example.createCriteria().andProductStatusEqualTo(0);
+		createCriteria.andProductImg1IsNotNull();
+		createCriteria.andProductStatusEqualTo(0);
+		
 		List<Product> all = productService.selectByExample(example);
-		request.setAttribute("Products", all);
+		PageInfo<Product> page = new PageInfo<Product>(all, 5);
+		request.setAttribute("pages", page);
 		return "index";
 	}
 	
-	@RequestMapping(value="login")
-	public String login(User user){
+	@ResponseBody
+	@RequestMapping(value="loglogin")
+	public Msg login(User user){
 		user = userService.getUserByUsername(user.getUserUsername());
 		session.setAttribute("userSession", user);
-		if (hasNotLogin()){
-			return "redirect:login.jsp";
+		if (user == null){
+			return Msg.failure().add("msg", "账号或密码错误");
 		}
-		return "redirect:index.jsp";
+		return Msg.success();
 	}
 	
-	@RequestMapping(value="register", method=RequestMethod.POST)
-	public String register(User user){
-		if (!hasNotLogin()){
-			return "redirect:index.jsp";
-		}
-		user.setUserMoney(0);
+	@ResponseBody
+	@RequestMapping(value="regregister")
+	public Msg register(User user){
+		user.setUserMoney(0.0);
 		userService.insert(user);
-		return "redirect:index.jsp";
+		return login(user);
 	}
 	
 	@RequestMapping(value="logOut")
@@ -124,15 +134,30 @@ public class PageController {
 	
 	
 	@RequestMapping("userOrder")
-	public String userOrderPage(@RequestParam(value="type", defaultValue="0") String type){
+	public <T> String userOrderPage(@RequestParam(value="type", defaultValue="0") Integer type,
+			@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="pn", defaultValue="1") Integer pn){
 		if (hasNotLogin()){
 			return "redirect:login.jsp";
 		}
+//		设置分页大小
+		PageHelper.startPage(pn, 5);
 		User user = (User) session.getAttribute("userSession");
 		Integer uid = user.getUserId(); 
 		
-		List<UserOrder> totalOrder = userOrderService.userOrderPage(uid, Integer.parseInt(type));
-		request.setAttribute("userOrder", totalOrder);
+		UserOrderExample example = new UserOrderExample();
+		com.ou.mall.bean.UserOrderExample.Criteria createCriteria = example.createCriteria();
+		if (type == 0){
+			createCriteria.andOrderStatusNotEqualTo(-1);
+		}else{
+			createCriteria.andOrderStatusEqualTo(type);
+		}
+		if (keyword != null && !"".equals(keyword)){
+			createCriteria.andProductTitleLike(keyword);
+		}
+		createCriteria.andOrderUidEqualTo(uid);
+		List<UserOrder> selectByExampleWithProduct = userOrderService.selectByExampleWithProduct(example);
+		PageInfo<UserOrder> pageInfo = new PageInfo<UserOrder>(selectByExampleWithProduct, 5);
+		request.setAttribute("pages", pageInfo);
 		return "userOrder";
 	}
 	
@@ -141,5 +166,18 @@ public class PageController {
 			return true;
 		}
 		return false;
+	}
+	
+	@RequestMapping("toLogin")
+	public String toLogin(){
+		return "redirect:login.jsp";
+	}
+	
+	@RequestMapping("home")
+	public String home(){
+		if (hasNotLogin()){
+			return "redirect:login.jsp";
+		}
+		return "home";
 	}
 }
