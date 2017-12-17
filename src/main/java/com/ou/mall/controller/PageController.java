@@ -12,8 +12,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,27 +48,33 @@ public class PageController {
 	
 
 	/*
-	 * 主页每页显示三十条信息
+	 * 主页每页显示十五条信息
 	 */
 	@RequestMapping(value="index")
 	public String index(@RequestParam(value="keyword", required=false) String keyword
 			, @RequestParam(value = "pn", defaultValue = "1") Integer pn){
+		// 使用PageHelper插件进行分页操作
+		// 设置每页有15条数据
 		PageHelper.startPage(pn, 15);
 		ProductExample example = new ProductExample();
 		Criteria createCriteria = example.createCriteria();
+		
+		// 查看是否关键词搜索
 		if ("".equals(keyword) || keyword == null){
 			keyword = null;
 		}else{
 			createCriteria.andProductTitleLike(keyword);
 		}
+		// 显示有图片1的商品
+		// 商品状态 0 表示为上架状态， 1为下架状态， -1为删除  状态
 		createCriteria.andProductImg1IsNotNull();
 		createCriteria.andProductStatusEqualTo(0);
-		
-		List<Product> all = productService.selectByExample(example);
-		PageInfo<Product> page = new PageInfo<Product>(all, 5);
-		request.setAttribute("pages", page);
-		return "index";
+		List<Product> all = productService.selectByExample(example);   //根据条件选择查询
+		PageInfo<Product> page = new PageInfo<Product>(all, 5);  // 分页条最多有5个
+		request.setAttribute("pages", page);	// 将数据放入request 作用于供前台使用
+		return "index";						// 转发回主页
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="loglogin")

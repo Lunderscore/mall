@@ -1,6 +1,4 @@
-<!-- shoppingCar.jsp -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-${product.productImg1 }
 <div class="center-block">
 	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addProductModal" data-whatever="@mdo">上架产品</button>
 </div>

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.ou.mall.bean.UserAddress;
 import com.ou.mall.bean.UserAddressExample;
 import com.ou.mall.bean.UserAddressExample.Criteria;
-import com.ou.mall.bean.UserOrder;
 import com.ou.mall.dao.UserAddressMapper;
 
 @Service

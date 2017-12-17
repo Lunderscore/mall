@@ -5,8 +5,15 @@ import java.util.Map;
 
 public class Msg {
 
+	/*
+	 * code = 0 成功
+	 * code = 1 失败
+	 * 
+	 */
 	private int code;
 	private String message;
+	
+	// 数据
 	private Map<String, Object> content = new HashMap<String, Object>();
 	
 	public Msg add(String key, Object value){

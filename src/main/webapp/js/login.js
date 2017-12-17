@@ -53,6 +53,7 @@ function resetNav(){
 	$("#loginForm").attr("action", "login");
 }
 
+//登录检查
 function checkLogin(){
 	var username = $("#username").val().trim();
 	var password1 = $("#password1").val().trim();
@@ -60,9 +61,16 @@ function checkLogin(){
 		alert("用户名和密码不能为空");
 		return false;
 	}
+	if ( /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/.test(username) == false){
+		alert("账号格式：字母开头，允许5-16字节，允许字母数字下划线");
+		return;
+	}else if (/^[a-zA-Z]\w{5,17}$/.test(password1) == false){
+		alert("密码格式：字母开头，长度在6~18之间，只能包含字母、数字和下划线")
+		return;
+	}
 	return true;
 }
-
+//注册检查
 function checkRegister(){
 	var username = $("#username").val().trim();
 	var password1 = $("#password1").val().trim();
