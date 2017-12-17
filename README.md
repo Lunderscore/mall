@@ -140,6 +140,8 @@
 
 # 主界面展示
 
+**主界面商品分为三行五列，超过十五个商品将进行分页处理**
+
 ![](http://www.yqplayer.com/netpicyd/3d59a8415d8de80d5ef1dd21b0075a76.png)
 
 
@@ -216,6 +218,8 @@
 * 编辑商品
 * 下架商品
 * 删除商品
+
+**后台管理界面商品超过五个将进行分页处理**
 
 ![](http://www.yqplayer.com/netpicyd/13f7d6d21c95b3cba7d3d6f5938b82c0.png)
 
