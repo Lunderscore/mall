@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../../static/header.jsp"%>
 
-<title>Insert title here</title>
+<title>用户订单详情</title>
 <style>
 	.pimg{
 		width: 100px;
@@ -110,11 +110,8 @@
         </div>
     </div>
 </div>
-<div class="row">
-	<div class="col-md-6 col-md-offset-8">
-		<%@ include file="../../static/pagination.jsp"%>
-	</div>
-</div>
+
+<%@ include file="../../static/pagination.jsp"%>
 
 	<script src="js/userOrder.js">
 	</script>
@@ -126,7 +123,7 @@
 	        var pair = vars[i].split("=");
 	        if(pair[0] == "keyword"){
 	        	var keyword = pair[1];
-	        	$("#searchInput").val(keyword);
+	        	$("#searchInput").val(decodeURI(keyword));
 	       	}
 		}
 		$("#searchBtn").on("click", function(){

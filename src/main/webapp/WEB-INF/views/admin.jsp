@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../../static/header.jsp"%>
-
+<c:if test="${empty adminSession}" >
+	<c:redirect url="../adminLogin.jsp"></c:redirect>
+</c:if>
 <style>
 	.pimg{
 		width: 100px;
@@ -30,34 +34,12 @@
 	}
 </style>
 
-<title>Insert title here</title>
+<title>管理员后台</title>
 </head>
 <body class="jumbotron">
-<!-- navigator ========================-->
-<div class="row">
-	<div class="col-md-12">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="../index"> <img alt="Brand"
-						src="https://static.hdslb.com/images/favicon.ico">
-					</a>
-				</div>
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li><a href="../index">首页</a></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><a href="../login.jsp">登录</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+	<div class="row">
+		<h3 class="center-block">当前登入管理员：${adminSession.userUsername }&nbsp;&nbsp;&nbsp;<a href="adminLogOut"><button type="button" class="btn btn-warning">注销</button></a></h3>
 	</div>
-</div>
-<!-- navigator ========================-->
-	
 	<div class="row">
 		<h2 class="center-block">后台页面-商品管理</h2>
 	</div>
@@ -81,12 +63,16 @@
 	
 	<%@include file="../../include/adminModal.jsp"%>
 	
-	<div class="row">
-		<div class="col-md-6 col-md-offset-8">
-			<%@ include file="../../static/pagination.jsp"%>
-		</div>
-	</div>
+	<%@ include file="../../static/pagination.jsp"%>
 	
 	<script type="text/javascript" src="../js/admin.js"></script>
+	<script type="text/javascript">
+		$(".productItem").on("mouseover", function(){
+			$(this).css("background-color", "#fcc5fb");
+		});
+		$(".row.productItem").on("mouseout", function(){
+			$(this).css("background-color", "");
+		});
+	</script>
 </body>
 </html>

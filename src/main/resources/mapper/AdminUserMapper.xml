@@ -3,7 +3,7 @@
 <mapper namespace="com.ou.mall.dao.AdminUserMapper">
   <resultMap id="BaseResultMap" type="com.ou.mall.bean.AdminUser">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="userr_username" jdbcType="VARCHAR" property="userrUsername" />
+    <result column="user_username" jdbcType="VARCHAR" property="userUsername" />
     <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, userr_username, user_password
+    user_id, user_username, user_password
   </sql>
   <select id="selectByExample" parameterType="com.ou.mall.bean.AdminUserExample" resultMap="BaseResultMap">
     select
@@ -98,9 +98,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ou.mall.bean.AdminUser">
-    insert into admin_user (user_id, userr_username, user_password
+    insert into admin_user (user_id, user_username, user_password
       )
-    values (#{userId,jdbcType=INTEGER}, #{userrUsername,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
+    values (#{userId,jdbcType=INTEGER}, #{userUsername,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ou.mall.bean.AdminUser">
@@ -109,8 +109,8 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="userrUsername != null">
-        userr_username,
+      <if test="userUsername != null">
+        user_username,
       </if>
       <if test="userPassword != null">
         user_password,
@@ -120,8 +120,8 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="userrUsername != null">
-        #{userrUsername,jdbcType=VARCHAR},
+      <if test="userUsername != null">
+        #{userUsername,jdbcType=VARCHAR},
       </if>
       <if test="userPassword != null">
         #{userPassword,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.userrUsername != null">
-        userr_username = #{record.userrUsername,jdbcType=VARCHAR},
+      <if test="record.userUsername != null">
+        user_username = #{record.userUsername,jdbcType=VARCHAR},
       </if>
       <if test="record.userPassword != null">
         user_password = #{record.userPassword,jdbcType=VARCHAR},
@@ -154,7 +154,7 @@
   <update id="updateByExample" parameterType="map">
     update admin_user
     set user_id = #{record.userId,jdbcType=INTEGER},
-      userr_username = #{record.userrUsername,jdbcType=VARCHAR},
+      user_username = #{record.userUsername,jdbcType=VARCHAR},
       user_password = #{record.userPassword,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -163,8 +163,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.ou.mall.bean.AdminUser">
     update admin_user
     <set>
-      <if test="userrUsername != null">
-        userr_username = #{userrUsername,jdbcType=VARCHAR},
+      <if test="userUsername != null">
+        user_username = #{userUsername,jdbcType=VARCHAR},
       </if>
       <if test="userPassword != null">
         user_password = #{userPassword,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ou.mall.bean.AdminUser">
     update admin_user
-    set userr_username = #{userrUsername,jdbcType=VARCHAR},
+    set user_username = #{userUsername,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>

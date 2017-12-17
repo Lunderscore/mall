@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../../static/header.jsp"%>
 
-<title>Insert title here</title>
+<title>付款</title>
 
 <style>
 	.center-block{

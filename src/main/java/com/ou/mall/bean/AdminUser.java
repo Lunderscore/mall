@@ -3,7 +3,7 @@ package com.ou.mall.bean;
 public class AdminUser {
     private Integer userId;
 
-    private String userrUsername;
+    private String userUsername;
 
     private String userPassword;
 
@@ -15,12 +15,12 @@ public class AdminUser {
         this.userId = userId;
     }
 
-    public String getUserrUsername() {
-        return userrUsername;
+    public String getUserUsername() {
+        return userUsername;
     }
 
-    public void setUserrUsername(String userrUsername) {
-        this.userrUsername = userrUsername == null ? null : userrUsername.trim();
+    public void setUserUsername(String userUsername) {
+        this.userUsername = userUsername == null ? null : userUsername.trim();
     }
 
     public String getUserPassword() {

@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ou.mall.bean.AdminUser;
+import com.ou.mall.bean.AdminUserExample;
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.Product;
 import com.ou.mall.bean.ProductExample;
 import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.bean.UploadedImageFile;
+import com.ou.mall.service.AdminUserService;
 import com.ou.mall.service.ProductService;
 import com.ou.mall.util.ImageUtil;
 
@@ -33,11 +36,40 @@ public class AdminController {
 	ProductService productService;
 	
 	@Autowired
+	AdminUserService adminUserService;
+	
+	@Autowired
 	HttpSession session;
 	
 	@Autowired
 	HttpServletRequest request;
 	
+	/*
+	 * 管理员登录
+	 */
+	@ResponseBody
+	@RequestMapping("/adminLogin")
+	public Msg adminLogin(AdminUser user){
+		AdminUserExample example = new AdminUserExample();
+		com.ou.mall.bean.AdminUserExample.Criteria createCriteria = example.createCriteria();
+		createCriteria.andUserUsernameEqualTo(user.getUserUsername());
+		createCriteria.andUserPasswordEqualTo(user.getUserUsername());
+		AdminUser adminUser = adminUserService.login(example);
+		
+		if (adminUser == null){
+			return Msg.failure();
+		}
+		session.setAttribute("adminSession", adminUser);
+		return Msg.success();
+	}
+	/*
+	 * 管理员注销
+	 */
+	@RequestMapping("adminLogOut")
+	public String adminLogOut(){
+		session.removeAttribute("adminSession");
+		return "redirect:../adminLogin.jsp";
+	}
 	
 /*
  * 获取所有商品的信息

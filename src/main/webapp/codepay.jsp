@@ -50,7 +50,7 @@
 		String uoid = request.getParameter("param");  // 账单编号
 // 		out.print(request.getParameter("pay_id"));  // 用户名
 		out.print(uoid);
-// 		response.sendRedirect("updateOrderRedirect?type=2&uoid=" + uoid);
+		response.sendRedirect("updateOrderRedirect?type=2&uoid=" + uoid);
 	}else{
 		//参数不合法
 		out.print("fail");

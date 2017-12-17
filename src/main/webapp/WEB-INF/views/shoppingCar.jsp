@@ -9,7 +9,7 @@
 <%@ include file="../../static/header.jsp"%>
 
 
-<title>Insert title here</title>
+<title>购物车</title>
 
 <style>
 	.pimg{

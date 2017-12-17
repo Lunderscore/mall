@@ -19,7 +19,7 @@
 	}
 </style>
 
-<title>Insert title here</title>
+<title>个人中心</title>
 </head>
 <body class="jumbotron">
 	<%@ include file="../../static/navigator.jsp"%>

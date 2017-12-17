@@ -1,9 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<div class="row">
+	<div class="col-md-5 col-md-offset-7">
 <nav aria-label="...">
 
 	<ul class="pagination pagination-lg">
 	<c:if test="${not empty pages }">
+	<li><a href="?pn=1" aria-label="Previous"><span
+				aria-hidden="true">首页</span></a></li>
 		<li><a href="?pn=${pages.prePage }" aria-label="Previous"><span
 				aria-hidden="true">&laquo;</span></a></li>
 			<c:forEach items="${pages.navigatepageNums }" var="i">
@@ -29,6 +33,8 @@
 			      </a>
 		    	</li>
 			</c:if>
+	<li><a href="?pn=${pages.pages }" aria-label="Previous"><span
+		aria-hidden="true">尾页</span></a></li>
    	</c:if>
 	</ul>
 </nav>
@@ -48,3 +54,5 @@
    		$(this).attr("href", $(this).attr("href") + newQuery);
    	});
 </script> 
+	</div>
+</div>

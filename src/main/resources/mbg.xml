@@ -42,10 +42,10 @@
 
 <!-- 	指定每个表的生成策略 -->
 	<table tableName="user" domainObjectName="User"></table>
-<!-- 	<table tableName="user_address" domainObjectName="UserAddress"></table> -->
+	<table tableName="user_address" domainObjectName="UserAddress"></table>
 	<table tableName="product" domainObjectName="Product"></table>
-<!-- 	<table tableName="product_comment" domainObjectName="ProductComment"></table> -->
-<!-- 	<table tableName="user_order" domainObjectName="UserOrder"></table> -->
-<!-- 	<table tableName="admin_user" domainObjectName="AdminUser"></table> -->
+	<table tableName="product_comment" domainObjectName="ProductComment"></table>
+	<table tableName="user_order" domainObjectName="UserOrder"></table>
+	<table tableName="admin_user" domainObjectName="AdminUser"></table>
   </context>
 </generatorConfiguration>

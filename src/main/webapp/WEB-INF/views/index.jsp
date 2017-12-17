@@ -13,7 +13,7 @@
 		text-decoration: none;
 	}
 </style>
-<title>Insert title here</title>
+<title>主界面</title>
 </head>
 <body class="jumbotron">
 	<%@ include file="../../static/navigator.jsp"%>
@@ -52,11 +52,7 @@
 	</div>
 </c:if>
 	
-	<div class="row">
-		<div class="col-md-6 col-md-offset-8">
-			<%@ include file="../../static/pagination.jsp"%>
-		</div>
-	</div>
+	<%@ include file="../../static/pagination.jsp"%>
 	<script src="js/index.js"></script>
 </body>
 </html>

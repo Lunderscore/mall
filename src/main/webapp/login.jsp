@@ -11,7 +11,7 @@
 <c:if test="${not empty userSession }">
 	<c:redirect url="index"></c:redirect>
 </c:if>
-<title>Insert title here</title>
+<title>用户登录</title>
 </head>
 <body class="jumbotron">
 	<%@ include file="static/navigator.jsp"%>

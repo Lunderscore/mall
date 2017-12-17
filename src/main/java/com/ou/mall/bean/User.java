@@ -1,12 +1,17 @@
 package com.ou.mall.bean;
 
-import java.math.BigDecimal;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class User {
     private Integer userId;
 
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}$")
     private String userUsername;
 
+    @NotNull
+    @Pattern(regexp="^[a-zA-Z]\\w{5,17}$")
     private String userPassword;
 
     private String userAvatar;
@@ -52,4 +57,12 @@ public class User {
     public void setUserMoney(Double userMoney) {
         this.userMoney = userMoney;
     }
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userUsername=" + userUsername + ", userPassword=" + userPassword
+				+ ", userAvatar=" + userAvatar + ", userMoney=" + userMoney + "]";
+	}
+    
+    
 }

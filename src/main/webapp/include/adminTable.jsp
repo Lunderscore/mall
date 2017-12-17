@@ -32,7 +32,7 @@ ${product.productImg1 }
 			<img src="../${product.productImg1 }" class="pimg"/>
 		</c:if>
 		<c:if test="${empty product.productImg1 }">
-			<span>需要上传图片1在能在主界面显示商品</span>
+			<span>需要上传图片1才能在主界面显示商品</span>
 		</c:if>
 		</div>
 		<div class="col-md-2 center-block">${product.productTitle }</div>

@@ -47,7 +47,7 @@ $(function(){
 			return;
 		}
 		$.post("order", {pid:pid, num:num}, function(data){
-			alert("添加购物车成功");
+			alert(data.content.msg);
 			location.reload();
 		});
 	});

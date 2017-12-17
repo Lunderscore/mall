@@ -22,7 +22,8 @@ public class ImageUtil {
 		// 后缀名判断
 		String[] allowSuffix = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
 		for (int i = 0; i < allowSuffix.length; i++) {
-			if (suffix.equals(allowSuffix[i])) {
+			// 忽略大小写
+			if (suffix.toLowerCase().equals(allowSuffix[i])) {
 				break;
 			} else if (i == allowSuffix.length - 1) {
 				return null;

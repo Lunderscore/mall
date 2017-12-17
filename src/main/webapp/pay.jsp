@@ -13,7 +13,7 @@
 	String param=request.getParameter("uoid"); //自定义一些参数 支付后返回
 
 // 	String notify_url="http://localhost:8080/codepay.jsp";//通知地址
-	String return_url="http://localhost:8080/mall/codepay.jsp";//
+	String return_url="http://localhost:8080/mall/codepay.jsp";
 
 	if(price==null){ 
 		price="0.01";

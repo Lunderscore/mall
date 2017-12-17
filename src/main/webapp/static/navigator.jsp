@@ -22,7 +22,7 @@
 						<c:if test="${not empty userSession }">
 			            <li id="fat-menu" class="dropdown">
 			              <a id="drop3" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-			                <img alt="Brand" class="icon" id="userAvatar"
+			                <img alt="无头像" class="icon" id="userAvatar"
 								src="${userSession.userAvatar }">
 							<span class="caret"></span>
 			              </a>

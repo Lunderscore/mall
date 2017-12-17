@@ -38,7 +38,7 @@ $(function(){
 		var pid = $(this).attr("pid");
 		var status = $(this).attr("status");
 		
-		if (status == -1 && confirm("是否删除？")){
+		if (status == -1 && !confirm("是否删除？")){
 			return ;
 		}
 		$.post("products/"+pid,{productStatus: status, _method: "put"}, function(){
@@ -112,7 +112,7 @@ function init(){
         var pair = vars[i].split("=");
         if(pair[0] == "keyword"){
         	var keyword = pair[1];
-        	$("#searchInput").val(keyword);
+        	$("#searchInput").val(decodeURI(keyword));
        	}
 	}
 }

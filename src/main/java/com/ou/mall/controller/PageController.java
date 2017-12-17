@@ -7,9 +7,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,7 +74,10 @@ public class PageController {
 	
 	@ResponseBody
 	@RequestMapping(value="loglogin")
-	public Msg login(User user){
+	public Msg login(@Valid User user, BindingResult result){
+		if (result.hasErrors()){
+			return Msg.failure().add("msg", "账号或密码错误");
+		}
 		user = userService.getUserByUsername(user.getUserUsername());
 		session.setAttribute("userSession", user);
 		if (user == null){
@@ -81,10 +88,13 @@ public class PageController {
 	
 	@ResponseBody
 	@RequestMapping(value="regregister")
-	public Msg register(User user){
+	public Msg register(@Valid User user, BindingResult result){
+		if (result.hasErrors()){
+			return Msg.failure();
+		}
 		user.setUserMoney(0.0);
 		userService.insert(user);
-		return login(user);
+		return login(user, result);
 	}
 	
 	@RequestMapping(value="logOut")
@@ -148,6 +158,7 @@ public class PageController {
 		com.ou.mall.bean.UserOrderExample.Criteria createCriteria = example.createCriteria();
 		if (type == 0){
 			createCriteria.andOrderStatusNotEqualTo(-1);
+			createCriteria.andOrderStatusNotEqualTo(0);
 		}else{
 			createCriteria.andOrderStatusEqualTo(type);
 		}

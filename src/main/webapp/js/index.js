@@ -5,7 +5,7 @@ $(function(){
         var pair = vars[i].split("=");
         if(pair[0] == "keyword"){
         	var keyword = pair[1];
-        	$("#searchInput").val(keyword);
+        	$("#searchInput").val(decodeURI(keyword));
        	}
 	}
 	
