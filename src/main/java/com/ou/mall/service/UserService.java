@@ -43,7 +43,7 @@ public class UserService {
 		createCriteria.andUserUsernameEqualTo(user.getUserUsername());
 		createCriteria.andUserPasswordEqualTo(user.getUserPassword());
 		List<User> selectByExample = userMapper.selectByExample(example);
-		return !userMapper.selectByExample(example).isEmpty() ? null : selectByExample.get(0);
+		return selectByExample.isEmpty() ? null : selectByExample.get(0);
 	}
 	
 	public User getUserByUsername(String username){
