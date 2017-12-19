@@ -82,7 +82,7 @@ public class PageController {
 		if (result.hasErrors()){
 			return Msg.failure().add("msg", "账号或密码错误");
 		}
-		user = userService.getUserByUsername(user.getUserUsername());
+		user = userService.login(user);
 		session.setAttribute("userSession", user);
 		if (user == null){
 			return Msg.failure().add("msg", "账号或密码错误");

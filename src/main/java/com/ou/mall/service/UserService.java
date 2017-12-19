@@ -36,14 +36,14 @@ public class UserService {
 		userMapper.insert(user);
 	}
 	
-	public boolean login(User user){
+	public User login(User user){
 		
 		UserExample example = new UserExample();
 		Criteria createCriteria = example.createCriteria();
 		createCriteria.andUserUsernameEqualTo(user.getUserUsername());
 		createCriteria.andUserPasswordEqualTo(user.getUserPassword());
-		
-		return !userMapper.selectByExample(example).isEmpty();
+		List<User> selectByExample = userMapper.selectByExample(example);
+		return !userMapper.selectByExample(example).isEmpty() ? null : selectByExample.get(0);
 	}
 	
 	public User getUserByUsername(String username){
