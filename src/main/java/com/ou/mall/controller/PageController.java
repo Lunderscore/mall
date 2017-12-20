@@ -118,7 +118,8 @@ public class PageController {
 			return "redirect:login.jsp";
 		}
 		UserOrderExample example = new UserOrderExample();
-		example.createCriteria().andOrderStatusEqualTo(0);
+		example.createCriteria().andOrderStatusEqualTo(0).andOrderUidEqualTo(uid);
+		
 		List<UserOrder> shoppingCar = userOrderService.selectByExampleWithProduct(example);
 		request.setAttribute("shoppingCar", shoppingCar);
 		return "shoppingCar";
