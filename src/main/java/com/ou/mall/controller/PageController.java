@@ -109,14 +109,9 @@ public class PageController {
 	
 	@RequestMapping("shoppingCar")
 	public String shoppingCar(){
-		if (hasNotLogin()){
-			return "redirect:login.jsp";
-		}
 		
 		Integer uid = ((User) session.getAttribute("userSession")).getUserId();
-		if (uid == null){
-			return "redirect:login.jsp";
-		}
+
 		UserOrderExample example = new UserOrderExample();
 		example.createCriteria().andOrderStatusEqualTo(0).andOrderUidEqualTo(uid);
 		
@@ -128,9 +123,7 @@ public class PageController {
 	@RequestMapping("payment")
 	public String payment(@RequestParam("uoid") String uoid, @RequestParam("totalMoney") String totalMoney, 
 			UserOrder userOrder){
-		if (hasNotLogin()){
-			return "redirect:login.jsp";
-		}else if ("".equals(uoid) || "".equals(totalMoney) || uoid==null || totalMoney==null){
+		if ("".equals(uoid) || "".equals(totalMoney) || uoid==null || totalMoney==null){
 			return "redirect:index.jsp";
 		}
 		
@@ -151,9 +144,6 @@ public class PageController {
 	@RequestMapping("userOrder")
 	public <T> String userOrderPage(@RequestParam(value="type", defaultValue="0") Integer type,
 			@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="pn", defaultValue="1") Integer pn){
-		if (hasNotLogin()){
-			return "redirect:login.jsp";
-		}
 //		设置分页大小
 		PageHelper.startPage(pn, 5);
 		User user = (User) session.getAttribute("userSession");
@@ -177,23 +167,8 @@ public class PageController {
 		return "userOrder";
 	}
 	
-	public boolean hasNotLogin(){
-		if (session.getAttribute("userSession") == null){
-			return true;
-		}
-		return false;
-	}
-	
-	@RequestMapping("toLogin")
-	public String toLogin(){
-		return "redirect:login.jsp";
-	}
-	
 	@RequestMapping("home")
 	public String home(){
-		if (hasNotLogin()){
-			return "redirect:login.jsp";
-		}
 		return "home";
 	}
 }
