@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
-   http://www.springframework.org/schema/beans 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tool"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-   http://www.springframework.org/schema/aop 
-   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-   http://www.springframework.org/schema/tx 
+   http://www.springframework.org/schema/tx
    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-   http://www.springframework.org/schema/context      
-   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
 
-	<context:component-scan base-package="com.ou.mall">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
+    <context:component-scan base-package="com.ou.mall">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
-	<context:property-placeholder location="classpath:dbconfig.properties" />
-	<bean id="poolDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
-		<property name="driverClass" value="${jdbc.driverClass}"></property>
-		<property name="user" value="${jdbc.user}"></property>
-		<property name="password" value="${jdbc.password}"></property>
-		<property name="testConnectionOnCheckout" value="${jdbc.testConnectionOnCheckout}"></property>
-		<property name="testConnectionOnCheckin" value="${jdbc.testConnectionOnCheckin}"></property>
-		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"></property>
-	</bean>
+    <context:property-placeholder location="classpath:dbconfig.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+        <property name="driverClass" value="${jdbc.driverClass}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="testConnectionOnCheckout" value="${jdbc.testConnectionOnCheckout}"></property>
+        <property name="testConnectionOnCheckin" value="${jdbc.testConnectionOnCheckin}"></property>
+        <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"></property>
+    </bean>
 
-	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="dataSource" ref="poolDataSource"></property>
-		<!-- 指定mybatis mapper位置 -->
-		<property name="mapperLocations" value="classpath:mapper/*xml"></property>
-	</bean>
+    <bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 指定mybatis mapper位置 -->
+        <property name="mapperLocations" value="classpath:mapper/*xml"></property>
+    </bean>
 
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg name="sqlSessionFactory" ref="SqlSessionFactory"></constructor-arg>
-		<constructor-arg name="executorType" value="BATCH"></constructor-arg>
-	</bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="SqlSessionFactory"></constructor-arg>
+        <constructor-arg name="executorType" value="BATCH"></constructor-arg>
+    </bean>
 
-	<!-- 配置扫描器 , 将mybatis 接口的实现加入到ioc 容器中 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<!-- 扫描所有的dao接口的实现，加入到ioc 容器中 -->
-		<property name="basePackage" value="com.ou.mall.dao"></property>
-	</bean>
+    <!-- 配置扫描器 , 将mybatis 接口的实现加入到ioc 容器中 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描所有的dao接口的实现，加入到ioc 容器中 -->
+        <property name="basePackage" value="com.ou.mall.dao"></property>
+    </bean>
+
+    <!-- 配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置基于注解的声明式事务默认使用注解来管理事务行为-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

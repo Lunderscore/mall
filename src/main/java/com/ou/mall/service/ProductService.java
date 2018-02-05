@@ -9,6 +9,7 @@ import com.ou.mall.bean.Product;
 import com.ou.mall.bean.ProductExample;
 import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.dao.ProductMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService {
@@ -27,6 +28,7 @@ public class ProductService {
 		return productImg == null ? null : productImg.getProductImg1();
 	}
 
+	@Transactional
 	public void updateProduct(Product product) {
 		productMapper.updateByPrimaryKeySelective(product);
 	}
@@ -51,7 +53,8 @@ public class ProductService {
 	public void addProduct(Product product) {
 		productMapper.insert(product);
 	}
-	
+
+	@Transactional
 	public void updateByPrimaryKeySelective(Product product) {
 		productMapper.updateByPrimaryKeySelective(product);
 	}
