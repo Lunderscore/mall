@@ -1,68 +1,61 @@
 package com.ou.mall.bean;
 
+import com.ou.mall.validation.UserLogin;
+
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 
 public class User {
-    private Integer userId;
+    @Null(groups = UserLogin.class)
+    private Integer uid;
 
-    @NotNull
-    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}$")
-    private String userUsername;
+    @NotNull(groups = UserLogin.class)
+    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}$",
+            message = "账号格式：字母开头，允许5-16字节，允许字母数字下划线",
+            groups = UserLogin.class)
+    private String username;
 
-    @NotNull
-    @Pattern(regexp="^[a-zA-Z]\\w{5,17}$")
-    private String userPassword;
+    @NotNull(groups = UserLogin.class)
+    @Pattern(regexp = "^[a-zA-Z]\\w{5,17}$",
+            message = "密码格式：字母开头，长度在6~18之间，只能包含字母、数字和下划线",
+            groups = UserLogin.class)
+    private String password;
 
-    private String userAvatar;
-
-    private Double userMoney;
-
-    public Integer getUserId() {
-        return userId;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
-    public String getUserUsername() {
-        return userUsername;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserUsername(String userUsername) {
-        this.userUsername = userUsername == null ? null : userUsername.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword == null ? null : userPassword.trim();
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public String getUserAvatar() {
-        return userAvatar;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", uid=").append(uid);
+        sb.append(", username=").append(username);
+        sb.append(", password=").append(password);
+        sb.append("]");
+        return sb.toString();
     }
-
-    public void setUserAvatar(String userAvatar) {
-        this.userAvatar = userAvatar == null ? null : userAvatar.trim();
-    }
-
-    public Double getUserMoney() {
-        return userMoney;
-    }
-
-    public void setUserMoney(Double userMoney) {
-        this.userMoney = userMoney;
-    }
-
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userUsername=" + userUsername + ", userPassword=" + userPassword
-				+ ", userAvatar=" + userAvatar + ", userMoney=" + userMoney + "]";
-	}
-    
-    
 }

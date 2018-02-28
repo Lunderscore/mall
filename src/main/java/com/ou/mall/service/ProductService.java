@@ -28,14 +28,11 @@ public class ProductService {
 		return productImg == null ? null : productImg.getProductImg1();
 	}
 
-	@Transactional
 	public void updateProduct(Product product) {
 		productMapper.updateByPrimaryKeySelective(product);
 	}
 
-	
 
-	/////////////////////////////////////////
 	public List<Product> getAdminProducts() {
 		ProductExample example = new ProductExample();
 		Criteria createCriteria = example.createCriteria();
@@ -54,7 +51,6 @@ public class ProductService {
 		productMapper.insert(product);
 	}
 
-	@Transactional
 	public void updateByPrimaryKeySelective(Product product) {
 		productMapper.updateByPrimaryKeySelective(product);
 	}
