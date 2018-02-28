@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="row">
@@ -41,11 +42,11 @@
 <script>
 	var query = window.location.search.substring(1);
 	var newQuery = "";
-	if (query != ""){
+	if (query !== ""){
 		var vars = query.split("&");
 		for (var i=0;i<vars.length;i++) {
 		    var pair = vars[i].split("=");
-		    if(pair[0] != "pn"){
+		    if(pair[0] !== "pn"){
 		    	newQuery = "&" + pair[0] + "=" + pair[1];
 		   	}
 		}

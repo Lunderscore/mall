@@ -1,4 +1,4 @@
-$(function(){
+﻿$(function(){
 	$("#loginBtn").on("click", function(){
 		login();
 	});
