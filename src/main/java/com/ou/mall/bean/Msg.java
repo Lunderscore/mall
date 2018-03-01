@@ -8,8 +8,8 @@ public class Msg {
      * 0: success, 1: failure;
      */
     private int code;
-
-    private Map<String, Object> content = new HashMap<String, Object>();
+    private String message;
+    private Map<String, Object> content;
 
     public Msg add(String key, Object value) {
         this.getContent().put(key, value);
@@ -20,15 +20,15 @@ public class Msg {
     public static Msg success() {
         Msg msg = new Msg();
         msg.setCode(0);
-
+        msg.content = new HashMap<>();
         return msg;
     }
 
-    public static Msg failure() {
-
+    public static Msg failure(String message) {
         Msg msg = new Msg();
         msg.setCode(1);
-
+        msg.setMessage(message);
+        msg.content = new HashMap<>();
         return msg;
     }
 
@@ -40,6 +40,14 @@ public class Msg {
         this.code = code;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public Map<String, Object> getContent() {
         return content;
     }
@@ -47,5 +55,4 @@ public class Msg {
     public void setContent(Map<String, Object> content) {
         this.content = content;
     }
-
 }
