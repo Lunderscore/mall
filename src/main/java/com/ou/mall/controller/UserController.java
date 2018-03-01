@@ -40,6 +40,20 @@ public class UserController {
         return Msg.success();
     }
 
+    @ResponseBody
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public Msg register(HttpSession session, @Validated(UserLogin.class) User user, BindingResult result) {
+        if (result.hasErrors()) {
+            String defaultMessage = result.getFieldError().getDefaultMessage();
+            return Msg.failure(defaultMessage);
+        }
+        // 注册成功 进入登录方法
+        if (userService.register(user)) {
+            return login(session, user, result);
+        }
+        return Msg.failure("failure");
+    }
+
 
     // /*
     //  * 在注册用户的时候查看是否存在该用户

@@ -29,7 +29,14 @@ public class UserService {
         criteria.andUsernameEqualTo(user.getUsername())
                 .andPasswordEqualTo(user.getPassword());
         List<User> users = userMapper.selectByExample(example);
-
         return users.size() == 0 ? null : users.get(0);
+    }
+
+    /**
+     * @param user 需要注册的用户信息
+     * @return true:注册成功 false:注册失败
+     */
+    public boolean register(User user) {
+        return 0 != userMapper.insertSelective(user);
     }
 }

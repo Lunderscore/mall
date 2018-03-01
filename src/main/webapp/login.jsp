@@ -4,8 +4,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <jsp:include page="/component/header" />
-    <c:if test="${not empty userSession }">
+    <jsp:include page="/component/header"/>
+    <c:if test="${not empty user }">
         <c:redirect url="index"/>
     </c:if>
     <title>用户登录</title>
@@ -17,7 +17,7 @@
         <div class="col-md-4 col-md-offset-4">
             <ul class="nav nav-tabs nav-justified">
                 <li class="active"><a>登录</a></li>
-                <li><a>注册</a></li>
+                <li><a href="register.jsp">注册</a></li>
             </ul>
         </div>
         <div class="col-md-8 col-md-offset-4">
@@ -32,10 +32,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <input type="password" required pattern="^[a-zA-Z]\w{5,17}$"
-                               oninvalid="setCustomValidity('密码格式：字母开头，长度在6~18之间，只能包含字母、数字和下划线')"
-                               oninput="setCustomValidity('')"
-                               id="password" class="form-control" placeholder="请输入密码">
+                        <input type="password" id="password" class="form-control" placeholder="请输入密码">
                     </div>
                     <div class="col-sm-3">
                     </div>
@@ -52,7 +49,8 @@
         function formSubmit() {
             var username = $("#username").val();
             var password = $("#password").val();
-            $.post("login", {username:username, password:password}, function (data) {
+
+            $.post("login", {username: username, password: password}, function (data) {
                 // 登录失败提示信息
                 if (1 === data.code) {
                     //TODO 使用layui提示
