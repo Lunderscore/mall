@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ include file="headerInclude.jsp"%>
+<%@ include file="../WEB-INF/views/component/header.jsp"%>
 <title>Insert title here</title>
 <body class="jumbotron">
 

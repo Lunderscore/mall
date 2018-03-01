@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <%@ include file="include/resources.jsp" %>
+    <jsp:include page="/component/header" />
     <c:if test="${not empty userSession }">
         <c:redirect url="index"/>
     </c:if>
@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="jumbotron">
-    <%@ include file="include/navigator.jsp" %>
+    <jsp:include page="/component/navigator"/>
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <ul class="nav nav-tabs nav-justified">
