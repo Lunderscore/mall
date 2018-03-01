@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * 用户Service
  * @author: kpkym
@@ -25,14 +27,16 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Msg login(@Validated(UserLogin.class) User user, BindingResult result) {
-        System.out.println(user);
+    public Msg login(HttpSession session, @Validated(UserLogin.class) User user, BindingResult result) {
         if (result.hasErrors()) {
             String defaultMessage = result.getFieldError().getDefaultMessage();
-            System.out.println(defaultMessage);
-            return Msg.failure();
+            return Msg.failure(defaultMessage);
         }
-
+        User userSession = userService.login(user);
+        if (null == userSession) {
+            return Msg.failure("账号或密码错误");
+        }
+        session.setAttribute("user", userSession);
         return Msg.success();
     }
 

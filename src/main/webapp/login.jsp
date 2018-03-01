@@ -52,8 +52,15 @@
         function formSubmit() {
             var username = $("#username").val();
             var password = $("#password").val();
-            $.post("login", {username:username, password:password}, function () {
-                //TODO 使用layui提示
+            $.post("login", {username:username, password:password}, function (data) {
+                // 登录失败提示信息
+                if (1 === data.code) {
+                    //TODO 使用layui提示
+                    alert(data.message);
+                    return;
+                }
+                // 登录成功跳转页面
+                location.href = "/";
             });
         }
     </script>
