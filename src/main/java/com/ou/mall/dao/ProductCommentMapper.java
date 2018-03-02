@@ -10,7 +10,7 @@ public interface ProductCommentMapper {
 
     int deleteByExample(ProductCommentExample example);
 
-    int deleteByPrimaryKey(Integer commentId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(ProductComment record);
 
@@ -18,10 +18,7 @@ public interface ProductCommentMapper {
 
     List<ProductComment> selectByExample(ProductCommentExample example);
 
-//    selectByExampleWithUser
-    List<ProductComment> selectByExampleWithUser(ProductCommentExample example);
-
-    ProductComment selectByPrimaryKey(Integer commentId);
+    ProductComment selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") ProductComment record, @Param("example") ProductCommentExample example);
 

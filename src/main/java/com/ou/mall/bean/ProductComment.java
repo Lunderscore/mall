@@ -3,63 +3,68 @@ package com.ou.mall.bean;
 import java.util.Date;
 
 public class ProductComment {
-    private Integer commentId;
+    private Integer id;
 
-    private String commentContent;
+    private String comment;
 
-    private Date commentDateTime;
+    private Date datetime;
 
-    private Integer commentUid;
+    private Integer uid;
 
-    private Integer commentPid;
+    private Integer pid;
 
-    private User user;
-    
-    public Integer getCommentId() {
-        return commentId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getCommentContent() {
-        return commentContent;
+    public String getComment() {
+        return comment;
     }
 
-    public void setCommentContent(String commentContent) {
-        this.commentContent = commentContent == null ? null : commentContent.trim();
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
     }
 
-    public Date getCommentDateTime() {
-        return commentDateTime;
+    public Date getDatetime() {
+        return datetime;
     }
 
-    public void setCommentDateTime(Date commentDateTime) {
-        this.commentDateTime = commentDateTime;
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
     }
 
-    public Integer getCommentUid() {
-        return commentUid;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setCommentUid(Integer commentUid) {
-        this.commentUid = commentUid;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
-    public Integer getCommentPid() {
-        return commentPid;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setCommentPid(Integer commentPid) {
-        this.commentPid = commentPid;
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", comment=").append(comment);
+        sb.append(", datetime=").append(datetime);
+        sb.append(", uid=").append(uid);
+        sb.append(", pid=").append(pid);
+        sb.append("]");
+        return sb.toString();
+    }
 }
