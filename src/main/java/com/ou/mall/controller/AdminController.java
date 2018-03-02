@@ -6,7 +6,7 @@ import com.ou.mall.bean.Product;
 import com.ou.mall.exception.ErrorImgCountException;
 import com.ou.mall.service.ProductImgService;
 import com.ou.mall.service.ProductService;
-import com.ou.mall.status.ProductStatus;
+import com.ou.mall.status.ProductStatusEnum;
 import com.ou.mall.validation.AddProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -156,7 +156,7 @@ public class AdminController {
      */
     @ResponseBody
     @RequestMapping(value = "products/{pid}", method = RequestMethod.PATCH)
-    public Msg delProduct(@PathVariable Integer pid, ProductStatus status) {
+    public Msg delProduct(@PathVariable Integer pid, ProductStatusEnum status) {
         productService.delProduct(pid, status);
         return Msg.success();
     }

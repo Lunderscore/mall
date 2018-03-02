@@ -36,15 +36,15 @@
     <mvc:default-servlet-handler/>
 
     <!-- 拦截器 -->
-     <mvc:interceptors>
-         <mvc:interceptor>
-             <mvc:mapping path="/shoppingCar"/>
-             <mvc:mapping path="/payment"/>
-             <mvc:mapping path="/userOrder"/>
-             <mvc:mapping path="/home"/>
-             <bean class="com.ou.mall.interceptor.LoginInterceptor" />
-         </mvc:interceptor>
-     </mvc:interceptors>
+     <!--<mvc:interceptors>-->
+         <!--<mvc:interceptor>-->
+             <!--<mvc:mapping path="/shoppingCar"/>-->
+             <!--<mvc:mapping path="/payment"/>-->
+             <!--<mvc:mapping path="/userOrder"/>-->
+             <!--<mvc:mapping path="/home"/>-->
+             <!--<bean class="com.ou.mall.interceptor.LoginInterceptor" />-->
+         <!--</mvc:interceptor>-->
+     <!--</mvc:interceptors>-->
 
     <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

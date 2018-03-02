@@ -5,12 +5,12 @@ package com.ou.mall.status;
  * date: 2018/3/2
  * time: 13:50
  */
-public enum ProductStatus {
+public enum ProductStatusEnum {
     del(new Byte("-1")), sale(new Byte("0")), withdraw(new Byte("1"));
 
     private final byte i;
 
-    private ProductStatus(byte i) {
+    private ProductStatusEnum(byte i) {
         this.i = i;
     }
 

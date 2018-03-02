@@ -1,7 +1,7 @@
 package com.ou.mall.service;
 
 import com.ou.mall.bean.Product;
-import com.ou.mall.status.ProductStatus;
+import com.ou.mall.status.ProductStatusEnum;
 
 import java.util.List;
 
@@ -55,7 +55,8 @@ public interface ProductService {
     /**
      * 删除或下架 商品
      *
-     * @param pid 商品id
+     * @param pid    商品id
+     * @param status 要修改的状态 ProductStatusEnum
      */
-    void delProduct(Integer pid, ProductStatus status);
+    void delProduct(Integer pid, ProductStatusEnum status);
 }
