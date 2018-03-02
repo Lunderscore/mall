@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
     <!-- 配置数据库相关参数 -->
-    <context:property-placeholder location="classpath:resource/dbconfig.properties"/>
+    <context:property-placeholder location="classpath:resource/dbconfig.properties" ignore-unresolvable="true"/>
 
     <!-- Druid 数据库连接池 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"

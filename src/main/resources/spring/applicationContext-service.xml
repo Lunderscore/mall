@@ -9,4 +9,7 @@
     <context:component-scan base-package="com.ou">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <!--个人配置-->
+    <context:property-placeholder location="classpath:resource/myconfig.properties" ignore-unresolvable="true"/>
 </beans>
