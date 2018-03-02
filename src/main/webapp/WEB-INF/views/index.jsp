@@ -33,12 +33,13 @@
             <div class="row col-md-offset-1">
         </c:if>
         <div class="col-md-2">
-            <a href="itemDetail.jsp?pid=${product.productId }">
+            <a href="itemDetail.jsp?pid=${product.id }">
                 <div class="thumbnail item">
-                    <img src="${product.productImg1 }">
+                    <%--TODO--%>
+                    <%--<img src="${product.productImg1 }">--%>
                     <div class="caption">
-                        <h5>${product.productTitle }</h5>
-                        <h4>价格：${product.productPrice }</h4>
+                        <h5>${product.title }</h5>
+                        <h4>价格：${product.price }</h4>
                     </div>
                 </div>
             </a>

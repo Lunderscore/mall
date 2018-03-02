@@ -7,6 +7,7 @@ import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.dao.ProductMapper;
 import com.ou.mall.status.ProductStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,11 @@ public class ProductService {
 	@Autowired
 	ProductMapper productMapper;
 
+	@Value("${admin.product.size}")
+	Integer adminProductSize;
+	@Value("${index.product.size}")
+	Integer indexProductSize;
+
 	/**
 	 * 返回status不为-1的商品
 	 *
@@ -37,7 +43,18 @@ public class ProductService {
 		if (!"".equals(keyword)) {
 			criteria.andTitleLike("%" + keyword + "%");
 		}
-		PageHelper.startPage(pn, 5);
+		PageHelper.startPage(pn, adminProductSize);
+		return productMapper.selectByExample(example);
+	}
+
+	public List<Product> listIndexProduct(Integer pn, String keyword) {
+		ProductExample example = new ProductExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(ProductStatus.sale.getValue());
+		if (!"".equals(keyword)) {
+			criteria.andTitleLike("%" + keyword + "%");
+		}
+		PageHelper.startPage(pn, indexProductSize);
 		return productMapper.selectByExample(example);
 	}
 

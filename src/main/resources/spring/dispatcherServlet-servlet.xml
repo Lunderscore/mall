@@ -13,6 +13,9 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <!--个人配置文件-->
+    <context:property-placeholder location="classpath:resource/myconfig.properties" ignore-unresolvable="true"/>
+
     <!-- 配置JSP 显示ViewResolver -->
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
