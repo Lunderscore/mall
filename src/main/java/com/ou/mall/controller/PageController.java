@@ -3,7 +3,9 @@ package com.ou.mall.controller;
 import com.github.pagehelper.PageInfo;
 import com.ou.mall.bean.Product;
 import com.ou.mall.bean.User;
+import com.ou.mall.bean.UserInfo;
 import com.ou.mall.service.ProductService;
+import com.ou.mall.service.UserInfoService;
 import com.ou.mall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +31,8 @@ public class PageController {
     ProductService productService;
     @Autowired
     UserService userService;
+    @Autowired
+    UserInfoService userInfoService;
 
     @Value("${navigatePages.size}")
     Integer navigatePagesSize;
@@ -52,13 +56,31 @@ public class PageController {
         return "index";
     }
 
+    /**
+     * 个人主页
+     *
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "home", method = RequestMethod.GET)
     public String home(Model model, HttpSession session) {
         Integer uid = (Integer) session.getAttribute("user");
         User user = userService.getUser(uid);
+        UserInfo userInfo = userInfoService.getUserInfo(uid);
 
+        model.addAttribute("user", user);
+        model.addAttribute("userInfo", userInfo);
         return "home";
     }
+
+    @RequestMapping(value = "productDetail", method = RequestMethod.GET)
+    public String productDetail(Model model, @RequestParam Integer pid) {
+        Product product = productService.getProduct(pid);
+        model.addAttribute("product", product);
+        return "productDetail";
+    }
+
 
 //     @RequestMapping("shoppingCar")
 //     public String shoppingCar() {
