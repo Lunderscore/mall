@@ -2,6 +2,7 @@ package com.ou.mall.controller;
 
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.User;
+import com.ou.mall.exception.HasUsernameException;
 import com.ou.mall.service.UserService;
 import com.ou.mall.validation.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public Msg register(HttpSession session, @Validated(UserLogin.class) User user, BindingResult result) {
+    public Msg register(HttpSession session, @Validated(UserLogin.class) User user, BindingResult result) throws HasUsernameException {
         if (result.hasErrors()) {
             String defaultMessage = result.getFieldError().getDefaultMessage();
             return Msg.failure(defaultMessage);
