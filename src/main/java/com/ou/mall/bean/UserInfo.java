@@ -2,7 +2,7 @@ package com.ou.mall.bean;
 
 import java.math.BigDecimal;
 
-public class userInfo {
+public class UserInfo {
     private Integer ufid;
 
     private Integer uid;

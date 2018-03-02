@@ -2,6 +2,7 @@ package com.ou.mall.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.ou.mall.bean.Product;
+import com.ou.mall.bean.User;
 import com.ou.mall.service.ProductService;
 import com.ou.mall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public class PageController {
      * @param pn
      * @return
      */
-    @RequestMapping("index")
+    @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index(Model model,
             @RequestParam(defaultValue = "") String keyword
             , @RequestParam(defaultValue = "1") Integer pn) {
@@ -50,29 +52,14 @@ public class PageController {
         return "index";
     }
 
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String home(Model model, HttpSession session) {
+        Integer uid = (Integer) session.getAttribute("user");
+        User user = userService.getUser(uid);
 
-//     @ResponseBody
-//     @RequestMapping(value = "login")
-//     public Msg login(@Valid User user, BindingResult result) {
-//         System.out.println(user);
-//         if (result.hasErrors()) {
-//             return Msg.failure("").add("msg", "账号或密码错误");
-//         }
-//         user = userService.login(user);
-//         session.setAttribute("userSession", user);
-//         if (user == null) {
-//             return Msg.failure("").add("msg", "账号或密码错误");
-//         }
-//         return Msg.success();
-//     }
-//
-//
-//     @RequestMapping(value = "logOut")
-//     public String logOut() {
-//         session.removeAttribute("userSession");
-//         return "redirect:login.jsp";
-//     }
-//
+        return "home";
+    }
+
 //     @RequestMapping("shoppingCar")
 //     public String shoppingCar() {
 //
@@ -133,10 +120,6 @@ public class PageController {
         // return "userOrder";
     // }
 
-    @RequestMapping("home")
-    public String home() {
-        return "home";
-    }
 
 
 }
