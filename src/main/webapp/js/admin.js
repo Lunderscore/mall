@@ -1,4 +1,4 @@
-$(function(){
+﻿$(function(){
 	init();
 	
 	$("#searchBtn").on("click", function(){

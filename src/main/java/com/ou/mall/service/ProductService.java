@@ -2,6 +2,7 @@ package com.ou.mall.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +12,52 @@ import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.dao.ProductMapper;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * ProductService
+ * @author: kpkym
+ * date: 2018/3/2
+ * time: 8:40
+ */
 @Service
 public class ProductService {
-
 	@Autowired
 	ProductMapper productMapper;
 
-	public List<Product> selectByExample(ProductExample example) {
-		List<Product> selectByExample = productMapper.selectByExample(example);
-		return selectByExample;
+	public List<Product> listAdminProduct(Integer pn, String keyword) {
+		ProductExample example = new ProductExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andProductStatusNotEqualTo(Product.STATUS_DELETE);
+		if (!"".equals(keyword)) {
+			criteria.andProductTitleLike("%" + keyword + "%");
+		}
+		List<Product> products = productMapper.selectByExample(example);
+		return products;
+	}
+
+	public List<Product> listIndexProduct(Integer pn, String keyword) {
+		// PageHelper.startPage(pn, 5);
+		// Criteria criteria =
+		// criteria.andProductStatusNotEqualTo(Product.STATUS_DELETE);
+		// if (!"".equals(keyword)) {
+		// 	criteria.andProductTitleLike("%" + keyword + "%");
+		// }
+		// List<Product> products = productMapper.selectByExample(example);
+		return null;
+	}
+
+	/**
+	 * 通过主键获取商品
+	 *
+	 * @param pid
+	 * @return null or product
+	 */
+	public Product getProduct(Integer pid) {
+		ProductExample example = new ProductExample();
+		example.createCriteria().andProductIdEqualTo(pid);
+		example.createCriteria().andProductStatusNotEqualTo(Product.STATUS_DELETE);
+		List<Product> products = productMapper.selectByExample(example);
+
+		return products.size() == 0 ? null : products.get(0);
 	}
 
 	public String getMainPic(Integer ppid) {

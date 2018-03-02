@@ -1,175 +1,151 @@
 package com.ou.mall.controller;
-/*
- * 本类负责维护管理员页面
- */
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.ou.mall.bean.AdminUser;
-import com.ou.mall.bean.AdminUserExample;
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.Product;
-import com.ou.mall.bean.ProductExample;
-import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.bean.UploadedImageFile;
-import com.ou.mall.service.AdminUserService;
 import com.ou.mall.service.ProductService;
 import com.ou.mall.util.ImageUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/admin")
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
+/**
+ * 本类负责维护管理员页面
+ *
+ * @author: kpkym
+ * date: 2018/3/1
+ * time: 15:40
+ */
+@RequestMapping("admin")
 @Controller
 public class AdminController {
-	
-	@Autowired
-	ProductService productService;
-	
-	@Autowired
-	AdminUserService adminUserService;
-	
-	@Autowired
-	HttpSession session;
-	
-	@Autowired
-	HttpServletRequest request;
-	
-	/*
-	 * 管理员登录
-	 */
-	@ResponseBody
-	@RequestMapping("/adminLogin")
-	public Msg adminLogin(AdminUser user){
-		AdminUserExample example = new AdminUserExample();
-		com.ou.mall.bean.AdminUserExample.Criteria createCriteria = example.createCriteria();
-		createCriteria.andUserUsernameEqualTo(user.getUserUsername());
-		createCriteria.andUserPasswordEqualTo(user.getUserUsername());
-		AdminUser adminUser = adminUserService.login(example);
-		
-		if (adminUser == null){
-			return Msg.failure();
-		}
-		session.setAttribute("adminSession", adminUser);
-		return Msg.success();
-	}
-	/*
-	 * 管理员注销
-	 */
-	@RequestMapping("adminLogOut")
-	public String adminLogOut(){
-		session.removeAttribute("adminSession");
-		return "redirect:../adminLogin.jsp";
-	}
-	
-/*
- * 获取所有商品的信息
- * 显示五个分页
- * 每页有5个商品
- */
-	@RequestMapping(value="/products", method=RequestMethod.GET)
-	public String getProducts(@RequestParam(value="keyword", required=false) String keyword
-			, @RequestParam(value = "pn", defaultValue = "1") Integer pn){
-		PageHelper.startPage(pn, 5);
-		List<Product> products;
-		ProductExample example = new ProductExample();
-		Criteria createCriteria = example.createCriteria();
-		if (keyword == null || "".equals(keyword)){
-			keyword = null;
-		}else{
-			createCriteria.andProductTitleLike(keyword);
-		}
-		createCriteria.andProductStatusNotEqualTo(-1);
-		products = productService.selectByExample(example);
-		
-		PageInfo<Product> page = new PageInfo<Product>(products, 5);
-		request.setAttribute("pages", page);
-		return "admin";
-	}
-	
-	/*
-	 * 通过主键获取商品
-	 */
-	@ResponseBody
-	@RequestMapping(value="/products/{pid}", method=RequestMethod.GET)
-	public Msg getProductByprimaryKey(@PathVariable("pid") Integer pid){
-		ProductExample example = new ProductExample();
-		example.createCriteria().andProductIdEqualTo(pid);
-		example.createCriteria().andProductStatusNotEqualTo(-1);
-		
-		Product product = productService.selectAdminProductByPrimaryKey(example);
-		
-		Msg msg = Msg.success();
-		msg.add("product", product);
-		return msg;
-	}
-	
-	/*
-	 * 增加商品
-	 */
-	@RequestMapping(value="/products", method=RequestMethod.POST)
-	public String addProduct(Product product){
-		
-		productService.addProduct(product);
-		return "redirect:products";
-	}
-	
-	/*
-	 * 上传图片
-	 */
-	@RequestMapping(value="/products/{pid}/{which}", method=RequestMethod.POST)
-	public String updatePicture(UploadedImageFile image, @PathVariable("pid") Integer pid
-			, @PathVariable("which") Integer which) throws Exception{
-		String productImgPath = session.getServletContext().getRealPath("/data/img/products/" + which);
+    @Autowired
+    ProductService productService;
+
+    /**
+     * 管理员登录
+     *
+     * @param username
+     * @param password
+     * @return 成功 success 失败 failure
+     */
+    @ResponseBody
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public Msg login(String username, String password, HttpSession session) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            return Msg.failure("账号密码不能为空");
+        }
+        if (!"admin".equals(username) || !"admin".equals(password)) {
+            return Msg.failure("账号密码错误");
+        }
+        session.setAttribute("admin", username);
+        return Msg.success();
+    }
+
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        session.removeAttribute("admin");
+        return "redirect:../login.jsp";
+    }
+
+
+    /**
+     * 获取所有商品的信息
+     * 显示五个分页
+     * 每页有5个商品
+     *
+     * @param keyword
+     * @param pn
+     * @return 返回所有status不为-1的商品
+     */
+    @RequestMapping(value = "products", method = RequestMethod.GET)
+    public String listProduct(Model model, @RequestParam(value = "keyword", defaultValue = "") String keyword
+            , @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+        List<Product> products = productService.listAdminProduct(pn, keyword);
+        PageInfo<Product> page = new PageInfo<>(products, 5);
+        model.addAttribute("pages", page);
+        return "admin/products";
+    }
+
+
+    /**
+     * 通过主键获取商品
+     *
+     * @param pid
+     * @return 主键为pid的商品
+     */
+    @ResponseBody
+    @RequestMapping(value = "products/{pid}", method = RequestMethod.GET)
+    public Msg getProduct(@PathVariable("pid") Integer pid) {
+        Product product = productService.getProduct(pid);
+        Msg msg = Msg.success();
+        msg.add("product", product);
+        return msg;
+    }
+
+    /*
+     * 增加商品
+     */
+    @RequestMapping(value = "/products", method = RequestMethod.POST)
+    public String addProduct(Product product) {
+
+        productService.addProduct(product);
+        return "redirect:products";
+    }
+
+    /*
+     * 上传图片
+     */
+    @RequestMapping(value = "/products/{pid}/{which}", method = RequestMethod.POST)
+    public String updatePicture(HttpSession session, UploadedImageFile image, @PathVariable("pid") Integer pid
+            , @PathVariable("which") Integer which) throws Exception {
+        String productImgPath = session.getServletContext().getRealPath("/data/img/products/" + which);
         String newImageName = ImageUtil.transfer(image, productImgPath, pid.toString());
 
-        if (newImageName == null){
-        	return "redirect:../../products";
+        if (newImageName == null) {
+            return "redirect:../../products";
         }
         Product product = new Product();
         product.setProductId(pid);
         String uri = "data/img/products/" + which + "/" + newImageName;
-        if (which == 1){
-        	product.setProductImg1(uri);
-        }else if (which == 2){
-        	product.setProductImg2(uri);
-        }else if (which == 3){
-        	product.setProductImg3(uri);
+        if (which == 1) {
+            product.setProductImg1(uri);
+        } else if (which == 2) {
+            product.setProductImg2(uri);
+        } else if (which == 3) {
+            product.setProductImg3(uri);
         }
-        
+
         productService.updateByPrimaryKeySelective(product);
-    	return "redirect:../../products";
-	}
-	
-	/*
-	 * 更新产品
-	 */
-	
-	@RequestMapping(value="/products/{pid}", method=RequestMethod.PUT)
-	public String updateProduct(Product product, @PathVariable("pid") Integer pid){
-		product.setProductId(pid);
-		productService.updateByPrimaryKeySelective(product);
-		
-		return "redirect:../products";
-	}
-	
-	@ResponseBody
-	@RequestMapping("changeProductStatus")
-	public Msg changeProductStatus(@RequestParam("pid") Integer pid, @RequestParam("status") Integer status){
-		Product product = new Product();
-		product.setProductId(pid);
-		product.setProductStatus(status);
-		
-		productService.updateByPrimaryKeySelective(product);
-		return Msg.success();
-	}
+        return "redirect:../../products";
+    }
+
+    /*
+     * 更新产品
+     */
+
+    @RequestMapping(value = "/products/{pid}", method = RequestMethod.PUT)
+    public String updateProduct(Product product, @PathVariable("pid") Integer pid) {
+        product.setProductId(pid);
+        productService.updateByPrimaryKeySelective(product);
+
+        return "redirect:../products";
+    }
+
+    @ResponseBody
+    @RequestMapping("changeProductStatus")
+    public Msg changeProductStatus(@RequestParam("pid") Integer pid, @RequestParam("status") Integer status) {
+        Product product = new Product();
+        product.setProductId(pid);
+        product.setProductStatus(status);
+
+        productService.updateByPrimaryKeySelective(product);
+        return Msg.success();
+    }
 }

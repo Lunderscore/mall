@@ -206,7 +206,7 @@ public class ProductExample {
         }
 
         public Criteria andProductTitleLike(String value) {
-            addCriterion("product_title like", "%"+value+"%", "productTitle");
+            addCriterion("product_title like", value, "productTitle");
             return (Criteria) this;
         }
 

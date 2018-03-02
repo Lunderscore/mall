@@ -3,6 +3,10 @@ package com.ou.mall.bean;
 import java.math.BigDecimal;
 
 public class Product {
+    public static final Integer STATUS_DELETE = -1;
+    public static final Integer STATUS_NORMAL = 0;
+    public static final Integer STATUS_WITHDRAW = 1;
+
     private Integer productId;
 
     private String productTitle;
