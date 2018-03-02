@@ -19,7 +19,7 @@
 
     <!--XML形式-->
     <aop:config>
-        <aop:pointcut expression="execution(* com.ou.service.*.*(..))" id="txPoint"/>
+        <aop:pointcut expression="execution(* com.ou.mall.service.*.*(..))" id="txPoint"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
     </aop:config>
     <tx:advice id="txAdvice" transaction-manager="transactionManager">

@@ -3,6 +3,8 @@ package com.ou.mall.controller;
 import com.github.pagehelper.PageInfo;
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.Product;
+import com.ou.mall.exception.ErrorImgCountException;
+import com.ou.mall.service.ProductImgService;
 import com.ou.mall.service.ProductService;
 import com.ou.mall.status.ProductStatus;
 import com.ou.mall.validation.AddProduct;
@@ -18,12 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 本类负责维护管理员页面
@@ -37,6 +37,8 @@ import java.util.UUID;
 public class AdminController {
     @Autowired
     ProductService productService;
+    @Autowired
+    ProductImgService productImgService;
 
     /**
      * 管理员登录
@@ -169,18 +171,14 @@ public class AdminController {
      * @throws IOException
      */
     @RequestMapping(value = "/products/imgs/{pid}", method = RequestMethod.POST)
-    public String updatePicture(MultipartFile[] image, @PathVariable Integer pid, HttpServletRequest request) throws IOException {
+    public String updatePicture(MultipartFile[] image, @PathVariable Integer pid, HttpServletRequest request) throws IOException, ErrorImgCountException {
         String realPath = request.getServletContext().getRealPath("products/imgs");
         for (MultipartFile file : image) {
             // 图片不为空时保存图片
             if (StringUtils.isEmpty(file.getOriginalFilename())) {
                 continue;
             }
-            // 根据正则表达式切割字符串取出后缀名
-            String[] split = file.getOriginalFilename().split("\\.");
-            String suffix = split[split.length - 1];
-            String uuid = UUID.randomUUID().toString();
-            file.transferTo(new File(realPath, uuid + "." + suffix));
+            productImgService.insertProductImg(file, realPath, pid);
         }
         return "redirect:../../products";
     }
