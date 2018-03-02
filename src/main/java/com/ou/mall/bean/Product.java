@@ -1,5 +1,11 @@
 package com.ou.mall.bean;
 
+import com.ou.mall.validation.AddProduct;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 
 public class Product {
@@ -7,14 +13,15 @@ public class Product {
     public static final Integer STATUS_NORMAL = 0;
     public static final Integer STATUS_WITHDRAW = 1;
 
+    @Null(groups = AddProduct.class)
     private Integer productId;
-
+    @NotBlank(groups = AddProduct.class)
     private String productTitle;
-
+    @NotBlank(groups = AddProduct.class)
     private String productInfo;
-
+    @DecimalMin(value = "0.01", groups = AddProduct.class)
     private BigDecimal productPrice;
-
+    @Min(value = 1, groups = AddProduct.class)
     private Integer productStock;
 
     private String productImg1;
@@ -22,7 +29,7 @@ public class Product {
     private String productImg2;
 
     private String productImg3;
-
+    @Null(groups = AddProduct.class)
     private Integer productStatus;
 
     public Integer getProductId() {
@@ -95,5 +102,20 @@ public class Product {
 
     public void setProductStatus(Integer productStatus) {
         this.productStatus = productStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productTitle='" + productTitle + '\'' +
+                ", productInfo='" + productInfo + '\'' +
+                ", productPrice=" + productPrice +
+                ", productStock=" + productStock +
+                ", productImg1='" + productImg1 + '\'' +
+                ", productImg2='" + productImg2 + '\'' +
+                ", productImg3='" + productImg3 + '\'' +
+                ", productStatus=" + productStatus +
+                '}';
     }
 }

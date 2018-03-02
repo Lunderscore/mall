@@ -6,13 +6,19 @@ import com.ou.mall.bean.Product;
 import com.ou.mall.bean.UploadedImageFile;
 import com.ou.mall.service.ProductService;
 import com.ou.mall.util.ImageUtil;
+import com.ou.mall.validation.AddProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -57,7 +63,7 @@ public class AdminController {
 
     /**
      * 获取所有商品的信息
-     * 显示五个分页
+     * 显示5个分页
      * 每页有5个商品
      *
      * @param keyword
@@ -89,19 +95,66 @@ public class AdminController {
         return msg;
     }
 
-    /*
+    /**
      * 增加商品
+     *
+     * @param product
+     * @return 重定向到商品管理首页
      */
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public String addProduct(Product product) {
-
+    @RequestMapping(value = "products", method = RequestMethod.POST)
+    public String addProduct(@Validated(AddProduct.class) Product product, BindingResult result) {
+        if (result.hasErrors()) {
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            for (FieldError error : fieldErrors) {
+                // TODO
+                System.out.println("错误");
+            }
+        }
+        // 格式化BigDecimal 保留两位小数
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String format = decimalFormat.format(product.getProductPrice());
+        product.setProductPrice(new BigDecimal(format));
         productService.addProduct(product);
         return "redirect:products";
     }
 
-    /*
-     * 上传图片
+    /**
+     * 更新产品
+     *
+     * @param product
+     * @return 重定向到商品管理首页
      */
+    @RequestMapping(value = "products/{pid}", method = RequestMethod.PUT)
+    public String updateProduct(@PathVariable Integer pid,
+                                @Validated(AddProduct.class) Product product, BindingResult result) {
+        if (result.hasErrors()) {
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            for (FieldError error : fieldErrors) {
+                // TODO
+                System.out.println("错误");
+            }
+        }
+        // 格式化BigDecimal 保留两位小数
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String format = decimalFormat.format(product.getProductPrice());
+        product.setProductPrice(new BigDecimal(format));
+        productService.updateProduct(product, pid);
+        return "redirect:../products";
+    }
+
+    /**
+     * 更新产品状态
+     *
+     * @param pid 商品id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "products/{pid}", method = RequestMethod.PATCH)
+    public Msg delProduct(@PathVariable Integer pid, Integer status) {
+        productService.delProduct(pid, status);
+        return Msg.success();
+    }
+
     @RequestMapping(value = "/products/{pid}/{which}", method = RequestMethod.POST)
     public String updatePicture(HttpSession session, UploadedImageFile image, @PathVariable("pid") Integer pid
             , @PathVariable("which") Integer which) throws Exception {
@@ -122,30 +175,6 @@ public class AdminController {
             product.setProductImg3(uri);
         }
 
-        productService.updateByPrimaryKeySelective(product);
         return "redirect:../../products";
-    }
-
-    /*
-     * 更新产品
-     */
-
-    @RequestMapping(value = "/products/{pid}", method = RequestMethod.PUT)
-    public String updateProduct(Product product, @PathVariable("pid") Integer pid) {
-        product.setProductId(pid);
-        productService.updateByPrimaryKeySelective(product);
-
-        return "redirect:../products";
-    }
-
-    @ResponseBody
-    @RequestMapping("changeProductStatus")
-    public Msg changeProductStatus(@RequestParam("pid") Integer pid, @RequestParam("status") Integer status) {
-        Product product = new Product();
-        product.setProductId(pid);
-        product.setProductStatus(status);
-
-        productService.updateByPrimaryKeySelective(product);
-        return Msg.success();
     }
 }

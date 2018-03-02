@@ -1,19 +1,18 @@
 package com.ou.mall.service;
 
-import java.util.List;
-
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ou.mall.bean.Product;
 import com.ou.mall.bean.ProductExample;
 import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.dao.ProductMapper;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * ProductService
+ *
  * @author: kpkym
  * date: 2018/3/2
  * time: 8:40
@@ -23,6 +22,13 @@ public class ProductService {
 	@Autowired
 	ProductMapper productMapper;
 
+	/**
+	 * 返回status不为-1的商品
+	 *
+	 * @param pn 页码
+	 * @param keyword 关键字模糊查询
+	 * @return
+	 */
 	public List<Product> listAdminProduct(Integer pn, String keyword) {
 		ProductExample example = new ProductExample();
 		Criteria criteria = example.createCriteria();
@@ -30,19 +36,8 @@ public class ProductService {
 		if (!"".equals(keyword)) {
 			criteria.andProductTitleLike("%" + keyword + "%");
 		}
-		List<Product> products = productMapper.selectByExample(example);
-		return products;
-	}
-
-	public List<Product> listIndexProduct(Integer pn, String keyword) {
-		// PageHelper.startPage(pn, 5);
-		// Criteria criteria =
-		// criteria.andProductStatusNotEqualTo(Product.STATUS_DELETE);
-		// if (!"".equals(keyword)) {
-		// 	criteria.andProductTitleLike("%" + keyword + "%");
-		// }
-		// List<Product> products = productMapper.selectByExample(example);
-		return null;
+		PageHelper.startPage(pn, 5);
+		return productMapper.selectByExample(example);
 	}
 
 	/**
@@ -60,36 +55,35 @@ public class ProductService {
 		return products.size() == 0 ? null : products.get(0);
 	}
 
-	public String getMainPic(Integer ppid) {
-		Product productImg = productMapper.selectByPrimaryKey(ppid);
-
-		return productImg == null ? null : productImg.getProductImg1();
-	}
-
-	public void updateProduct(Product product) {
-		productMapper.updateByPrimaryKeySelective(product);
-	}
-
-
-	public List<Product> getAdminProducts() {
-		ProductExample example = new ProductExample();
-		Criteria createCriteria = example.createCriteria();
-		createCriteria.andProductStatusNotEqualTo(2);
-		
-		List<Product> selectByExample = productMapper.selectByExample(example);
-		return selectByExample;
-	}
-	
-	public Product selectAdminProductByPrimaryKey(ProductExample example) {
-		List<Product> selectByExample = productMapper.selectByExample(example);
-		return selectByExample.isEmpty() ? new Product() : selectByExample.get(0);
-	}
-	
+	/**
+	 * 添加商品
+	 *
+	 * @param product
+	 */
 	public void addProduct(Product product) {
+		product.setProductStatus(Product.STATUS_NORMAL);
 		productMapper.insert(product);
 	}
 
-	public void updateByPrimaryKeySelective(Product product) {
+	/**
+	 * 修改商品
+	 *
+	 * @param product 需要修改的商品
+	 * @param pid 商品id
+	 */
+	public void updateProduct(Product product, Integer pid) {
+		product.setProductId(pid);
 		productMapper.updateByPrimaryKeySelective(product);
+	}
+
+	/**
+	 * 删除或下架 商品
+	 *
+ 	 * @param pid 商品id
+	 */
+	public void delProduct(Integer pid, Integer status) {
+		Product product = getProduct(pid);
+		product.setProductStatus(status);
+		productMapper.updateByPrimaryKey(product);
 	}
 }

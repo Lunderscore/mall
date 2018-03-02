@@ -132,7 +132,6 @@
 								</div>
 							</div>
 						</div>
-						<input name="productStatus" value="0" type="hidden">
 					</form>
 				</div>
 				<div class="modal-footer">

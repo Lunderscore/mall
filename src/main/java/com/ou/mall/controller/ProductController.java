@@ -26,7 +26,7 @@ public class ProductController {
 	@RequestMapping(value="product/{id}", method=RequestMethod.PUT)
 	public String updateProduct(Product product, @PathVariable("id") String pid){
 		product.setProductId(Integer.parseInt(pid));
-		productService.updateProduct(product);
+		// productService.updateProduct(product);
     	return "redirect:../admin";
 	}
 	
@@ -39,9 +39,9 @@ public class ProductController {
 		ProductExample example = new ProductExample();
 		example.createCriteria().andProductIdEqualTo(pid);
 		example.createCriteria().andProductStatusEqualTo(0);
-		Product product = productService.selectAdminProductByPrimaryKey(example);
-		Msg msg = Msg.success().add("product", product);
-		return msg;
+		// Product product = productService.selectAdminProductByPrimaryKey(example);
+		// Msg msg = Msg.success().add("product", product);
+		return null;
 	}
 	
 }
