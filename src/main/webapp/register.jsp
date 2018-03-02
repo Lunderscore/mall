@@ -26,7 +26,7 @@
                     <div class="col-sm-6">
                         <input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9_]{4,15}$"
                                oninvalid="setCustomValidity('账号格式：字母开头，允许5-16字节，允许字母数字下划线')"
-                               oninput="setCustomValidity('')"
+                               oninput="setCustomValidity('')" onchange="checkUsername()"
                                id="username" class="form-control" placeholder="请输入账号">
                     </div>
                 </div>
@@ -77,6 +77,18 @@
                 }
                 // 注册成功跳转页面
                 location.href = "/";
+            });
+        }
+        
+        function checkUsername() {
+            var username = $("#username").val();
+            $.get("users/" + username, function (data) {
+                // 提示错误信息
+                if (1 === data.code) {
+                    //TODO 使用layui提示
+                    alert(data.message);
+                    return;
+                }
             });
         }
     </script>

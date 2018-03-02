@@ -32,7 +32,10 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <input type="password" id="password" class="form-control" placeholder="请输入密码">
+                        <input type="password"  required pattern="^[a-zA-Z][a-zA-Z0-9_]{4,15}$"
+                               oninvalid="setCustomValidity('密码格式：字母开头，长度在6~18之间，只能包含字母、数字和下划线')"
+                               oninput="setCustomValidity('')"
+                               id="password" class="form-control" placeholder="请输入密码">
                     </div>
                     <div class="col-sm-3">
                     </div>

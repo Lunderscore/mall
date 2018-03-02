@@ -2,6 +2,7 @@ package com.ou.mall.controller;
 
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.User;
+import com.ou.mall.bean.UserExample;
 import com.ou.mall.exception.HasUsernameException;
 import com.ou.mall.service.UserService;
 import com.ou.mall.validation.UserLogin;
@@ -9,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * UserController
@@ -68,22 +71,25 @@ public class UserController {
         return Msg.failure("failure");
     }
 
+    @ResponseBody
+    @RequestMapping(value = "users/{username}", method = RequestMethod.GET)
+    public Msg checkUsernameAvailable(@PathVariable String username){
+        // 如果该用户名被注册
+        if (null != userService.getUser(username)) {
+            return Msg.failure("该用户名已被使用");
+        }
+        return Msg.success();
+    }
 
-    // /*
-    //  * 在注册用户的时候查看是否存在该用户
-    //  */
-    // @ResponseBody
-    // @RequestMapping("/users/{username}")
-    // public Msg hasUser(@PathVariable("username")String username){
-    // 	UserExample example = new UserExample();
-    // 	example.createCriteria().andUserUsernameEqualTo(username);
-    // 	List<User> selectByExample = userService.selectByExample(example);
-    //
-    // 	if (selectByExample.isEmpty()){
-    // 		return Msg.success();
-    // 	}
-    // 	return Msg.failure();
-    // }
+    @ResponseBody
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public Msg logout(HttpSession session) {
+        session.removeAttribute("user");
+        return Msg.success();
+    }
+    /*
+     * 在注册用户的时候查看是否存在该用户
+     */
     //
     // /*
     //  * 更新用户的信息
