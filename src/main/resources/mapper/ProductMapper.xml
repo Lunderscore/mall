@@ -2,15 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ou.mall.dao.ProductMapper">
   <resultMap id="BaseResultMap" type="com.ou.mall.bean.Product">
-    <id column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="product_title" jdbcType="VARCHAR" property="productTitle" />
-    <result column="product_info" jdbcType="VARCHAR" property="productInfo" />
-    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
-    <result column="product_stock" jdbcType="INTEGER" property="productStock" />
-    <result column="product_img1" jdbcType="VARCHAR" property="productImg1" />
-    <result column="product_img2" jdbcType="VARCHAR" property="productImg2" />
-    <result column="product_img3" jdbcType="VARCHAR" property="productImg3" />
-    <result column="product_status" jdbcType="INTEGER" property="productStatus" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    product_id, product_title, product_info, product_price, product_stock, product_img1, 
-    product_img2, product_img3, product_status
+    id, title, info, price, stock, status
   </sql>
   <select id="selectByExample" parameterType="com.ou.mall.bean.ProductExample" resultMap="BaseResultMap">
     select
@@ -92,11 +88,11 @@
     select 
     <include refid="Base_Column_List" />
     from product
-    where product_id = #{productId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from product
-    where product_id = #{productId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.ou.mall.bean.ProductExample">
     delete from product
@@ -105,73 +101,53 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ou.mall.bean.Product">
-    insert into product (product_id, product_title, product_info, 
-      product_price, product_stock, product_img1, 
-      product_img2, product_img3, product_status
+    insert into product (id, title, info, 
+      price, stock, status
       )
-    values (#{productId,jdbcType=INTEGER}, #{productTitle,jdbcType=VARCHAR}, #{productInfo,jdbcType=VARCHAR}, 
-      #{productPrice,jdbcType=DECIMAL}, #{productStock,jdbcType=INTEGER}, #{productImg1,jdbcType=VARCHAR}, 
-      #{productImg2,jdbcType=VARCHAR}, #{productImg3,jdbcType=VARCHAR}, #{productStatus,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ou.mall.bean.Product">
     insert into product
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        product_id,
+      <if test="id != null">
+        id,
       </if>
-      <if test="productTitle != null">
-        product_title,
+      <if test="title != null">
+        title,
       </if>
-      <if test="productInfo != null">
-        product_info,
+      <if test="info != null">
+        info,
       </if>
-      <if test="productPrice != null">
-        product_price,
+      <if test="price != null">
+        price,
       </if>
-      <if test="productStock != null">
-        product_stock,
+      <if test="stock != null">
+        stock,
       </if>
-      <if test="productImg1 != null">
-        product_img1,
-      </if>
-      <if test="productImg2 != null">
-        product_img2,
-      </if>
-      <if test="productImg3 != null">
-        product_img3,
-      </if>
-      <if test="productStatus != null">
-        product_status,
+      <if test="status != null">
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="productTitle != null">
-        #{productTitle,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="productInfo != null">
-        #{productInfo,jdbcType=VARCHAR},
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
       </if>
-      <if test="productPrice != null">
-        #{productPrice,jdbcType=DECIMAL},
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
       </if>
-      <if test="productStock != null">
-        #{productStock,jdbcType=INTEGER},
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
       </if>
-      <if test="productImg1 != null">
-        #{productImg1,jdbcType=VARCHAR},
-      </if>
-      <if test="productImg2 != null">
-        #{productImg2,jdbcType=VARCHAR},
-      </if>
-      <if test="productImg3 != null">
-        #{productImg3,jdbcType=VARCHAR},
-      </if>
-      <if test="productStatus != null">
-        #{productStatus,jdbcType=INTEGER},
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -184,32 +160,23 @@
   <update id="updateByExampleSelective" parameterType="map">
     update product
     <set>
-      <if test="record.productId != null">
-        product_id = #{record.productId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.productTitle != null">
-        product_title = #{record.productTitle,jdbcType=VARCHAR},
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.productInfo != null">
-        product_info = #{record.productInfo,jdbcType=VARCHAR},
+      <if test="record.info != null">
+        info = #{record.info,jdbcType=VARCHAR},
       </if>
-      <if test="record.productPrice != null">
-        product_price = #{record.productPrice,jdbcType=DECIMAL},
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
       </if>
-      <if test="record.productStock != null">
-        product_stock = #{record.productStock,jdbcType=INTEGER},
+      <if test="record.stock != null">
+        stock = #{record.stock,jdbcType=INTEGER},
       </if>
-      <if test="record.productImg1 != null">
-        product_img1 = #{record.productImg1,jdbcType=VARCHAR},
-      </if>
-      <if test="record.productImg2 != null">
-        product_img2 = #{record.productImg2,jdbcType=VARCHAR},
-      </if>
-      <if test="record.productImg3 != null">
-        product_img3 = #{record.productImg3,jdbcType=VARCHAR},
-      </if>
-      <if test="record.productStatus != null">
-        product_status = #{record.productStatus,jdbcType=INTEGER},
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -218,15 +185,12 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update product
-    set product_id = #{record.productId,jdbcType=INTEGER},
-      product_title = #{record.productTitle,jdbcType=VARCHAR},
-      product_info = #{record.productInfo,jdbcType=VARCHAR},
-      product_price = #{record.productPrice,jdbcType=DECIMAL},
-      product_stock = #{record.productStock,jdbcType=INTEGER},
-      product_img1 = #{record.productImg1,jdbcType=VARCHAR},
-      product_img2 = #{record.productImg2,jdbcType=VARCHAR},
-      product_img3 = #{record.productImg3,jdbcType=VARCHAR},
-      product_status = #{record.productStatus,jdbcType=INTEGER}
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      info = #{record.info,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      stock = #{record.stock,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -234,43 +198,31 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.ou.mall.bean.Product">
     update product
     <set>
-      <if test="productTitle != null">
-        product_title = #{productTitle,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="productInfo != null">
-        product_info = #{productInfo,jdbcType=VARCHAR},
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
       </if>
-      <if test="productPrice != null">
-        product_price = #{productPrice,jdbcType=DECIMAL},
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
       </if>
-      <if test="productStock != null">
-        product_stock = #{productStock,jdbcType=INTEGER},
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
       </if>
-      <if test="productImg1 != null">
-        product_img1 = #{productImg1,jdbcType=VARCHAR},
-      </if>
-      <if test="productImg2 != null">
-        product_img2 = #{productImg2,jdbcType=VARCHAR},
-      </if>
-      <if test="productImg3 != null">
-        product_img3 = #{productImg3,jdbcType=VARCHAR},
-      </if>
-      <if test="productStatus != null">
-        product_status = #{productStatus,jdbcType=INTEGER},
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
       </if>
     </set>
-    where product_id = #{productId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ou.mall.bean.Product">
     update product
-    set product_title = #{productTitle,jdbcType=VARCHAR},
-      product_info = #{productInfo,jdbcType=VARCHAR},
-      product_price = #{productPrice,jdbcType=DECIMAL},
-      product_stock = #{productStock,jdbcType=INTEGER},
-      product_img1 = #{productImg1,jdbcType=VARCHAR},
-      product_img2 = #{productImg2,jdbcType=VARCHAR},
-      product_img3 = #{productImg3,jdbcType=VARCHAR},
-      product_status = #{productStatus,jdbcType=INTEGER}
-    where product_id = #{productId,jdbcType=INTEGER}
+    set title = #{title,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -5,6 +5,7 @@ import com.ou.mall.bean.Product;
 import com.ou.mall.bean.ProductExample;
 import com.ou.mall.bean.ProductExample.Criteria;
 import com.ou.mall.dao.ProductMapper;
+import com.ou.mall.status.ProductStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,9 @@ public class ProductService {
 	public List<Product> listAdminProduct(Integer pn, String keyword) {
 		ProductExample example = new ProductExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andProductStatusNotEqualTo(Product.STATUS_DELETE);
+		criteria.andStatusNotEqualTo(ProductStatus.del.getValue());
 		if (!"".equals(keyword)) {
-			criteria.andProductTitleLike("%" + keyword + "%");
+			criteria.andTitleLike("%" + keyword + "%");
 		}
 		PageHelper.startPage(pn, 5);
 		return productMapper.selectByExample(example);
@@ -48,8 +49,8 @@ public class ProductService {
 	 */
 	public Product getProduct(Integer pid) {
 		ProductExample example = new ProductExample();
-		example.createCriteria().andProductIdEqualTo(pid);
-		example.createCriteria().andProductStatusNotEqualTo(Product.STATUS_DELETE);
+		example.createCriteria().andIdEqualTo(pid);
+		example.createCriteria().andStatusNotEqualTo(ProductStatus.del.getValue());
 		List<Product> products = productMapper.selectByExample(example);
 
 		return products.size() == 0 ? null : products.get(0);
@@ -61,7 +62,7 @@ public class ProductService {
 	 * @param product
 	 */
 	public void addProduct(Product product) {
-		product.setProductStatus(Product.STATUS_NORMAL);
+		product.setStatus(ProductStatus.sale.getValue());
 		productMapper.insert(product);
 	}
 
@@ -72,7 +73,7 @@ public class ProductService {
 	 * @param pid 商品id
 	 */
 	public void updateProduct(Product product, Integer pid) {
-		product.setProductId(pid);
+		product.setId(pid);
 		productMapper.updateByPrimaryKeySelective(product);
 	}
 
@@ -81,9 +82,9 @@ public class ProductService {
 	 *
  	 * @param pid 商品id
 	 */
-	public void delProduct(Integer pid, Integer status) {
+	public void delProduct(Integer pid, ProductStatus status) {
 		Product product = getProduct(pid);
-		product.setProductStatus(status);
+		product.setStatus(status.getValue());
 		productMapper.updateByPrimaryKey(product);
 	}
 }

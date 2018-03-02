@@ -111,7 +111,7 @@
     </div>
 </div>
 
-<%@ include file="../../static/pagination.jsp"%>
+<%@ include file="component/pagination.jsp"%>
 
 	<script src="js/userOrder.js">
 	</script>

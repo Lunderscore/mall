@@ -3,9 +3,8 @@ package com.ou.mall.controller;
 import com.github.pagehelper.PageInfo;
 import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.Product;
-import com.ou.mall.bean.UploadedImageFile;
 import com.ou.mall.service.ProductService;
-import com.ou.mall.util.ImageUtil;
+import com.ou.mall.status.ProductStatus;
 import com.ou.mall.validation.AddProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +14,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 本类负责维护管理员页面
@@ -112,8 +116,8 @@ public class AdminController {
         }
         // 格式化BigDecimal 保留两位小数
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        String format = decimalFormat.format(product.getProductPrice());
-        product.setProductPrice(new BigDecimal(format));
+        String format = decimalFormat.format(product.getPrice());
+        product.setPrice(new BigDecimal(format));
         productService.addProduct(product);
         return "redirect:products";
     }
@@ -136,8 +140,8 @@ public class AdminController {
         }
         // 格式化BigDecimal 保留两位小数
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        String format = decimalFormat.format(product.getProductPrice());
-        product.setProductPrice(new BigDecimal(format));
+        String format = decimalFormat.format(product.getPrice());
+        product.setPrice(new BigDecimal(format));
         productService.updateProduct(product, pid);
         return "redirect:../products";
     }
@@ -150,31 +154,34 @@ public class AdminController {
      */
     @ResponseBody
     @RequestMapping(value = "products/{pid}", method = RequestMethod.PATCH)
-    public Msg delProduct(@PathVariable Integer pid, Integer status) {
+    public Msg delProduct(@PathVariable Integer pid, ProductStatus status) {
         productService.delProduct(pid, status);
         return Msg.success();
     }
 
-    @RequestMapping(value = "/products/{pid}/{which}", method = RequestMethod.POST)
-    public String updatePicture(HttpSession session, UploadedImageFile image, @PathVariable("pid") Integer pid
-            , @PathVariable("which") Integer which) throws Exception {
-        String productImgPath = session.getServletContext().getRealPath("/data/img/products/" + which);
-        String newImageName = ImageUtil.transfer(image, productImgPath, pid.toString());
 
-        if (newImageName == null) {
-            return "redirect:../../products";
+    /**
+     * 上传商品图片
+     * @param image
+     * @param pid 商品id
+     * @param request
+     * @return 重定向至商品管理页面
+     * @throws IOException
+     */
+    @RequestMapping(value = "/products/imgs/{pid}", method = RequestMethod.POST)
+    public String updatePicture(MultipartFile[] image, @PathVariable Integer pid, HttpServletRequest request) throws IOException {
+        String realPath = request.getServletContext().getRealPath("products/imgs");
+        for (MultipartFile file : image) {
+            // 图片不为空时保存图片
+            if (StringUtils.isEmpty(file.getOriginalFilename())) {
+                continue;
+            }
+            // 根据正则表达式切割字符串取出后缀名
+            String[] split = file.getOriginalFilename().split("\\.");
+            String suffix = split[split.length - 1];
+            String uuid = UUID.randomUUID().toString();
+            file.transferTo(new File(realPath, uuid + "." + suffix));
         }
-        Product product = new Product();
-        product.setProductId(pid);
-        String uri = "data/img/products/" + which + "/" + newImageName;
-        if (which == 1) {
-            product.setProductImg1(uri);
-        } else if (which == 2) {
-            product.setProductImg2(uri);
-        } else if (which == 3) {
-            product.setProductImg3(uri);
-        }
-
         return "redirect:../../products";
     }
 }

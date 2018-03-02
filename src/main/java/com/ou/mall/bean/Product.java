@@ -9,113 +9,80 @@ import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 
 public class Product {
-    public static final Integer STATUS_DELETE = -1;
-    public static final Integer STATUS_NORMAL = 0;
-    public static final Integer STATUS_WITHDRAW = 1;
-
     @Null(groups = AddProduct.class)
-    private Integer productId;
+    private Integer id;
     @NotBlank(groups = AddProduct.class)
-    private String productTitle;
+    private String title;
     @NotBlank(groups = AddProduct.class)
-    private String productInfo;
+    private String info;
     @DecimalMin(value = "0.01", groups = AddProduct.class)
-    private BigDecimal productPrice;
+    private BigDecimal price;
     @Min(value = 1, groups = AddProduct.class)
-    private Integer productStock;
-
-    private String productImg1;
-
-    private String productImg2;
-
-    private String productImg3;
+    private Integer stock;
     @Null(groups = AddProduct.class)
-    private Integer productStatus;
+    private Byte status;
 
-    public Integer getProductId() {
-        return productId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getProductTitle() {
-        return productTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setProductTitle(String productTitle) {
-        this.productTitle = productTitle == null ? null : productTitle.trim();
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
-    public String getProductInfo() {
-        return productInfo;
+    public String getInfo() {
+        return info;
     }
 
-    public void setProductInfo(String productInfo) {
-        this.productInfo = productInfo == null ? null : productInfo.trim();
+    public void setInfo(String info) {
+        this.info = info == null ? null : info.trim();
     }
 
-    public BigDecimal getProductPrice() {
-        return productPrice;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public Integer getProductStock() {
-        return productStock;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setProductStock(Integer productStock) {
-        this.productStock = productStock;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
-    public String getProductImg1() {
-        return productImg1;
+    public Byte getStatus() {
+        return status;
     }
 
-    public void setProductImg1(String productImg1) {
-        this.productImg1 = productImg1 == null ? null : productImg1.trim();
-    }
-
-    public String getProductImg2() {
-        return productImg2;
-    }
-
-    public void setProductImg2(String productImg2) {
-        this.productImg2 = productImg2 == null ? null : productImg2.trim();
-    }
-
-    public String getProductImg3() {
-        return productImg3;
-    }
-
-    public void setProductImg3(String productImg3) {
-        this.productImg3 = productImg3 == null ? null : productImg3.trim();
-    }
-
-    public Integer getProductStatus() {
-        return productStatus;
-    }
-
-    public void setProductStatus(Integer productStatus) {
-        this.productStatus = productStatus;
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", productTitle='" + productTitle + '\'' +
-                ", productInfo='" + productInfo + '\'' +
-                ", productPrice=" + productPrice +
-                ", productStock=" + productStock +
-                ", productImg1='" + productImg1 + '\'' +
-                ", productImg2='" + productImg2 + '\'' +
-                ", productImg3='" + productImg3 + '\'' +
-                ", productStatus=" + productStatus +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", title=").append(title);
+        sb.append(", info=").append(info);
+        sb.append(", price=").append(price);
+        sb.append(", stock=").append(stock);
+        sb.append(", status=").append(status);
+        sb.append("]");
+        return sb.toString();
     }
 }
