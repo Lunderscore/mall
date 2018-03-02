@@ -5,7 +5,7 @@ public class ProductImg {
 
     private String img;
 
-    private String pid;
+    private Integer pid;
 
     public Integer getId() {
         return id;
@@ -23,12 +23,12 @@ public class ProductImg {
         this.img = img == null ? null : img.trim();
     }
 
-    public String getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid == null ? null : pid.trim();
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     @Override
