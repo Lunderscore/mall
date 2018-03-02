@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 /**
- * 用户Service
+ * UserController
+ *
  * @author: kpkym
  * date: 2018/3/1
  * time: 0:40
@@ -25,6 +26,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    /**
+     * @param session
+     * @param user
+     * @param result
+     * @return 成功 success 失败 failure
+     */
     @ResponseBody
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Msg login(HttpSession session, @Validated(UserLogin.class) User user, BindingResult result) {
@@ -36,10 +43,16 @@ public class UserController {
         if (null == userSession) {
             return Msg.failure("账号或密码错误");
         }
-        session.setAttribute("user", userSession);
+        session.setAttribute("user", userSession.getUid());
         return Msg.success();
     }
 
+    /**
+     * @param session
+     * @param user
+     * @param result
+     * @return 成功 success 失败 failure
+     */
     @ResponseBody
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public Msg register(HttpSession session, @Validated(UserLogin.class) User user, BindingResult result) {
