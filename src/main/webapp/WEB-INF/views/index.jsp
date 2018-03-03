@@ -27,7 +27,7 @@
             <div class="row col-md-offset-1">
         </c:if>
         <div class="col-md-2">
-            <a href="itemDetail.jsp?pid=${product.id }">
+            <a href="productDetail?pid=${product.id }">
                 <div class="thumbnail item">
                         <%--TODO--%>
                         <%--<img src="${product.productImg1 }">--%>

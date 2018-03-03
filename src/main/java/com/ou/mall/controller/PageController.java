@@ -52,8 +52,22 @@ public class PageController {
         // 分页条最多有5个
         System.out.println(all);
         PageInfo<Product> page = new PageInfo<>(all, navigatePagesSize);
-        model.addAttribute("pages", page);
+        model.addAttribute("pageInfo", page);
         return "index";
+    }
+
+    /**
+     * 商品详情
+     *
+     * @param model
+     * @param pid
+     * @return
+     */
+    @RequestMapping(value = "productDetail", method = RequestMethod.GET)
+    public String productDetail(Model model, @RequestParam Integer pid) {
+        Product product = productService.getProduct(pid);
+        model.addAttribute("product", product);
+        return "productDetail";
     }
 
     /**
@@ -65,20 +79,15 @@ public class PageController {
      */
     @RequestMapping(value = "home", method = RequestMethod.GET)
     public String home(Model model, HttpSession session) {
-        Integer uid = (Integer) session.getAttribute("user");
+        //TODO
+        // Integer uid = (Integer) session.getAttribute("user");
+        Integer uid = 1;
         User user = userService.getUser(uid);
         UserInfo userInfo = userInfoService.getUserInfo(uid);
 
         model.addAttribute("user", user);
         model.addAttribute("userInfo", userInfo);
         return "home";
-    }
-
-    @RequestMapping(value = "productDetail", method = RequestMethod.GET)
-    public String productDetail(Model model, @RequestParam Integer pid) {
-        Product product = productService.getProduct(pid);
-        model.addAttribute("product", product);
-        return "productDetail";
     }
 
 
