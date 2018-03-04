@@ -1,8 +1,4 @@
-本系统为简单的B2C电商系统，类似于天猫商城。用户可以注册，登录，选择产品后进行购买产品。  
-前台展示地址：[http://www.yqplayer.com:8080/mall/](http://www.yqplayer.com:8080/mall/)  
-后台管理地址：[http://www.yqplayer.com:8080/mall/adminLogin.jsp](http://www.yqplayer.com:8080/mall/adminLogin.jsp)  
-后台管理员账号：admin  
-后台管理员密码：admin
+# 重构中
 
 **实现技术**
 * 前端技术: HTML，CSS， JavaScript， jQuery， Bootstrap框架
