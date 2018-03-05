@@ -26,7 +26,7 @@
                     <div class="col-sm-6">
                         <input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9_]{4,15}$"
                                oninvalid="setCustomValidity('账号格式：字母开头，允许5-16字节，允许字母数字下划线')"
-                               oninput="setCustomValidity('')" onchange="checkUsername()"
+                               oninput="setCustomValidity(''); checkUsername()"
                                id="username" class="form-control" placeholder="请输入账号">
                     </div>
                 </div>
@@ -64,29 +64,26 @@
             var password = $("#password").val();
             var repassword = $("#repassword").val();
             if (password !== repassword) {
-                //TODO 使用layui提示
-                alert("两次密码不同");
+                layer.msg("两次密码不同");
                 return;
             }
             $.post("register", {username: username, password: password}, function (data) {
                 // 注册失败提示信息
                 if (1 === data.code) {
-                    //TODO 使用layui提示
-                    alert(data.message);
+                    layer.msg(data.message);
                     return;
                 }
                 // 注册成功跳转页面
-                location.href = "/";
+                location.href = "index";
             });
         }
-        
+
         function checkUsername() {
             var username = $("#username").val();
             $.get("users/" + username, function (data) {
                 // 提示错误信息
                 if (1 === data.code) {
-                    //TODO 使用layui提示
-                    alert(data.message);
+                    layer.msg(data.message);
                     return;
                 }
             });

@@ -61,7 +61,7 @@
                     return;
                 }
                 // 登录成功跳转页面
-                location.href = "/";
+                location.href = "index";
             });
         }
     </script>

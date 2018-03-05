@@ -36,7 +36,7 @@
                         </c:if>
                         <c:if test="${empty user }">
                             <li id="fat-menu" class="dropdown">
-                                <a href="../../../login.jsp">请登录</a>
+                                <a href="login.jsp">请登录</a>
                             </li>
                         </c:if>
                     </ul>
