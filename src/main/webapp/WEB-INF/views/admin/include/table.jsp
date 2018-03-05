@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="center-block">
-	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#productFormModal" data-whatever="@mdo" onclick="$('#productForm').attr('onsubmit', 'return productFrom(\'POST\');')">上架产品</button>
+	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#productFormModal" data-whatever="@mdo" onclick="preAddProduct()">上架产品</button>
 </div>
 <div class="row" id="productHead">
 	<div class="col-md-1 center-block">商品ID</div>
@@ -13,8 +13,8 @@
 	<div class="col-md-2 center-block">详细信息编辑</div>
 	<div class="col-md-1 center-block">操作</div>
 </div>
-<c:if test="${not empty pages }">
-	<c:forEach items="${pages.list }" var="product">
+<c:if test="${not empty pageInfo }">
+	<c:forEach items="${pageInfo.list }" var="product">
 		<div class="row productItem">
 		<div class="col-md-1 center-block">
 			${product.id }
@@ -50,7 +50,7 @@
 		</div>
 		<div class="col-md-2 center-block">
 			<button type="button" class="btn btn-warning updateClass" data-toggle="modal"
-				data-target="#updateProductModal" pid="${product.id }">详细信息编辑</button>
+				data-target="#productFormModal" onclick="initProduct('${product.id }')">详细信息编辑</button>
 		</div>
 		<div class="col-md-1 center-block">
 			<div class="btn-group" role="group" aria-label="...">
@@ -67,5 +67,31 @@
 	</c:forEach>
 </c:if>
 
+<script>
+    // 添加前
+	function preAddProduct() {
+        $('#productForm').attr('onsubmit', 'return productFrom(\'POST\');')
+        $("#title").val("");
+        $("#price").val("");
+        $("#stock").val("");
+        $("#info").val("");
+        $("#title").val("");
+    }
 
+	// 更新前初始化信息
+	function initProduct(pid) {
+        $('#productForm').attr('onsubmit', 'return productFrom(\'PUT\');')
+        $.get("products/" + pid, function (data) {
+            let product = data.content.product;
+            $("#title").val(product.title);
+            $("#price").val(product.price);
+            $("#stock").val(product.stock);
+            $("#info").val(product.info);
+            $("#title").val(product.title);
+            $("#productId").val(product.id);
+        });
+    }
+
+
+</script>
 

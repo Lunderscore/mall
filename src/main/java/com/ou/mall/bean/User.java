@@ -1,25 +1,21 @@
 package com.ou.mall.bean;
 
-import com.ou.mall.validation.UserLogin;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 
 public class User {
-    @Null(groups = UserLogin.class)
+    @Null
     private Integer uid;
 
-    @NotNull(groups = UserLogin.class)
+    @NotNull
     @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}$",
-            message = "账号格式：字母开头，允许5-16字节，允许字母数字下划线",
-            groups = UserLogin.class)
+            message = "账号格式：字母开头，允许5-16字节，允许字母数字下划线")
     private String username;
 
-    @NotNull(groups = UserLogin.class)
+    @NotNull
     @Pattern(regexp = "^[a-zA-Z]\\w{5,17}$",
-            message = "密码格式：字母开头，长度在6~18之间，只能包含字母、数字和下划线",
-            groups = UserLogin.class)
+            message = "密码格式：字母开头，长度在6~18之间，只能包含字母、数字和下划线")
     private String password;
 
     public Integer getUid() {

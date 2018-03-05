@@ -80,7 +80,7 @@ public class AdminProductController {
             , @RequestParam(defaultValue = "1") Integer pn) {
         List<Product> products = adminProductService.listProduct(pn, keyword);
         PageInfo<Product> page = new PageInfo<>(products, 5);
-        model.addAttribute("pages", page);
+        model.addAttribute("pageInfo", page);
         return "admin/productsPage";
     }
 
@@ -127,6 +127,7 @@ public class AdminProductController {
      * @param product
      * @return 重定向到商品管理首页
      */
+    @ResponseBody
     @RequestMapping(value = "products/{pid}", method = RequestMethod.PUT)
     public Msg updateProduct(@PathVariable Integer pid,
                                 @Validated Product product, BindingResult result) {

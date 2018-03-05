@@ -57,7 +57,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                     <button type="submit" class="btn btn-primary">保存</button>
                 </div>
-                <input type="hidden" id="productId" >
+                <input type="hidden" id="productId">
             </form>
         </div>
     </div>
@@ -104,15 +104,18 @@
         let price = $("#price").val().trim();
         let stock = $("#stock").val().trim();
         let uri = "products";
+        let operation = "添加";
+        // 如果是更新操作
         if ("PUT" === method) {
             uri = uri + "/" + $("#productId").val();
+            operation = "更新";
         }
-        $.post(uri, {title: title, price: price, stock: stock, info: info, _method:method}, function (data) {
+        $.post(uri, {title: title, price: price, stock: stock, info: info, _method: method}, function (data) {
             if (0 === data.code) {
-                layer.msg("添加商品成功");
+                layer.msg(operation + "商品成功");
                 location.reload();
             } else {
-                layer.msg("添加商品失败");
+                layer.msg(operation + "商品失败: " + data.message);
             }
         });
         return false;
