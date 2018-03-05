@@ -55,12 +55,15 @@
 		<div class="col-md-1 center-block">
 			<div class="btn-group" role="group" aria-label="...">
 			<c:if test="${product.status eq 1 }">
-				<button type="button" class="btn btn-default ChangeBtn" pid="${product.id }" status="0">上架产品</button>
+				<button type="button" class="btn btn-default ChangeBtn"
+						onclick=" $.post('products/${product.id }', {status: 'sale', _method: 'DELETE'}, function(){location.reload()})">上架产品</button>
 			</c:if>
 			<c:if test="${product.status eq 0 }">
-				<button type="button" class="btn btn-warning ChangeBtn" pid="${product.id }" status="1">下架产品</button>
+				<button type="button" class="btn btn-warning ChangeBtn"
+						onclick=" $.post('products/${product.id }', {status: 'withdraw', _method: 'DELETE'}, function(){location.reload()})">下架产品</button>
 			</c:if>
-			<button type="button" class="btn btn-danger ChangeBtn" pid="${product.id }" status="-1">删除产品</button>
+			<button type="button" class="btn btn-danger ChangeBtn"
+					onclick="if (confirm('确定删除?')){ $.post('products/${product.id }', {status: 'del', _method: 'DELETE'}, function(){location.reload()})}">删除产品</button>
 		</div>
 		</div>
 	</div>

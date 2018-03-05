@@ -149,7 +149,7 @@ public class AdminProductController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "products/{pid}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "products/{pid}", method = RequestMethod.DELETE)
     public Msg delProduct(@PathVariable Integer pid, ProductStatusEnum status) {
         adminProductService.delProduct(pid, status);
         return Msg.success();
