@@ -5,13 +5,20 @@ import com.ou.mall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * ProductController
+ *
+ * @author: kpkym
+ * date: 2018/3/2
+ * time: 13:24
+ */
 @Controller
 public class ProductController {
-
 	@Autowired
 	ProductService productService;
 
@@ -27,6 +34,9 @@ public class ProductController {
 		model.addAttribute("product", product);
 		return "product";
 	}
+
+
+
 	// @Autowired
 
 	// UserOrderService userOrderService;

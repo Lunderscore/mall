@@ -48,7 +48,7 @@ public class PageController {
     public String index(Model model,
             @RequestParam(defaultValue = "") String keyword
             , @RequestParam(defaultValue = "1") Integer pn) {
-        List<Product> all = productService.listIndexProduct(pn, keyword);
+        List<Product> all = productService.listProduct(pn, keyword);
         // 分页条最多有5个
         System.out.println(all);
         PageInfo<Product> page = new PageInfo<>(all, navigatePagesSize);

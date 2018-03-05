@@ -26,12 +26,11 @@
         <tx:attributes>
             <tx:method name="save*" isolation="REPEATABLE_READ" />
             <tx:method name="insert*" isolation="REPEATABLE_READ" />
+            <tx:method name="add*" isolation="REPEATABLE_READ" />
             <tx:method name="create*" isolation="REPEATABLE_READ" />
             <tx:method name="update*" isolation="REPEATABLE_READ" />
             <tx:method name="del*" isolation="REPEATABLE_READ" />
             <tx:method name="remove*" isolation="REPEATABLE_READ" />
-
-            <tx:method name="*" read-only="true" />
         </tx:attributes>
     </tx:advice>
 </beans>

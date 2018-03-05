@@ -14,3 +14,8 @@
         text-decoration: none;
     }
 </style>
+<link rel="stylesheet" href="../static/layui/css/layui.css">
+<script src="../static/layui/layui.all.js"></script>
+<script>
+    var layer = layui.layer;
+</script>

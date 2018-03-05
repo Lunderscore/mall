@@ -39,7 +39,7 @@ function validataEmtyp(eleId) {
 }
 
 function clickLogin() {
-    $.get("admin/login", {
+    $.post("admin/login", {
         username: $("#mid").prop("value"),
         password: $("#password").prop("value")
     }, function (data) {

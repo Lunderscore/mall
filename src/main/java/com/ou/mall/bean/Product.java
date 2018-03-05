@@ -1,25 +1,32 @@
 package com.ou.mall.bean;
 
-import com.ou.mall.validation.AddProduct;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 
 public class Product {
-    @Null(groups = AddProduct.class)
+    @Null(message = "ID必须为空")
     private Integer id;
-    @NotBlank(groups = AddProduct.class)
+
+    @NotBlank(message = "标题不能为空")
     private String title;
-    @NotBlank(groups = AddProduct.class)
+
+    @NotBlank(message = "商品信息不能为空")
     private String info;
-    @DecimalMin(value = "0.01", groups = AddProduct.class)
+
+    @NotNull(message = "价格不能为空")
+    @DecimalMin(value = "0.01", message = "价格最低0.01")
     private BigDecimal price;
-    @Min(value = 1, groups = AddProduct.class)
+
+    @NotNull(message = "库存不能为空")
+    @Min(value = 1, message = "库存最低为1")
     private Integer stock;
-    @Null(groups = AddProduct.class)
+
+    @Null(message = "不能个人设置状态")
     private Byte status;
 
     public Integer getId() {

@@ -25,25 +25,11 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductMapper productMapper;
 
-	@Value("${admin.product.size}")
-	Integer adminProductSize;
 	@Value("${index.product.size}")
 	Integer indexProductSize;
 
 	@Override
-	public List<Product> listAdminProduct(Integer pn, String keyword) {
-		ProductExample example = new ProductExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStatusNotEqualTo(ProductStatusEnum.del.getValue());
-		if (!"".equals(keyword)) {
-			criteria.andTitleLike("%" + keyword + "%");
-		}
-		PageHelper.startPage(pn, adminProductSize);
-		return productMapper.selectByExample(example);
-	}
-
-	@Override
-	public List<Product> listIndexProduct(Integer pn, String keyword) {
+	public List<Product> listProduct(Integer pn, String keyword) {
 		ProductExample example = new ProductExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(ProductStatusEnum.sale.getValue());
@@ -58,28 +44,8 @@ public class ProductServiceImpl implements ProductService {
 	public Product getProduct(Integer pid) {
 		ProductExample example = new ProductExample();
 		example.createCriteria().andIdEqualTo(pid);
-		example.createCriteria().andStatusNotEqualTo(ProductStatusEnum.del.getValue());
+		example.createCriteria().andStatusEqualTo(ProductStatusEnum.sale.getValue());
 		List<Product> products = productMapper.selectByExample(example);
-
 		return products.size() == 0 ? null : products.get(0);
-	}
-
-	@Override
-	public void addProduct(Product product) {
-		product.setStatus(ProductStatusEnum.sale.getValue());
-		productMapper.insert(product);
-	}
-
-	@Override
-	public void updateProduct(Product product, Integer pid) {
-		product.setId(pid);
-		productMapper.updateByPrimaryKeySelective(product);
-	}
-
-	@Override
-	public void delProduct(Integer pid, ProductStatusEnum status) {
-		Product product = getProduct(pid);
-		product.setStatus(status.getValue());
-		productMapper.updateByPrimaryKey(product);
 	}
 }
