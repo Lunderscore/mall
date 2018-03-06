@@ -8,6 +8,8 @@ import com.ou.mall.service.AdminProductService;
 import com.ou.mall.service.ProductImgService;
 import com.ou.mall.status.ProductStatusEnum;
 import com.ou.mall.util.ResultUtils;
+import com.ou.mall.validtion.AddProductValidtion;
+import com.ou.mall.validtion.UpdateProductValidtion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,9 +78,9 @@ public class AdminProductController {
      * @return 返回所有status不为-1的商品
      */
     @RequestMapping(value = "productsPage", method = RequestMethod.GET)
-    public String listProduct(Model model, @RequestParam(defaultValue = "") String keyword
+    public String listProduct(Model model, @RequestParam String keyword
             , @RequestParam(defaultValue = "1") Integer pn) {
-        List<Product> products = adminProductService.listProduct(pn, keyword);
+        List<Product> products = adminProductService.listProduct(pn, keyword.trim());
         PageInfo<Product> page = new PageInfo<>(products, 5);
         model.addAttribute("pageInfo", page);
         return "admin/productsPage";
@@ -108,7 +110,7 @@ public class AdminProductController {
      */
     @ResponseBody
     @RequestMapping(value = "products", method = RequestMethod.POST)
-    public Msg addProduct(@Validated Product product, BindingResult result) {
+    public Msg addProduct(@Validated({AddProductValidtion.class}) Product product, BindingResult result) {
         if (result.hasErrors()) {
             return ResultUtils.returnFaliure(result);
         }
@@ -130,7 +132,7 @@ public class AdminProductController {
     @ResponseBody
     @RequestMapping(value = "products/{pid}", method = RequestMethod.PUT)
     public Msg updateProduct(@PathVariable Integer pid,
-                                @Validated Product product, BindingResult result) {
+                             @Validated(UpdateProductValidtion.class) Product product, BindingResult result) {
         if (result.hasErrors()) {
             return ResultUtils.returnFaliure(result);
         }
