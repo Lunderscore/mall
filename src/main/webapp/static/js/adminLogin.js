@@ -45,7 +45,7 @@ function clickLogin() {
     }, function (data) {
         if (data.code === 0) {
             alert("登录成功");
-            location.href = "admin/products";
+            location.href = "admin/productsPage";
         } else if (data.code === 1) {
             alert("登录失败");
             $("#tip").show();

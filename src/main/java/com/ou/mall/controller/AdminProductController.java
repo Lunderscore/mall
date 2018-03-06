@@ -64,7 +64,7 @@ public class AdminProductController {
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         session.removeAttribute("admin");
-        return "redirect:../login.jsp";
+        return "redirect:../admin.jsp";
     }
 
 
@@ -78,7 +78,7 @@ public class AdminProductController {
      * @return 返回所有status不为-1的商品
      */
     @RequestMapping(value = "productsPage", method = RequestMethod.GET)
-    public String listProduct(Model model, @RequestParam String keyword
+    public String listProduct(Model model, @RequestParam(defaultValue = "") String keyword
             , @RequestParam(defaultValue = "1") Integer pn) {
         List<Product> products = adminProductService.listProduct(pn, keyword.trim());
         PageInfo<Product> page = new PageInfo<>(products, 5);

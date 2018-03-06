@@ -40,7 +40,7 @@
 <body>
 <div class="jumbotron">
     <div class="row">
-        <h3 class="center-block">当前登入管理员：${adminSession.userUsername }&nbsp;&nbsp;&nbsp;<a href="adminLogOut">
+        <h3 class="center-block">当前登入管理员：${admin }&nbsp;&nbsp;&nbsp;<a href="logout">
             <button type="button" class="btn btn-warning">注销</button>
         </a></h3>
     </div>
