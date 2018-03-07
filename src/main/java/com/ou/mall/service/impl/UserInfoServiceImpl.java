@@ -28,13 +28,18 @@ public class UserInfoServiceImpl implements UserInfoService {
         List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
         // 如果没有用户信息 新建用户信息
         if (userInfos.size() == 0) {
-            return createUserinfo(uid);
+            return createUserInfo(uid);
         }
         return userInfos.get(0);
     }
 
     @Override
-    public UserInfo createUserinfo(Integer uid) {
+    public void UpdateUserInfo(UserInfo userInfo, Integer uid) {
+        userInfo.setUid(uid);
+        userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    }
+
+    private UserInfo createUserInfo(Integer uid) {
         UserInfo userinfo = new UserInfo();
         userinfo.setMoney(new BigDecimal("0.00"));
         userinfo.setUid(uid);

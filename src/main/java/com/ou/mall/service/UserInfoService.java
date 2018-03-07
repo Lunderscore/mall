@@ -9,7 +9,7 @@ import com.ou.mall.bean.UserInfo;
  */
 public interface UserInfoService {
     /**
-     * 根据用户id获取userInfo
+     * 根据用户id获取userInfo 如果没有用户信息则初始化用户信息
      *
      * @param uid
      * @return userInfo
@@ -17,10 +17,8 @@ public interface UserInfoService {
     UserInfo getUserInfo(Integer uid);
 
     /**
-     * 新建用户信息
-     *
-     * @param uid
-     * @return userInfo
+     * @param userInfo 需要更新的用户信息
+     * @param uid 用户主键
      */
-    UserInfo createUserinfo(Integer uid);
+    void UpdateUserInfo(UserInfo userInfo, Integer uid);
 }
