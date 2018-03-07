@@ -4,16 +4,17 @@ import com.ou.mall.bean.Msg;
 import com.ou.mall.bean.User;
 import com.ou.mall.exception.HasUsernameException;
 import com.ou.mall.service.UserService;
+import com.ou.mall.util.ResultUtils;
+import com.ou.mall.validtion.AddUserValidtion;
+import com.ou.mall.validtion.UpdateProductValidtion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.regex.Pattern;
 
 /**
  * UserController
@@ -35,10 +36,9 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Msg login(HttpSession session, @Validated User user, BindingResult result) {
+    public Msg login(HttpSession session, @Validated(AddUserValidtion.class) User user, BindingResult result) {
         if (result.hasErrors()) {
-            String defaultMessage = result.getFieldError().getDefaultMessage();
-            return Msg.failure(defaultMessage);
+            return ResultUtils.returnFaliure(result);
         }
         User userSession = userService.login(user);
         if (null == userSession) {
@@ -56,10 +56,9 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public Msg register(HttpSession session, @Validated User user, BindingResult result) throws HasUsernameException {
+    public Msg register(HttpSession session, @Validated(AddUserValidtion.class) User user, BindingResult result) throws HasUsernameException {
         if (result.hasErrors()) {
-            String defaultMessage = result.getFieldError().getDefaultMessage();
-            return Msg.failure(defaultMessage);
+            return ResultUtils.returnFaliure(result);
         }
         // 注册成功 进入登录方法
         if (userService.register(user)) {
@@ -70,7 +69,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "users/{username}", method = RequestMethod.GET)
-    public Msg checkUsernameAvailable(@PathVariable String username){
+    public Msg checkUsernameAvailable(@PathVariable String username) {
         // 如果该用户名被注册
         if (null != userService.getUser(username)) {
             return Msg.failure("该用户名已被使用");
@@ -84,23 +83,39 @@ public class UserController {
         session.removeAttribute("user");
         return Msg.success();
     }
-    /*
-     * 在注册用户的时候查看是否存在该用户
+
+
+    /**
+     * 获取用户信息通过session get id
+     *
+     * @param session
+     * @return Msg
      */
-    //
-    // /*
-    //  * 更新用户的信息
-    //  */
-    // @RequestMapping(value="user")
-    // public String update(User user){
-    // 	User userSession = (User) session.getAttribute("userSession");
-    // 	Integer userId = userSession.getUserId();
-    // 	user.setUserId(userId);
-    // 	userService.updateByPrimaryKeySelective(user);
-    //
-    // 	updateUserSession();
-    //    return "redirect:home";
-    // }
+    @ResponseBody
+    @RequestMapping(value = "users", method = RequestMethod.GET)
+    public Msg getUser(HttpSession session) {
+        Integer uid = (Integer) session.getAttribute("user");
+        User user = userService.getUser(uid);
+        return Msg.success().add("user", user);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param
+     * @return user
+     */
+    @ResponseBody
+    @RequestMapping(value = "users", method = RequestMethod.PUT)
+    public Msg updatePassword(@Validated(UpdateProductValidtion.class) User user, BindingResult result) {
+        // 如果密码不符合规范
+        if (result.hasErrors()) {
+            return ResultUtils.returnFaliure(result);
+        }
+        return Msg.success();
+    }
+
+
     //
     // /*
     //  * 上传用户头像

@@ -48,9 +48,8 @@ public class PageController {
     public String index(Model model,
             @RequestParam(defaultValue = "") String keyword
             , @RequestParam(defaultValue = "1") Integer pn) {
-        List<Product> all = productService.listProduct(pn, keyword);
+        List<Product> all = productService.listProduct(pn, keyword.trim());
         // 分页条最多有5个
-        System.out.println(all);
         PageInfo<Product> page = new PageInfo<>(all, navigatePagesSize);
         model.addAttribute("pageInfo", page);
         return "index";
@@ -73,20 +72,10 @@ public class PageController {
     /**
      * 个人主页
      *
-     * @param model
-     * @param session
      * @return
      */
     @RequestMapping(value = "home", method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) {
-        //TODO
-        // Integer uid = (Integer) session.getAttribute("user");
-        Integer uid = 1;
-        User user = userService.getUser(uid);
-        UserInfo userInfo = userInfoService.getUserInfo(uid);
-
-        model.addAttribute("user", user);
-        model.addAttribute("userInfo", userInfo);
+    public String home() {
         return "home";
     }
 

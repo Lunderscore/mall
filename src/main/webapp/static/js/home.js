@@ -1,19 +1,20 @@
-$(function(){
+﻿$(function(){
 	$.post("getUserAddress",function(data){
 		var address = data.content.address;
 		$("#displayName").html(address.addressName);
 		$("#displayPhone").html(address.addressPhone);
 		$("#displayAddress").html(address.addressContent);
 	});
+
 	
 	$("#userImgDiv").find("img").on("mouseover", function(){
 		$(this).css("opacity", "0.7");
 	});
-	
 	$("#userImgDiv").find("img").on("mouseout", function(){
 		$(this).css("opacity", "1");
 	});
-	
+
+
 	$("#passwordBtn").on("click", function(){
 		alterPassword();
 	});
@@ -34,12 +35,12 @@ $(function(){
 		if ($(span).attr("flag") == 0){
 			$(span).removeClass("glyphicon glyphicon-eye-open");
 			$(span).addClass("glyphicon glyphicon-eye-close");
-			$("#passwordinfo").attr("type", "text");
+			$("#oldPassword").prop("type", "text");
 			$(span).attr("flag", "1");
 		}else{
 			$(span).removeClass("glyphicon glyphicon-eye-close");
 			$(span).addClass("glyphicon glyphicon-eye-open");
-			$("#passwordinfo").attr("type", "password");
+			$("#oldPassword").prop("type", "password");
 			$(span).attr("flag", "0");
 		}
 	})
@@ -49,17 +50,14 @@ function alterPassword(){
 	var password1 = $("#password1").val().trim();
 	var password2 = $("#password2").val().trim();
 	if (/^[a-zA-Z]\w{5,17}$/.test(password1) == false){
-		alert("密码格式：字母开头，长度在6~18之间，只能包含字母、数字和下划线")
+        layer.msg("密码格式：字母开头，长度在6~18之间，只能包含字母、数字和下划线");
 		return;
 	}
-	if (password1 == "" ||  password2 == ""){
-		alert("不能输入为空");
-		return;
-	}else if(password1 != password2){
-		alert("两次密码输入不一致");
+	if(password1 != password2){
+        layer.msg("两次密码输入不一致");
 		return;
 	}
-	$.post("user", {userPassword: password1}, function(data){
+	$.post("users", {password: password1, _method: "PUT"}, function(data){
 		location.reload();
 	});
 }

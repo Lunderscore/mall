@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">账号：</label>
                 <div class="col-sm-10 input-group">
-                    <input class="form-control" type="text" placeholder="${userSession.userUsername }" readonly>
+                    <input class="form-control" type="text" readonly id="oldUsername">
                     <span class="input-group-btn">
                             <a tabindex="0" class="btn btn-default popBtn" role="button" data-toggle="popover"
                                data-trigger="focus" title="提示" data-content="账号创建后不可修改">??</a>
@@ -46,8 +46,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">密码：</label>
                 <div class="col-sm-10 input-group">
-                    <input class="form-control" id="passwordinfo" type="password" value="${userSession.userPassword }"
-                           readonly>
+                    <input class="form-control" id="oldPassword" type="password" readonly>
                     <span class="input-group-btn">
                             <button type="button" class="btn btn-default" id="passwordIconBtn"><span flag="0"
                                                                                                      class="glyphicon glyphicon-eye-open"></span></button>
@@ -100,16 +99,23 @@
             修改默认收货地址
         </button>
     </div>
-
     <%@ include file="include/homeModal.jsp" %>
-
     <script>
         $(function () {
             $('.popBtn').popover();
         });
     </script>
 
-    <script src="js/home.js"></script>
+    <script>
+        $.get("users", function (data) {
+            let user = data.content.user;
+            $("#oldUsername").val(user.username);
+            $("#oldPassword").val(user.password);
+        });
+    </script>
+
+
+    <script src="static/js/home.js"></script>
 </div>
 </body>
 </html>
