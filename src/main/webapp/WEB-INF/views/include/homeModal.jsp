@@ -22,7 +22,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="avatarBtn">保存</button>
+                <button type="button" class="btn btn-primary" onclick="avatar()">保存</button>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="passwordBtn">保存</button>
+                <button type="button" class="btn btn-primary" onclick="alterPassword()">保存</button>
             </div>
         </div>
     </div>
@@ -98,7 +98,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="moneyBtn">保存</button>
+                <button type="button" class="btn btn-primary" onclick="alterMoney()">保存</button>
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
                         <label for="person" class="col-sm-3 control-label">收货人：</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="person"
-                                   placeholder="输入收货人姓名" name="empName"> <span id="helpBlock"
+                                   placeholder="输入收货人姓名" name="empName"> <
                                                                                class="help-block"></span>
                         </div>
                     </div>
@@ -129,8 +129,7 @@
                         <label for="phone" class="col-sm-3 control-label">联系电话：</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="phone"
-                                   placeholder="输入联系人电话" name="email"> <span
-                                id="helpBlock" class="help-block"></span>
+                                   placeholder="输入联系人电话" name="email"> <span class="help-block"></span>
                         </div>
                     </div>
 
@@ -138,14 +137,13 @@
                         <label for="address" class="col-sm-3 control-label">收货地址：</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="address"
-                                   placeholder="输入收货人地址" name="email"> <span
-                                id="helpBlock" class="help-block"></span>
+                                   placeholder="输入收货人地址" name="email"> <span class="help-block"></span>
                         </div>
                     </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="addressBtn">保存</button>
+                <button type="button" class="btn btn-primary" onclick="alterMoney()">保存</button>
             </div>
         </div>
     </div>

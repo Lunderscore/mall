@@ -5,6 +5,7 @@ import com.ou.mall.bean.User;
 import com.ou.mall.exception.HasUsernameException;
 import com.ou.mall.service.UserService;
 import com.ou.mall.util.ResultUtils;
+import com.ou.mall.util.SessionUtils;
 import com.ou.mall.validtion.AddUserValidtion;
 import com.ou.mall.validtion.UpdateProductValidtion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "users", method = RequestMethod.GET)
     public Msg getUser(HttpSession session) {
-        Integer uid = (Integer) session.getAttribute("user");
+        Integer uid = SessionUtils.getUserId(session);
         User user = userService.getUser(uid);
         return Msg.success().add("user", user);
     }

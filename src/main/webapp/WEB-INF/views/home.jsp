@@ -8,7 +8,7 @@
         #userImgDiv {
             text-align: center;
         }
-        #uImg {
+        #avatar {
             width: 150px;
             height: 150px;
         }
@@ -26,7 +26,7 @@
             <div id="userImgDiv">
                 <a href="#" data-toggle="modal" data-target="#avatarModal">
                     <%--TODO--%>
-                    <img id="uImg" src="static/img/defaultAvatar.jpg"/>
+                    <img id="avatar" src="static/img/defaultAvatar.jpg"/>
             </a>
         </div>
 
@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">剩余余额：</label>
                     <div class="col-sm-3">
-                        <p class="form-control-static">${userSession.userMoney}</p>
+                        <p class="form-control-static" id="money"></p>
                     </div>
                     <div class="col-sm-5">
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#moneyModal"><span
@@ -95,7 +95,7 @@
     </div>
     <div class="row center-block">
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addressModal"
-                id="addressHomeBtn">
+                onclick="getAddress()">
             修改默认收货地址
         </button>
     </div>
@@ -107,10 +107,19 @@
     </script>
 
     <script>
+        // 初始化用户信息
         $.get("users", function (data) {
             let user = data.content.user;
             $("#oldUsername").val(user.username);
             $("#oldPassword").val(user.password);
+        });
+        $.get("userInfos", function (data) {
+            let userInfo = data.content.userInfo;
+            $("#money").text(userInfo.money);
+            // 有设置头像的话显示头像
+            if (null !== userInfo.avatar && !"" === userInfo.avatar) {
+                $("#avatar").prop("src", userInfo.avatar);
+            }
         });
     </script>
 
