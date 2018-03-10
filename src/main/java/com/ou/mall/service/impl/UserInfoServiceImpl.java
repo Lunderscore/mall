@@ -34,9 +34,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public void UpdateUserInfo(UserInfo userInfo, Integer uid) {
-        userInfo.setUid(uid);
-        userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    public void recharge(UserInfo userInfo, Integer uid) {
+        UserInfo oldUserInfo = getUserInfo(uid);
+        oldUserInfo.setMoney(oldUserInfo.getMoney().add(userInfo.getMoney()));
+        userInfoMapper.updateByPrimaryKeySelective(oldUserInfo);
     }
 
     private UserInfo createUserInfo(Integer uid) {

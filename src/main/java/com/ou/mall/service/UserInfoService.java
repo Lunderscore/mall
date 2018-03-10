@@ -17,8 +17,8 @@ public interface UserInfoService {
     UserInfo getUserInfo(Integer uid);
 
     /**
-     * @param userInfo 需要更新的用户信息
+     * @param userInfo 充值
      * @param uid 用户主键
      */
-    void UpdateUserInfo(UserInfo userInfo, Integer uid);
+    void recharge(UserInfo userInfo, Integer uid);
 }

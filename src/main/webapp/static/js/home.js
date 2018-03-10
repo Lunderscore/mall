@@ -16,7 +16,7 @@
     });
     $("#passwordIconBtn").on("click", function () {
         var span = $(this).find("span");
-        if ($(span).attr("flag") === 0) {
+        if ($(span).attr("flag") === "0") {
             $(span).removeClass("glyphicon glyphicon-eye-open");
             $(span).addClass("glyphicon glyphicon-eye-close");
             $("#oldPassword").prop("type", "text");
@@ -46,13 +46,13 @@ function alterPassword(){
 	});
 }
 
-function alterMoney(){
-	var money = $("#money").val();
-	if (money < 0){
-		alert("数额不能小于0");
-		return;
-	}
-	$.post("money", {mid: money}, function(data){
+function recharge(){
+	var money = $("#moneyInput").val();
+	if (Number(money) < 0){
+        layer.msg("数额不能小于0");
+        return;
+    }
+    $.post("userInfos", {money: money, _method: "PUT"}, function(data){
 		location.reload();
 	});
 }

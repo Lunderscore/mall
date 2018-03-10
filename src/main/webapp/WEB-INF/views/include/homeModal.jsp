@@ -85,10 +85,10 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="money" class="col-sm-3 control-label">充值：</label>
+                        <label for="moneyInput" class="col-sm-3 control-label">充值：</label>
                         <div class="col-sm-9">
                             <div class="col-sm-10 input-group">
-                                <input id="money" class="form-control" type="number" placeholder="输入一个大于0的数"> <span
+                                <input id="moneyInput" class="form-control" type="number" placeholder="输入一个大于0的数"> <span
                                     class="input-group-btn">
 									</span>
                             </div>
@@ -98,7 +98,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" onclick="alterMoney()">保存</button>
+                <button type="button" class="btn btn-primary" onclick="recharge()">保存</button>
             </div>
         </div>
     </div>

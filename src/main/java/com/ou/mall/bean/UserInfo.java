@@ -1,14 +1,24 @@
 package com.ou.mall.bean;
 
+import com.ou.mall.validtion.RechargeValidtion;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 
 public class UserInfo {
+    @Null(groups = RechargeValidtion.class)
     private Integer ufid;
 
+    @Null(groups = RechargeValidtion.class)
     private Integer uid;
 
+    @NotNull(message = "价格不能为空", groups = RechargeValidtion.class)
+    @DecimalMin(value = "0.01", message = "价格最低0.01", groups = RechargeValidtion.class)
     private BigDecimal money;
 
+    @Null(groups = RechargeValidtion.class)
     private String avatar;
 
     public Integer getUfid() {
