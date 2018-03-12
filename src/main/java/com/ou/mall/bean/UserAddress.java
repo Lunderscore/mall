@@ -1,14 +1,27 @@
 package com.ou.mall.bean;
 
+import com.ou.mall.validtion.AddUserAddressValidtiom;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
+
 public class UserAddress {
+    @Null(groups = AddUserAddressValidtiom.class)
     private Integer id;
 
+    @NotBlank(groups = AddUserAddressValidtiom.class, message = "姓名不能为空")
     private String name;
 
+    @NotBlank(groups = AddUserAddressValidtiom.class, message = "手机号码不能为空")
+    @Pattern(regexp = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$",
+        groups = AddUserAddressValidtiom.class, message = "请输入正确的手机号码")
     private String phone;
 
+    @NotBlank(groups = AddUserAddressValidtiom.class, message = "留言不能为空")
     private String content;
 
+    @Null(groups = AddUserAddressValidtiom.class)
     private Integer uid;
 
     public Integer getId() {
