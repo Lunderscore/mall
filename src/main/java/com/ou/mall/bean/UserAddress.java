@@ -1,53 +1,68 @@
 package com.ou.mall.bean;
 
 public class UserAddress {
-    private Integer addressId;
+    private Integer id;
 
-    private String addressName;
+    private String name;
 
-    private String addressPhone;
+    private String phone;
 
-    private String addressContent;
+    private String content;
 
-    private Integer addressUid;
+    private Integer uid;
 
-    public Integer getAddressId() {
-        return addressId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getAddressName() {
-        return addressName;
+    public String getName() {
+        return name;
     }
 
-    public void setAddressName(String addressName) {
-        this.addressName = addressName == null ? null : addressName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getAddressPhone() {
-        return addressPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAddressPhone(String addressPhone) {
-        this.addressPhone = addressPhone == null ? null : addressPhone.trim();
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getAddressContent() {
-        return addressContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setAddressContent(String addressContent) {
-        this.addressContent = addressContent == null ? null : addressContent.trim();
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
-    public Integer getAddressUid() {
-        return addressUid;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setAddressUid(Integer addressUid) {
-        this.addressUid = addressUid;
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", phone=").append(phone);
+        sb.append(", content=").append(content);
+        sb.append(", uid=").append(uid);
+        sb.append("]");
+        return sb.toString();
     }
 }

@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ou.mall.dao.UserAddressMapper">
   <resultMap id="BaseResultMap" type="com.ou.mall.bean.UserAddress">
-    <id column="address_id" jdbcType="INTEGER" property="addressId" />
-    <result column="address_name" jdbcType="VARCHAR" property="addressName" />
-    <result column="address_phone" jdbcType="VARCHAR" property="addressPhone" />
-    <result column="address_content" jdbcType="VARCHAR" property="addressContent" />
-    <result column="address_uid" jdbcType="INTEGER" property="addressUid" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    address_id, address_name, address_phone, address_content, address_uid
+    id, name, phone, content, uid
   </sql>
   <select id="selectByExample" parameterType="com.ou.mall.bean.UserAddressExample" resultMap="BaseResultMap">
     select
@@ -87,11 +87,11 @@
     select 
     <include refid="Base_Column_List" />
     from user_address
-    where address_id = #{addressId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_address
-    where address_id = #{addressId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.ou.mall.bean.UserAddressExample">
     delete from user_address
@@ -100,45 +100,45 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ou.mall.bean.UserAddress">
-    insert into user_address (address_id, address_name, address_phone, 
-      address_content, address_uid)
-    values (#{addressId,jdbcType=INTEGER}, #{addressName,jdbcType=VARCHAR}, #{addressPhone,jdbcType=VARCHAR}, 
-      #{addressContent,jdbcType=VARCHAR}, #{addressUid,jdbcType=INTEGER})
+    insert into user_address (id, name, phone, 
+      content, uid)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ou.mall.bean.UserAddress">
     insert into user_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="addressId != null">
-        address_id,
+      <if test="id != null">
+        id,
       </if>
-      <if test="addressName != null">
-        address_name,
+      <if test="name != null">
+        name,
       </if>
-      <if test="addressPhone != null">
-        address_phone,
+      <if test="phone != null">
+        phone,
       </if>
-      <if test="addressContent != null">
-        address_content,
+      <if test="content != null">
+        content,
       </if>
-      <if test="addressUid != null">
-        address_uid,
+      <if test="uid != null">
+        uid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="addressId != null">
-        #{addressId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="addressName != null">
-        #{addressName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="addressPhone != null">
-        #{addressPhone,jdbcType=VARCHAR},
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="addressContent != null">
-        #{addressContent,jdbcType=VARCHAR},
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
-      <if test="addressUid != null">
-        #{addressUid,jdbcType=INTEGER},
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -151,20 +151,20 @@
   <update id="updateByExampleSelective" parameterType="map">
     update user_address
     <set>
-      <if test="record.addressId != null">
-        address_id = #{record.addressId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.addressName != null">
-        address_name = #{record.addressName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.addressPhone != null">
-        address_phone = #{record.addressPhone,jdbcType=VARCHAR},
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.addressContent != null">
-        address_content = #{record.addressContent,jdbcType=VARCHAR},
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.addressUid != null">
-        address_uid = #{record.addressUid,jdbcType=INTEGER},
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -173,11 +173,11 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update user_address
-    set address_id = #{record.addressId,jdbcType=INTEGER},
-      address_name = #{record.addressName,jdbcType=VARCHAR},
-      address_phone = #{record.addressPhone,jdbcType=VARCHAR},
-      address_content = #{record.addressContent,jdbcType=VARCHAR},
-      address_uid = #{record.addressUid,jdbcType=INTEGER}
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -185,27 +185,27 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.ou.mall.bean.UserAddress">
     update user_address
     <set>
-      <if test="addressName != null">
-        address_name = #{addressName,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="addressPhone != null">
-        address_phone = #{addressPhone,jdbcType=VARCHAR},
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="addressContent != null">
-        address_content = #{addressContent,jdbcType=VARCHAR},
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="addressUid != null">
-        address_uid = #{addressUid,jdbcType=INTEGER},
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
       </if>
     </set>
-    where address_id = #{addressId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ou.mall.bean.UserAddress">
     update user_address
-    set address_name = #{addressName,jdbcType=VARCHAR},
-      address_phone = #{addressPhone,jdbcType=VARCHAR},
-      address_content = #{addressContent,jdbcType=VARCHAR},
-      address_uid = #{addressUid,jdbcType=INTEGER}
-    where address_id = #{addressId,jdbcType=INTEGER}
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
