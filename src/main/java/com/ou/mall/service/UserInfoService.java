@@ -1,6 +1,9 @@
 package com.ou.mall.service;
 
 import com.ou.mall.bean.UserInfo;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @author: kpkym
@@ -21,4 +24,12 @@ public interface UserInfoService {
      * @param uid 用户主键
      */
     void recharge(UserInfo userInfo, Integer uid);
+
+    /**
+     * @param realPath 项目绝对路径
+     * @param image 保存的图片
+     * @param uid 用户id
+     * @throws IOException
+     */
+    void insertAvatar(String realPath, MultipartFile image, Integer uid) throws IOException;
 }

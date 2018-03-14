@@ -5,10 +5,15 @@ import com.ou.mall.bean.UserInfoExample;
 import com.ou.mall.dao.UserInfoMapper;
 import com.ou.mall.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author: kpkym
@@ -19,6 +24,9 @@ import java.util.List;
 public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     UserInfoMapper userInfoMapper;
+
+    @Value("${userInfo.avatar.dir}")
+    String avatarDir;
 
     @Override
     public UserInfo getUserInfo(Integer uid) {
@@ -38,6 +46,21 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo oldUserInfo = getUserInfo(uid);
         oldUserInfo.setMoney(oldUserInfo.getMoney().add(userInfo.getMoney()));
         userInfoMapper.updateByPrimaryKeySelective(oldUserInfo);
+    }
+
+    @Override
+    public void insertAvatar(String realPath, MultipartFile image, Integer uid) throws IOException {
+        String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+        String filename = UUID.randomUUID().toString() + suffix;
+        String location = realPath + avatarDir;
+        if (!new File(location).exists()) {
+            new File(location).mkdirs();
+        }
+        File file = new File(location, filename);
+        UserInfo userInfo = getUserInfo(uid);
+        userInfo.setAvatar(file.getAbsolutePath());
+        userInfoMapper.updateByPrimaryKey(userInfo);
+        image.transferTo(file);
     }
 
     private UserInfo createUserInfo(Integer uid) {

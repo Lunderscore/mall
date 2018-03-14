@@ -137,35 +137,4 @@ public class UserController {
     //    return "redirect:home";
     // }
     //
-    // /*
-    //  * 用户对余额的操作
-    //  */
-    // @ResponseBody
-    // @RequestMapping(value="money")
-    // public Msg payment(@RequestParam(value="mid", defaultValue="0") Double payMoney
-    // 		, @RequestParam(value="type", defaultValue="0") Integer type){
-    // 	User user = (User) session.getAttribute("userSession");
-    // 	if (payMoney==null || "".equals(payMoney)){
-    // 		return Msg.failure().add("msg", "操作错误");
-    // 	}else if(user==null){
-    // 		return Msg.failure().add("msg", "你还没有登录");
-    // 	}else if (type == 1){
-    // 		payMoney = -payMoney;
-    // 	}
-    //
-    // 	Integer uid = user.getUserId();
-    // 	userService.addMoney(payMoney, uid);
-    // 	updateUserSession();
-    //
-    // 	return Msg.success();
-    // }
-    //
-    // public void updateUserSession(){
-    // 	User user = (User)(session.getAttribute("userSession"));
-    // 	Integer userID = user.getUserId();
-    //
-    // 	User u = userService.selectByPrimaryKey(userID);
-    // 	session.setAttribute("userSession", u);
-    // }
-
 }

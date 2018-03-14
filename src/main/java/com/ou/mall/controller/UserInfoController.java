@@ -6,15 +6,23 @@ import com.ou.mall.service.UserInfoService;
 import com.ou.mall.util.ResultUtils;
 import com.ou.mall.util.SessionUtils;
 import com.ou.mall.validtion.RechargeValidtion;
+import com.sun.imageio.plugins.common.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageInputStreamImpl;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author: kpkym
@@ -36,7 +44,7 @@ public class UserInfoController {
 
     @ResponseBody
     @RequestMapping(value = "userInfos", method = RequestMethod.PUT)
-    public Msg updateUserInfo(HttpSession session, @Validated(RechargeValidtion.class) UserInfo userInfo, BindingResult result) {
+    public Msg recharge(HttpSession session, @Validated(RechargeValidtion.class) UserInfo userInfo, BindingResult result) {
         if (result.hasErrors()) {
             return ResultUtils.returnFaliure(result);
         }
@@ -44,4 +52,21 @@ public class UserInfoController {
         userInfoService.recharge(userInfo, uid);
         return Msg.success();
     }
+
+    @ResponseBody
+    @RequestMapping(value = "avatat", method = RequestMethod.POST)
+    public Msg avatat(MultipartFile image, HttpServletRequest request) throws IOException {
+        if (null == image) {
+            return Msg.failure("图片不能为空");
+        }
+        BufferedImage read = ImageIO.read(image.getInputStream());
+        if (null == read) {
+            return Msg.failure("此文件不是图片");
+        }
+        String realPath = request.getServletContext().getRealPath("/");
+        Integer userId = SessionUtils.getUserId(request.getSession());
+        userInfoService.insertAvatar(realPath, image, userId);
+        return Msg.success();
+    }
+
 }
