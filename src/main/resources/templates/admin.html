@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <div th:replace="~{component/component :: header}"></div>
+    <style>
+        .pimg{
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .center-block {
+            text-align:center;
+        }
+
+        #productHead{
+            background-color: #F0FFF0;
+        }
+        .productInfo{
+            border: 1px solid red;
+        }
+        .productInfoHead{
+            background-color: #EEE8AA;
+        }
+
+        .productItem{
+            border: 1px
+        }
+    </style>
+
+    <title>管理员后台</title>
+</head>
+<body class="jumbotron">
+<div class="row">
+    <h3 class="center-block">当前登入管理员：[[${session.adminSession.userUsername }]]&nbsp;&nbsp;&nbsp;<a href="adminLogOut"><button type="button" class="btn btn-warning">注销</button></a></h3>
+</div>
+<div class="row">
+    <h2 class="center-block">后台页面-商品管理</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="input-group input-group-lg">
+            <input type="text" id="searchInput" class="form-control" placeholder="输入商品名" aria-describedby="sizing-addon1">
+            <span class="input-group-btn">
+		        <button class="btn btn-default" id="searchBtn">查询</button>
+		      </span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div th:replace="~{component/admin :: adminTable}"></div>
+    </div>
+</div>
+
+<div th:replace="~{component/admin :: adminModal}"></div>
+
+<div th:replace="~{component/component :: pagination}"></div>
+
+<script type="text/javascript" th:src="@{/js/admin.js}"></script>
+<script type="text/javascript">
+    $(".productItem").on("mouseover", function(){
+        $(this).css("background-color", "#fcc5fb");
+    });
+    $(".row.productItem").on("mouseout", function(){
+        $(this).css("background-color", "");
+    });
+</script>
+</body>
+</html>

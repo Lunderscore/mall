@@ -1,5 +1,3 @@
-# 重构中
-
 **实现技术**
 * 前端技术: HTML，CSS， JavaScript， jQuery， Bootstrap框架
 * 编程语言: Java

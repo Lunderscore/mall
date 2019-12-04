@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <div th:replace="~{component/component :: header}"></div>
+
+    <style>
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+    <title>主界面</title>
+</head>
+<body class="jumbotron">
+<div th:replace="~{component/component :: navigator}"></div>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="input-group input-group-lg">
+            <input type="text" id="searchInput" class="form-control" placeholder="输入商品名"
+                   aria-describedby="sizing-addon1">
+            <span class="input-group-btn">
+		        <button class="btn btn-default" id="searchBtn">Go!</button>
+		      </span>
+        </div>
+    </div>
+</div>
+
+
+<div th:if="${pages}">
+    <div th:each="product, i : ${pages.list }" th:remove="tag">
+        <span th:if="${i.index % 6} == 0" th:utext="'<div class=row>'" th:remove="tag"></span>
+        <div th:class="col-md-2">
+            <a th:href="|itemDetail?pid=${product.productId }|">
+                <div class="thumbnail item">
+                    <img th:src="@{'/' + ${product.productImg1} }">
+                    <div class="caption">
+                        <h5 th:text="${product.productTitle }"></h5>
+                        <h4 th:text="|价格：${product.productPrice }|"></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <span th:if="${i.index % 6} == 5" th:utext="'</div>'" th:remove="tag"></span>
+    </div>
+</div>
+</div>
+
+<div th:replace="~{component/component :: pagination}"></div>
+<script th:src="@{/js/index.js}"></script>
+</body>
+</html>

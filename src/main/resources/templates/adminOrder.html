@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <div th:replace="~{component/component :: header}"></div>
+
+    <title>用户订单详情</title>
+    <style>
+        .pimg{
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .center-block {
+            text-align:center;
+        }
+
+        #productHead{
+            background-color: #F0FFF0;
+        }
+        .productInfo{
+            border: 1px solid red;
+        }
+        .productInfoHead{
+            background-color: #EEE8AA;
+        }
+    </style>
+</head>
+<body class="jumbotron">
+<!--<div th:replace="~{component/component :: navigator}"></div>-->
+
+<div class="col-md-10 col-md-offset-1">
+    <div class="row">
+        <div class="btn-toolbar" role="toolbar" aria-label="...">
+            <div class="col-md-2">
+                <a href="?type=0">
+                    <button type="button" class="btn btn-block">所有订单</button>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="?type=1">
+                    <button type="button" class="btn btn-block">待付款</button>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="?type=2">
+                    <button type="button" class="btn btn-block">待发货</button>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="?type=3">
+                    <button type="button" class="btn btn-block">待收货</button>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="?type=4">
+                    <button type="button" class="btn btn-block">待评价</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="input-group input-group-lg">
+                <input type="text" id="searchInput" class="form-control" placeholder="输入商品名"
+                       aria-describedby="sizing-addon1">
+                <span class="input-group-btn">
+	        <button class="btn btn-default" id="searchBtn">Go!</button>
+	      </span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row" id="productHead">
+        <div class="col-md-12">
+            <div class="col-md-6 center-block">商品</div>
+            <div class="col-md-1 center-block">单价</div>
+            <div class="col-md-1 center-block">数量</div>
+            <div class="col-md-2 center-block">实付款</div>
+            <div class="col-md-2 center-block">操作</div>
+        </div>
+    </div>
+
+    <div th:if="${pages }" th:remove="tag">
+        <div th:remove="tag" th:each="item : ${pages.list }">
+            <div class="row productInfo">
+                <div class="col-md-12 productInfoHead">
+                    <div class="col-md-6">
+                        <div class="col-md-5">
+                            <b th:text="${#dates.format(item.orderDateTime, 'yyyy-MM-dd HH:mm:ss')}">
+                            </b>
+                        </div>
+                        <div class="col-md-4">
+                            <span th:text="|订单号: ${item.orderId }|">订单号: ${item.orderId }</span>
+                        </div>
+                        <div class="col-md-3">
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;收货人信息</span>
+                        </div>
+                    </div>
+                    <div class="col-md-1 center-block"></div>
+                    <div class="col-md-1 center-block"></div>
+                    <div class="col-md-2 center-block"></div>
+                    <div class="col-md-2 center-block">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="col-md-3">
+                            <img th:src="@{'/' + ${item.product.productImg1 }}" class="pimg"/>
+                        </div>
+                        <div class="col-md-6">
+                            <span th:text="|商品名称：${item.product.productTitle }|">商品名称：${item.product.productTitle }</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button th:uoid=" ${item.orderId }" type="button" class="btn btn-default showAddress"
+                                    data-toggle="modal" data-target="#addressModal">收货人信息
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-1 center-block" th:text="${item.product.productPrice }"></div>
+                    <div class="col-md-1 center-block" th:text="${item.orderNumber }"></div>
+                    <div class="col-md-2 center-block" id="mone"
+                         th:text="${item.product.productPrice * item.orderNumber }"></div>
+                    <div class="col-md-2 center-block">
+                        <br><br>
+                        <span th:if="${item.orderStatus eq 1 }" tp="0">
+                            等待付款&nbsp;&nbsp;&nbsp;
+                        </span>
+                        <button th:if="${item.orderStatus eq 2 }" type="button" class="btn btn-info btn-xs" tp="3"
+                                th:uoid="${item.orderId }"
+                                money="${item.product.productPrice * item.orderNumber }">
+                            <span class="orderListItemDelete glyphicon glyphicon-send"></span>
+                            发货
+                        </button>
+                        <span th:if="${item.orderStatus eq 3 }" tp="4">
+                            等待确认收货
+                        </span>
+                        <span th:if="${item.orderStatus eq 4 }" tp="1">
+                            等待评价&nbsp;&nbsp;&nbsp;
+                        </span>
+                        <span th:if="${item.orderStatus eq 5 }">
+                            交易完成
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <form action="payment" id="payment" method="post">
+                <input type="hidden" name="uoid">
+                <input type="hidden" name="totalMoney">
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+
+<!-- 评论模态框 -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">填写评论</h4>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center;"><img style="max-width: 300px; max-height: 300px" id="commentProductImg1" /></div>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">商品名：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="commentProductTitle"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment" class="col-sm-3 control-label">商品评论：</label>
+                        <div class="col-sm-9">
+                            <textarea name="comment" rows="3" class="form-control" id="comment" placeholder="在此处输入你对商品的评论"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="submitComment">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addressModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">查看收货人信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收货人：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="psersonName"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">手机号码：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="personphone"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收货地址：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="psersonAddress"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">买家留言：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="personMsg"></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{component/component :: pagination}"></div>
+
+<script th:src="@{/js/userOrder.js}">
+</script>
+<script type="text/javascript">
+    $(function(){
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == "keyword"){
+                var keyword = pair[1];
+                $("#searchInput").val(decodeURI(keyword));
+            }
+        }
+        $("#searchBtn").on("click", function(){
+            location.href = "?keyword=" + $("#searchInput").val().trim();
+        });
+    });
+</script>
+</body>
+</html>

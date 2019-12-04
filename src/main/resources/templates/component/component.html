@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+</head>
+<body>
+
+<div th:fragment="header" th:remove="tag">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        .jumbotron, .container {
+            padding: 0;
+            margin: 0;
+        }
+
+        #userAvatar {
+            border-radius: 35px;
+            max-width: 35px;
+            max-height: 35px;
+        }
+    </style>
+    <script th:inline="javascript">
+        APP_PATH = /*[[@{/}]]*/ "//";
+        APP_PATH = APP_PATH.substring(0, APP_PATH.length - 1);
+    </script>
+</div>
+
+<div th:fragment="navigator" th:remove="tag">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="index"> <img alt="Brand" class="icon" src="data:image/jpeg;base64,/9j/2wCEAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDIBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/AABEIACgAKAMBIgACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APEGFRnrVto/Y1CYiTwOtZRZ2VKbRDSHpWzHohjt/PvJVhyQEiA3SOT0G3t+OPxqvdRiyneKNNrIR8zcnpmmpJ6Ixas7MzopjbzLLsDY7MOKuf20f+feH/vipP7VmETI9vbSAjBLR4z+WBVb7Yv/AD523/fFO7KtbZmoLdpQewHJbsK1tI0pX1Wxtydvm7pGcjLYC7vwyB9avzaekoW3t41U5fYzShQVGRnJxzu/p6U5RdR6j+5kcqInARHzglWGTj86z0h8R2YiEppqGmj/AC0/EbDHBGRIEzGbyVyzDOMA4/mPzrM1K0iul+0Knk2+8DzHU5cnuPUAAe3XFaEOm3TWxjUSNGrMztzg5ABGe/Q1o2+j+fG898V8uMDyYFOAGPAz6gen0rKU0nznn/V5U6l9zgJbYQTOrHcg6MB196ZiL/a/Kurv9LuLH/QJE80CMSFk4K5OMEfWs3+zl/55Sf8AfP8A9etlUi1dM6fYzZ1kdgZAqsPJZUAJCkkck9D9amTRo5SQLlAxO1S4I3fj29ea0G/4/Zf9z+lRJ/B/vf0Nef7R25j0pXdTkRoJpE8NnDGb2zaLPyw+bgHHcnoPxqGTT7q6kijjSNk37mEUnCjrgn8Kkk/49lrS0P8A10v+6v8A6DQ6jdiHSUU2cRqTSwTXzSriSXBLDtj0/P8ASsL7Sf8AnvNXR+IPvzf7hrlK3pRSjoXLTQ//2Q=="></a>
+                    </div>
+                    <div class="collapse navbar-collapse"
+                         id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index">首页</a></li>
+                            <div th:if="${session.userSession }" th:remove="tag">
+                                <li><a th:href="@{/shoppingCar}">购物车</a></li>
+                                <li><a th:href="@{/userOrder}">个人订单</a></li>
+                            </div>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <div th:if="${session.userSession }" th:remove="tag">
+                                <li id="fat-menu" class="dropdown">
+                                    <a id="drop3" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img alt="无头像" class="icon" id="userAvatar"
+                                             th:src="@{'/' + ${session.userSession.userAvatar} }">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="drop3">
+                                        <li><a href="home">个人中心</a></li>
+                                        <li><a href="logOut">注销</a></li>
+                                    </ul>
+                                </li>
+                            </div>
+                            <div th:unless="${session.userSession}" th:remove="tag">
+                                <li id="fat-menu" class="dropdown">
+                                    <a th:href="@{/login}">请登录</a>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<div th:fragment="pagination" th:remove="tag">
+    <div class="row">
+        <div class="col-md-5 col-md-offset-7">
+            <nav aria-label="...">
+
+                <ul class="pagination pagination-lg">
+                    <div th:if="${pages}" th:remove="tag">
+                        <li><a href="?pn=1" aria-label="Previous"><span
+                                aria-hidden="true">首页</span></a></li>
+                        <li><a th:href="|?pn=${pages.prePage }|" aria-label="Previous"><span
+                                aria-hidden="true">&laquo;</span></a></li>
+                        <div th:each="i : ${pages.navigatepageNums }" th:remove="tag">
+                            <li th:class="(${pages.pageNum == i}) ? 'active'"><a th:href="|?pn=${i }|">[[${i }]]<span
+                                    class="sr-only">(current)</span></a></li>
+                        </div>
+                        <li th:if="${pages.hasNextPage }">
+                            <a th:href="|?pn=${pages.nextPage }|" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li th:unless="${pages.hasNextPage}">
+                            <a th:href="|?pn=${pages.pageNum }|" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li><a th:href="|?pn=${pages.pages }|" aria-label="Previous"><span
+                                aria-hidden="true">尾页</span></a></li>
+                    </div>
+                </ul>
+            </nav>
+            <script>
+                var query = window.location.search.substring(1);
+                var newQuery = "";
+                if (query != "") {
+                    var vars = query.split("&");
+                    for (var i = 0; i < vars.length; i++) {
+                        var pair = vars[i].split("=");
+                        if (pair[0] != "pn") {
+                            newQuery = "&" + pair[0] + "=" + pair[1];
+                        }
+                    }
+                }
+                $(".pagination").find("a").each(function () {
+                    $(this).attr("href", $(this).attr("href") + newQuery);
+                });
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <div th:replace="~{component/component :: header}"></div>
+    <title>购物车</title>
+
+    <style>
+        .pimg{
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+
+</head>
+<body class="jumbotron">
+<div th:replace="~{component/component :: navigator}"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div th:replace="~{component/include :: shoppingCarTable}"></div>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-3">
+        <button type="button" class="btn btn-lg btn-danger" id="delBatchBtn" disabled="disabled">删除订单</button>
+    </div>
+    <div class="col-md-3 col-md-offset-6">
+        <button type="button" disabled="disabled" class="btn btn-lg btn-success" id="confirmItem" data-toggle="modal" data-target="#addressModal">确认订单</button>
+    </div>
+</div>
+
+<div class="modal fade" id="addressModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">收货地址</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="payment" id="shoppingCarForm" method="post">
+                    <div class="form-group">
+                        <label for="orderPersonName" class="col-sm-3 control-label">收货人：</label>
+                        <div class="col-sm-9">
+                            <input name="orderPersonName" type="text" class="form-control" id="orderPersonName"
+                                   placeholder="输入收货人姓名"> <span id="helpBlock"
+                                                                               class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderPhone" class="col-sm-3 control-label">手机号码：</label>
+                        <div class="col-sm-9">
+                            <input name="orderPhone" type="text" class="form-control" id="orderPhone"
+                                   placeholder="输入联系人电话"> <span
+                                id="helpBlock" class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orderAddress" class="col-sm-3 control-label">收货地址：</label>
+                        <div class="col-sm-9">
+                            <input name="orderAddress" type="text" class="form-control" id="orderAddress"
+                                   placeholder="输入收货人地址"> <span
+                                id="helpBlock" class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orderMessage" class="col-sm-3 control-label">买家留言：</label>
+                        <div class="col-sm-9">
+                            <textarea name="orderMessage" rows="3" class="form-control" id="orderMessage" placeholder="买家留言"></textarea>
+                        </div>
+                    </div>
+                    <input name="orderStatus" type="hidden" value="1">
+                    <input name="totalMoney" type="hidden" id="hideTotalMoney">
+                    <input name="uoid" type="hidden" id="hideTotalhideUoid">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="submitShoppingCar">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/shoppingCar.js}">
+</script>
+</body>
+</html>

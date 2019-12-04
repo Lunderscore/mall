@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <div th:replace="~{component/component :: header}"></div>
+
+    <script th:inline="javascript" th:if="${session.adminSession}">
+        window.location.href = /*[[@{/admin/products}]]*/ "";
+    </script>
+
+    <meta name="viewporrt" content="width=device-width, inital-scale=1">
+    <title>管理员登录</title>
+</head>
+<body>
+<div class="container">
+    <form id="loginForm" class="form-horizontal">
+        <fieldset>
+            <legend><label><span class="glyphocon glyphocpm-user"></span>管理员后台用户登录</label></legend>
+            <div class="form-group" id="midDiv">
+                <label class="col-md-3 contro-label" for="mid">管理员用户名：admin</label>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" id="mid" placeholder="输入登录名">
+                </div>
+                <div class="col-md-4" id="midSpan"></div>
+            </div>
+            <div class="form-group" id="passwordDiv">
+                <label class="col-md-3 contro-label" for="password">管理员密码：admin</label>
+                <div class="col-md-5">
+                    <input type="password" class="form-control" id="password" placeholder="输入密码">
+                </div>
+                <div class="col-md-4" id="passwordSpan"></div>
+            </div>
+
+        </fieldset>
+    </form>
+    <div class="form-group" id="butDiv">
+        <div class="con-md-5 col-md-offset-4">
+            <button type="submit" id="subBut" class="btn btn-xs btn-primary">登录</button>
+            <button type="reset" id="resBut" class="btn btn-xs btn-warning">重置</button>
+        </div>
+    </div>
+    <br/>
+
+    <p class="alert alert-danger" id="tip">账号或密码错误</p>
+    <script>
+        $("#tip").hide();
+    </script>
+
+</div>
+<script th:src="@{/js/adminLogin.js}"></script>
+</body>
+</html>

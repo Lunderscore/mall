@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <div th:replace="~{component/component :: header}"></div>
+    <title>用户登录</title>
+</head>
+<body class="jumbotron">
+<div th:replace="~{component/component :: navigator}"></div>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation" class="active" id="loginBtn"><a>登录</a></li>
+            <li role="presentation" id="registerBtn"><a>注册</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-8 col-md-offset-4">
+        <form class="form-horizontal" id="loginForm" action="login" method="post">
+            <div class="form-group" id="usernameDiv">
+                <div class="col-sm-6">
+                    <input type="text" name="userUsername" class="form-control" id="username" placeholder="请输入账号">
+                </div>
+            </div>
+            <div class="form-group" id="password1Div">
+                <div class="col-sm-6">
+                    <input type="password" name="userPassword" class="form-control" id="password1" placeholder="请输入密码">
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+            <div id="password2Div" class="form-group"></div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-danger btn-block" id="submitBtn">确认</button>
+                </div>
+            </div>
+            <span id="flag" falg="0"></span>
+        </form>
+    </div>
+</div>
+
+
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>
